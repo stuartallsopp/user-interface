@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+.per100
+{
+    width:100%;
+}
+.page-info
+{
+    height:58.21px;
+}
+
+.sa-dialog-scroll-fix .p-dialog-content
+{
+    overflow-y: visible;
+}
+
+.p-menubar .p-submenu-list {
+    z-index: 10 !important;
+}

@@ -1,0 +1,14 @@
+<div class="p-fluid grid mt-2" *ngIf="data">
+    <ng-container *ngFor="let field of definition.fields">
+        <div class="mb-2 mt-1" [ngClass]="responsive.get(field.width)">
+            <app-text-entry [data]="data" [definition]="field" *ngIf="field.type=='tex_entry'"></app-text-entry>
+            <app-number-entry [data]="data" [definition]="field" *ngIf="field.type=='num_entry'"></app-number-entry>
+            <app-date-entry [data]="data" [definition]="field" *ngIf="field.type=='dat_entry'"></app-date-entry>
+            <app-stnd-display [data]="data" [definition]="field" *ngIf="field.type.indexOf('disp')>0"></app-stnd-display>
+            <app-plist-entry [data]="data" [definition]="field" *ngIf="field.type=='plst_entry'"></app-plist-entry>
+            <app-switch-entry [data]="data" [definition]="field" *ngIf="field.type=='swch_entry'"></app-switch-entry>
+            <app-autocomplete-entry [data]="data" [definition]="field" *ngIf="field.type=='aut_entry'"></app-autocomplete-entry>
+        </div>
+    </ng-container>
+</div>
+

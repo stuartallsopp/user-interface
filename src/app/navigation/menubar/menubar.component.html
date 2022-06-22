@@ -1,0 +1,15 @@
+<p-menubar styleClass="sa_menu" [model]="items" [baseZIndex]="100000">
+    <ng-template pTemplate="start">
+        <img src="assets/primeng.svg" height="40" class="mr-2">
+    </ng-template>
+    <ng-template pTemplate="end">
+            <button pButton icon="fa-solid fa-user" (click)="op.toggle($event)" type="button" class="p-button-rounded p-button-text"></button>
+        </ng-template>
+</p-menubar>
+
+<p-overlayPanel #op>
+    <ng-template pTemplate>
+
+
+    </ng-template>
+</p-overlayPanel>

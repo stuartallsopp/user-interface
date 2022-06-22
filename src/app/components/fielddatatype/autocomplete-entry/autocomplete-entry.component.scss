@@ -1,0 +1,15 @@
+
+:host {
+    ::ng-deep
+    .fluff ~ span.p-autocomplete-token-icon
+    {
+        display:none;
+    }
+    ::ng-deep
+    .prop_items>div.p-overlaypanel-content>ul
+    {
+        padding-left: 0rem;
+        padding-bottom: 0rem;
+    }
+}
+

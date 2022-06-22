@@ -1,0 +1,21 @@
+<div class="mt-2" style="position: relative">
+    <ngx-ui-loader pbColor="#883cae" [fgsSize]="0" fgsColor="#883cae" overlayColor="rgba(180,82,238,0.1)" loaderId="page"></ngx-ui-loader>
+    <app-breadcrumb [data]="data" [hasfavourite]="false" *ngIf="page_definition" [definition]="page_definition" [crumbspath]="page_definition.breadcrumb_resolve" [crumbs]="page_definition.breadcrumb"></app-breadcrumb>
+    <div class="grid mt-2 ml-0 mr-0" *ngIf="page_definition">
+        <div class="col-12 sm:block sm:col-12 md:hidden lg:hidden xl:hidden">
+            <app-actionpanel (useractioned)="buttonpressed($event)" [definition]="page_definition"></app-actionpanel>
+        </div>
+        <div class="col-12 sm:col-12 md:col-9 lg:col-10 xl:col-10">
+            <div class="grid mt-3" *ngIf="page_definition">
+                <div *ngFor="let col of page_definition.columns" class="pb-0 pt-0" [ngClass]="responsive.get(col.size)">
+                        <ng-container *ngFor="let panel of col.panels">
+                            <app-panel [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                        </ng-container>
+                </div>
+            </div>
+        </div>
+        <div class="hidden sm:hidden md:block md:col-3 lg:block lg:col-2 xl:block xl:col-2">
+            <app-actionpanel (useractioned)="buttonpressed($event)" [definition]="page_definition"></app-actionpanel>
+        </div>
+    </div>
+</div>

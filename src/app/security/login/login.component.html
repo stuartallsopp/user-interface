@@ -1,0 +1,26 @@
+<form [formGroup]="form">
+    <p-dialog header="Login" [(visible)]="dialogvisible" [draggable]="false" [modal]="true" [closeOnEscape]="false" [focusTrap]="true" [closable]="false">
+        <fieldset>
+            <div class="p-fluid grid mt-4">
+                <div class="field col-12">
+                    <span class="p-float-label">
+                        <input pInputText id="email" name="email" formControlName="email"> 
+                        <label for="email">Email</label>
+                    </span>
+                </div>
+                <div class="field col-12">
+                    <span class="p-float-label">
+                        <input pPassword id="password" type="password" name="password" formControlName="password"> 
+                        <label for="password">Password</label>
+                    </span>
+                </div>
+             </div>
+        </fieldset>
+        <ng-template pTemplate="footer">
+            <div class="form-buttons">
+                <button pButton class="button button-primary" 
+                        (click)="login()">Login</button>
+            </div>
+        </ng-template>
+    </p-dialog>
+    </form>

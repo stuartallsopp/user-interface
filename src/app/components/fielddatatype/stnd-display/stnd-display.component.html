@@ -1,0 +1,9 @@
+<span class="p-float-label" *ngIf="data">
+    <input *ngIf="definition.type=='tex_disp'" [disabled]="true" readonly="true" type="text" [id]="unique_id" pInputText [(ngModel)]="data[definition.fieldname]"> 
+    <p-calendar  *ngIf="definition.type=='dat_disp'" [(ngModel)]="data[definition.fieldname]" [showIcon]="false" [disabled]="true" [dateFormat]="definition.format"></p-calendar>
+    <label [for]="unique_id">
+        <span *ngIf="definition.compulsory" class="pi pi-star-fill mr-1 text-red-800"></span>
+        <span>{{definition.label}}</span>
+        <span *ngIf="definition.info_text" class="pi pi-info-circle ml-1"></span>
+    </label>
+</span>

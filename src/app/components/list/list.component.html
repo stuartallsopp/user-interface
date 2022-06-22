@@ -1,0 +1,39 @@
+<div style="position: relative">
+    <ngx-ui-loader pbColor="#883cae" [fgsSize]="0" fgsColor="#883cae" overlayColor="rgba(180,82,238,0.1)" [loaderId]="loader_key"></ngx-ui-loader>
+    <p-table (onRowSelect)="validateSelection('rsel',$event)" (onHeaderCheckboxToggle)="validateSelection('htog')" (onRowUnselect)="validateSelection('run')"  [selectionMode]="selectionmode" [(selection)]="list_selected" dataKey="id" [value]="list_content" styleClass="p-datatable-sm" [sortField]="definition.sort_key">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem" *ngIf="selectionmode=='multiple'">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th [pSortableColumn]="resolveSort(column)" [ngClass]="alignment(column.alignment)" *ngFor="let column of definition.columnset?.list_columns">
+                    {{column.label}}
+                    <p-sortIcon *ngIf="column.sortable" [field]="column.field"></p-sortIcon>
+                </th>
+                <th class="text-right" *ngIf="definition?.buttonset">
+                    <app-buttongroup (itemselected)="buttonclick($event)" [buttons]="definition.buttonset" location="top"></app-buttongroup>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+            <tr [pSelectableRow]="selectionmode=='single'?item:null" [pSelectableRowIndex]="selectionmode=='single'?rowIndex:null">
+                <td *ngIf="selectionmode=='multiple'">
+                    <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                </td>
+                <td [ngClass]="alignment(column.alignment)"  *ngFor="let column of definition.columnset?.list_columns"><app-listcolumn [data]="item" [definition]="column"></app-listcolumn></td>
+                <td class="text-right" *ngIf="definition?.buttonset">
+                    <app-buttongroup [rowIndex]="rowIndex" (itemselected)="buttonclick($event)" [buttons]="definition.buttonset" location="row"></app-buttongroup>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr>
+                <td [attr.colspan]="col.colspan" [ngClass]="col.type=='total'?'text-right':'text-left'" *ngFor="let col of footer_columns">
+                    <span *ngIf="col.type=='totalrecords'">{{record_count}} record(s)</span>
+                    <span *ngIf="col.type=='total'">{{getTotal(col.key)|number:col.format}}</span>
+                </td>
+                <td *ngIf="definition?.buttonset"></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

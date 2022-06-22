@@ -1,0 +1,9 @@
+<div class="grid">
+    <div class="col-12">
+        <app-buttongroup (itemselected)="buttonpressed($event)" [buttons]="definition.pagebuttons" location="page"></app-buttongroup>
+    </div>
+    <div class="hidden sm:hidden md:block lg:block xl:block mr-2 ml-2">
+        <h3 class="text-primary">{{definition.description}}</h3>
+        <p class="text-color-secondary font-italic">{{definition.help_text}}</p>
+    </div>
+</div>

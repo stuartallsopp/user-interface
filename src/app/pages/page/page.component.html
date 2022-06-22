@@ -1,0 +1,38 @@
+<div class="mt-2" style="position: relative">
+    <ngx-ui-loader pbColor="#883cae" [fgsSize]="0" fgsColor="#883cae" overlayColor="rgba(180,82,238,0.1)" loaderId="page"></ngx-ui-loader>
+    <app-breadcrumb [current_route]="current_route" [hasfavourite]="true" *ngIf="page_definition" [definition]="page_definition" [crumbs]="page_definition.breadcrumb" [crumbspath]="page_definition.breadcrumb_resolve"></app-breadcrumb>
+    <div class="grid pt-2">
+        <div class="col-12">
+            <div class="grid" *ngIf="page_definition&&page_definition.type=='display'">
+                <div *ngFor="let col of page_definition.columns" class="pb-0 pt-0" [ngClass]="responsive.get(col.size)">
+                    <p-divider *ngIf="col.show_description" align="left" type="dashed">
+                        {{col.description}}
+                    </p-divider>
+                        <ng-container *ngFor="let panel of col.panels">
+                            <app-panel  [definition]="panel"></app-panel>
+                        </ng-container>
+                </div>
+            </div>
+            <div class="grid" *ngIf="page_definition&&page_definition.type=='list'">
+                <div class="col-12 sm:col-12 md:col-9 lg:col-10 xl:col-10">
+                    <div class="grid mt-3" *ngIf="page_definition">
+                        <div *ngFor="let col of page_definition.columns" class="pb-0 pt-0" [ngClass]="responsive.get(col.size)">
+                                <ng-container *ngFor="let panel of col.panels">
+                                    <app-panel [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                                </ng-container>
+                        </div>
+                        <div *ngFor="let panel of page_definition.panels" class="pb-0 pt-0" [ngClass]="responsive.get(12)">
+                            <app-panel [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+
+                    </div>
+                    </div>
+                </div>
+                <div class="hidden sm:hidden md:block md:col-3 lg:block lg:col-2 xl:block xl:col-2">
+                    <app-actionpanel [definition]="page_definition"></app-actionpanel>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

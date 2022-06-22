@@ -1,0 +1,13 @@
+<ng-container *ngIf="definition.type=='tex_disp'">
+    <app-list-col-text [data]="data" [definition]="definition"></app-list-col-text>
+</ng-container>
+<ng-container *ngIf="definition.type=='num_disp'">
+    <app-list-col-number [data]="data" [definition]="definition"></app-list-col-number>
+</ng-container>
+<ng-container *ngIf="definition.type=='dat_disp'">
+    <app-list-col-date [data]="data" [definition]="definition"></app-list-col-date>
+</ng-container>
+<ng-container *ngIf="definition.type=='lkp_disp'">
+    <app-list-col-lookup [data]="data" [definition]="definition"></app-list-col-lookup>
+</ng-container>
+

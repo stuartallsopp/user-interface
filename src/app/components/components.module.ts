@@ -32,6 +32,7 @@ import { PlistEntryComponent } from './fielddatatype/plist-entry/plist-entry.com
 import { SwitchEntryComponent } from './fielddatatype/switch-entry/switch-entry.component';
 import { ListColLookupComponent } from './listdatatype/list-col-lookup/list-col-lookup.component';
 import { AutocompleteEntryComponent } from './fielddatatype/autocomplete-entry/autocomplete-entry.component';
+import { AcSingleEntryComponent } from './fielddatatype/ac-single-entry/ac-single-entry.component';
 
 
 
@@ -53,7 +54,8 @@ import { AutocompleteEntryComponent } from './fielddatatype/autocomplete-entry/a
     PlistEntryComponent,
     SwitchEntryComponent,
     ListColLookupComponent,
-    AutocompleteEntryComponent
+    AutocompleteEntryComponent,
+    AcSingleEntryComponent
   ],
   imports: [
     CommonModule,

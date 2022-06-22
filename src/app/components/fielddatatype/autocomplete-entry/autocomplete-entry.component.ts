@@ -17,8 +17,8 @@ export class AutocompleteEntryComponent extends BaseComponent implements OnInit,
 
   public configs:any=null;
 
-  constructor(private dataService:DataService) {
-    super();
+  constructor(ds:DataService) {
+    super(ds);
    }
 
   override ngOnInit(): void {

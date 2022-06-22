@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -15,7 +16,7 @@ export class BaseComponent implements OnInit,OnChanges {
   public loader_key:string="";
   public unique_id:string=uuidv4();
 
-  constructor() { }
+  constructor(public dataService:DataService) { }
   ngOnChanges(changes: SimpleChanges): void {
      if (changes['data'])
      {

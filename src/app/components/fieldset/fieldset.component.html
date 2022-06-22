@@ -8,6 +8,7 @@
             <app-plist-entry [data]="data" [definition]="field" *ngIf="field.type=='plst_entry'"></app-plist-entry>
             <app-switch-entry [data]="data" [definition]="field" *ngIf="field.type=='swch_entry'"></app-switch-entry>
             <app-autocomplete-entry [data]="data" [definition]="field" *ngIf="field.type=='aut_entry'"></app-autocomplete-entry>
+            <app-ac-single-entry [data]="data" [definition]="field" *ngIf="field.type=='pitem_entry'"></app-ac-single-entry>
         </div>
     </ng-container>
 </div>

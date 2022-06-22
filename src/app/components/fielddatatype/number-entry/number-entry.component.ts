@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
@@ -8,9 +9,9 @@ import { BaseComponent } from '../base/base.component';
 })
 export class NumberEntryComponent extends BaseComponent implements OnInit {
 
-  constructor() { 
-    super();
-  }
+  constructor(ds:DataService) {
+    super(ds);
+   }
 
   override ngOnInit(): void {
     super.ngOnInit();

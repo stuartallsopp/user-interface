@@ -1,4 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
@@ -10,8 +11,8 @@ export class PlistEntryComponent extends BaseComponent implements OnInit,OnChang
 
 
   public content:any[]=[];
-  constructor() {
-    super();
+  constructor(ds:DataService) {
+    super(ds);
    }
 
   override ngOnInit(): void {

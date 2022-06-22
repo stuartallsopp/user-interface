@@ -48,6 +48,8 @@ export class AppComponent  {
   {
     console.log(content);
     var routerLink=url.replace('{id}',content.id);
+    routerLink=routerLink.replace('{source_type}',content.source_type);
+    console.log(routerLink);
     this.router.navigate([routerLink]);
   }
 

@@ -4,19 +4,19 @@
     </ng-template>
     <ng-template pTemplate="content">
         <ng-container *ngFor="let list of definition.lists">
-            <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="data" [definition]="list"></app-list>
+            <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="list"></app-list>
         </ng-container>
         <ng-container  *ngIf="definition.fieldset">
-                <app-fieldset [data]="data" [definition]="definition.fieldset"></app-fieldset>
+                <app-fieldset [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
         </ng-container>
     </ng-template>
 </p-panel>
 <ng-container *ngIf="definition.has_border==false">
     <ng-container *ngFor="let list of definition.lists">
-        <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="data" [definition]="list"></app-list>
+        <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="list"></app-list>
     </ng-container>
     <ng-container  *ngIf="definition.fieldset">
-        <app-fieldset [data]="data" [definition]="definition.fieldset"></app-fieldset>
+        <app-fieldset [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
     </ng-container>
 </ng-container>
 

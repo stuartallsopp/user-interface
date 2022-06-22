@@ -20,6 +20,7 @@ export class RecordComponent implements OnInit,OnDestroy {
   private route_subscription:any;
   private event_subscription:any;
   private record_id:number=0;
+  public record_type:string="";
   public data:any={};
 
   public unique_id:string=uuidv4();
@@ -112,8 +113,23 @@ export class RecordComponent implements OnInit,OnDestroy {
     })
   }
 
-
   get_page(_module:string,_area:string,_section:string)
+  {
+    this.record_type=_section;
+    if (_module.toLowerCase()!="system")
+    {
+        this.dataService.get("lookup/resolve_record_type/"+_section).subscribe({
+          next:(result:any)=>{
+            this.get_page_check(_module,_area,result.type,_section);
+          }
+        })
+    }else
+    {
+      this.get_page_check(_module,_area,_section);
+    }
+  }
+
+  get_page_check(_module:string,_area:string,_section:string,_original:any=null)
   {
     var key=_module+"_"+_area+"_"+_section;
     this.loader.startLoader("page");
@@ -121,7 +137,8 @@ export class RecordComponent implements OnInit,OnDestroy {
       next:(result)=>{
           this.page_definition=result;
           var url=this.page_definition.data_url.replace('{id}',this.record_id);
-          var url=url.replace('{cacheid}',this.cache_id);
+          url=url.replace('{source_type}',_original);
+          url=url.replace('{cacheid}',this.cache_id);
           this.dataService.get(url).subscribe({
             next:(data_result)=>{
               this.data=data_result;

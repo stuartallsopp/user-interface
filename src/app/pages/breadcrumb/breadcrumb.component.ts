@@ -17,6 +17,7 @@ export class BreadcrumbComponent implements OnInit,OnChanges {
   @Input() hasfavourite:boolean=false;
   @Input() current_route:string="";
   @Input() data:any;
+  @Input() source_type:string="";
 
   public home:MenuItem={label:' Home',routerLink:"/home",icon:"fa-solid fa-house"}
   public items:MenuItem[]=[];
@@ -61,7 +62,7 @@ export class BreadcrumbComponent implements OnInit,OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['crumbs']!=null||changes['data']!=null)
+    if (changes['crumbs']!=null||changes['data']!=null||changes['source_type']!=null)
     {
         this.resolveBreadcrumb();
     }
@@ -102,6 +103,7 @@ export class BreadcrumbComponent implements OnInit,OnChanges {
         }
         if (resolve!=null&&resolve!="")
         {
+          resolve=resolve.replace("{source_type}",this.source_type);
           this.items.push({label:item,routerLink:resolve})
         }else
         {

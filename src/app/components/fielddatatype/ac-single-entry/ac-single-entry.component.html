@@ -1,5 +1,5 @@
 <span class="p-float-label" *ngIf="data">
-    <p-autoComplete (onSelect)="contentChanged()" [multiple]="false" [field]="configs.label" [dataKey]="configs.id" (onUnselect)="remove($event)" [inputId]="unique_id" [(ngModel)]="data[definition.fieldname]" [suggestions]="search_results" (completeMethod)="search($event)">
+    <p-autoComplete [forceSelection]="true" [completeOnFocus]="true" (onSelect)="contentChanged()" [multiple]="false" [field]="configs.label" [dataKey]="configs.id" (onUnselect)="remove($event)" [inputId]="unique_id" [(ngModel)]="data[definition.fieldname]" [suggestions]="search_results" (completeMethod)="search($event)">
         <ng-template let-value pTemplate="selectedItem">
             <span style="font-size:18px">{{value[configs.label]}}</span>        
         </ng-template>

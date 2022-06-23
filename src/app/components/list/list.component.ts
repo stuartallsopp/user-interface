@@ -240,7 +240,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       }
       this.loader.startLoader(this.loader_key);
       const local=this;
-      this.dataService.list(url,this.definition.page_size,1,this.definition.sort_key,'asc')
+      this.dataService.list(url,this.definition.page_size,1,this.definition.sort_key,'asc',null)
       .subscribe(
         {
           next:(result:any)=>{

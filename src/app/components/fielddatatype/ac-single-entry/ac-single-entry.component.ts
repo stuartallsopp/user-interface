@@ -23,13 +23,44 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
 
   search(event:any)
   {
+      if (this.definition.data_url_method=="GET")
+      {
+        this.search_get(event.query);
+      }
+      if (this.definition.data_url_method=="POST")
+      {
+        this.search_post(event.query);
+      }
+  }
+
+  search_post(query:string)
+  {
+      console.log('post',query);
+      var search_param=JSON.parse(this.definition.data_url_param);
+
+      var search:any[]=[];
+      if (search_param.search)
+      {
+        search.push({type:"begins","column":search_param.search,"value":query});
+      }
+
+      this.dataService.list(this.definition.data_url,0,0,"id","asc",search).subscribe(
+        {
+          next:(result:any)=>{
+            this.search_results=result.records;
+          }
+        }
+      )
+  }
+
+  search_get(query:string)
+  {
     var url=this.definition.data_url;
     var params=JSON.parse(this.definition.data_url_param);
-    console.log(params,event);
     for(var item of params)
     {
       if (item=="search"){
-        url=url.replace("{search}",event.query);
+        url=url.replace("{search}",query);
       }else
       {
         url=url.replace("{"+item+"}",this.data[item]);

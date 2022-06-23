@@ -11,14 +11,24 @@ export class DataService {
   constructor(private http:HttpClient) { }
 
 
-  list(url:string,page_size:number,page:number,order_by:string,dir:string)
+  list(url:string,page_size:number,page:number,order_by:string,dir:string,search:any=null)
   {
     var payload={
       page:page,
       page_size:page_size,
       order_by:order_by,
-      direction: dir
+      direction: dir,
+      begins:null
     }
+    if (search!=null)
+    {
+      var begins=search.filter((p: { type: string; })=>p.type=="begins");
+      if (begins!=null)
+      {
+        payload.begins=begins;
+      }
+    }
+
     return this.http.post(environment.data_api+url,payload);
   }
 

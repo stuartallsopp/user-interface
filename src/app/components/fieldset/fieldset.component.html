@@ -1,15 +1,12 @@
-<div class="p-fluid grid mt-2" *ngIf="data">
-    <ng-container *ngFor="let field of definition.fields">
-        <div class="mb-2 mt-1" [ngClass]="responsive.get(field.width)">
-            <app-text-entry [data]="data" [definition]="field" *ngIf="field.type=='tex_entry'"></app-text-entry>
-            <app-number-entry [data]="data" [definition]="field" *ngIf="field.type=='num_entry'"></app-number-entry>
-            <app-date-entry [data]="data" [definition]="field" *ngIf="field.type=='dat_entry'"></app-date-entry>
-            <app-stnd-display [data]="data" [definition]="field" *ngIf="field.type.indexOf('disp')>0"></app-stnd-display>
-            <app-plist-entry [data]="data" [definition]="field" *ngIf="field.type=='plst_entry'"></app-plist-entry>
-            <app-switch-entry [data]="data" [definition]="field" *ngIf="field.type=='swch_entry'"></app-switch-entry>
-            <app-autocomplete-entry [data]="data" [definition]="field" *ngIf="field.type=='aut_entry'"></app-autocomplete-entry>
-            <app-ac-single-entry [data]="data" [definition]="field" *ngIf="field.type=='pitem_entry'"></app-ac-single-entry>
+<div class="p-fluid grid" [ngClass]="dialog?'mt-0':'mt-2'"  *ngIf="data">
+    <div *ngFor="let column of columns" [ngClass]="responsive.get(column.width)">
+        <div class="p-fluid grid">
+            <ng-container *ngFor="let field of column.fields">
+                <div class="mb-2 mt-1" [ngClass]="responsive.get(field.width)">
+                    <app-fieldpicker [field]="field" [data]="data"></app-fieldpicker>
+                </div>
+            </ng-container>
         </div>
-    </ng-container>
+    </div>
 </div>
 

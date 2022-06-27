@@ -21,7 +21,7 @@ export class RecordComponent implements OnInit,OnDestroy {
   private event_subscription:any;
   private record_id:number=0;
   public record_type:string="";
-  public data:any={};
+  public data:any;
 
   public unique_id:string=uuidv4();
   public cache_id:string=uuidv4();
@@ -54,7 +54,6 @@ export class RecordComponent implements OnInit,OnDestroy {
 
   buttonpressed(event:any)
   {
-    console.log(event);
       var action=event.button.action_key;
       this.doAction(action);
 
@@ -82,7 +81,9 @@ export class RecordComponent implements OnInit,OnDestroy {
           if (action.confirm_message)
           {
             this.confirm.confirm({message:action.confirm_message,accept:()=>{
-              this.event.cast('top',{action:'goto',key:action.url});
+              var url=action.url;
+              url=url.replace("{source_type}",this.record_type);
+              this.event.cast('top',{action:'goto',key:url});
             }})
           }else
           {
@@ -90,7 +91,9 @@ export class RecordComponent implements OnInit,OnDestroy {
           }
           break;
         case 'goto':
-          this.event.cast('top',{action:'goto',key:action.url});
+          var url=action.url;
+          url=url.replace("{source_type}",this.record_type);
+          this.event.cast('top',{action:'goto',key:url});
       }
     }
   }

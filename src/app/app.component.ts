@@ -46,17 +46,14 @@ export class AppComponent  {
 
   gotoPage(url:string,content:any)
   {
-    console.log(content);
     var routerLink=url.replace('{id}',content.id);
     routerLink=routerLink.replace('{source_type}',content.source_type);
-    console.log(routerLink);
     this.router.navigate([routerLink]);
   }
 
 
   openDialog(id:number,content:any)
   {
-    console.log(content);
     this.loading.startBackgroundLoader("application");
     this.page.getdialog(id).subscribe({next:(result:any)=>{
       const ref = this.dialog.open(DialogComponent, {

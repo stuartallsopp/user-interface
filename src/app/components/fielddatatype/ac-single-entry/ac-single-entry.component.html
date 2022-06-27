@@ -1,15 +1,18 @@
-<span class="p-float-label" *ngIf="data">
-    <p-autoComplete [forceSelection]="true" [completeOnFocus]="true" (onSelect)="contentChanged()" [multiple]="false" [field]="configs.label" [dataKey]="configs.id" (onUnselect)="remove($event)" [inputId]="unique_id" [(ngModel)]="data[definition.fieldname]" [suggestions]="search_results" (completeMethod)="search($event)">
-        <ng-template let-value pTemplate="selectedItem">
-            <span style="font-size:18px">{{value[configs.label]}}</span>        
+    <div class="p-inputgroup">
+        <span class="p-float-label" *ngIf="definition">
+        <input type="text" [id]="unique_id" pInputText [disabled]="true" [value]="resolveDisplay()">    
+            <label [for]="unique_id">
+                <span *ngIf="definition.compulsory" class="pi pi-star-fill mr-1 text-red-800"></span>
+                <span>{{definition.label}}</span>
+                <span *ngIf="definition.info_text" class="pi pi-info-circle ml-1"></span>
+            </label>
+        </span>
+        <button type="button" (click)="op.toggle($event)" class="p-button-primary button-rounding" icon="fa-solid fa-search" pButton></button>     
+    </div>
+    <p-overlayPanel #op appendTo="body" [focusOnShow]="true">
+        <ng-template pTemplate>
+            <div style="position:relative">
+                <app-ac-single-search (new_record_selected)="new_record(op)" [hasnew]="hasnewbutton()" (item_selected)="item_selected_on_list($event)" [dialog]="op" [definition]="definition" [configs]="configs"></app-ac-single-search>
+            </div>
         </ng-template>
-        <ng-template let-item pTemplate="item">
-            <span style="font-size:18px">{{item[configs.label]}}</span>
-        </ng-template>
-    </p-autoComplete>
-    <label [for]="unique_id">
-        <span *ngIf="definition.compulsory" class="pi pi-star-fill mr-1 text-red-800"></span>
-        <span>{{definition.label}}</span>
-        <span *ngIf="definition.info_text" class="pi pi-info-circle ml-1"></span>
-    </label>
-</span>
+    </p-overlayPanel>

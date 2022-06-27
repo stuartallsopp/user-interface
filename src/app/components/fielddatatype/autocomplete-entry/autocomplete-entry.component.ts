@@ -1,4 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { NgEventBus } from 'ng-event-bus';
 import { DataService } from 'src/app/services/data.service';
 import { BaseComponent } from '../base/base.component';
 
@@ -17,8 +18,8 @@ export class AutocompleteEntryComponent extends BaseComponent implements OnInit,
 
   public configs:any=null;
 
-  constructor(ds:DataService) {
-    super(ds);
+  constructor(ds:DataService,event:NgEventBus) {
+    super(ds,event);
    }
 
   override ngOnInit(): void {
@@ -50,7 +51,6 @@ export class AutocompleteEntryComponent extends BaseComponent implements OnInit,
   {
     var url=this.definition.data_url;
     var params=JSON.parse(this.definition.data_url_param);
-    console.log(params,event);
     for(var item of params)
     {
       if (item=="search"){
@@ -78,7 +78,6 @@ export class AutocompleteEntryComponent extends BaseComponent implements OnInit,
   updatesource()
   {
     this.data[this.definition.fieldname]=this.working_list;
-    console.log(this.data);
   }
 
   open(value:any)

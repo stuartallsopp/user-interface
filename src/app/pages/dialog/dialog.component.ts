@@ -64,13 +64,12 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
 
   event_subscriber() {
     this.event_listener=this.event.on(this.unique_id).subscribe(result=>{
-        this.doAction(result.data.key);
+        this.doAction(result.data.key,result.data.data);
     })
   }
 
   initialise(property_bag:any)
   {
-    console.log(property_bag,this.definition);
     if (this.definition.data_url==null)
     {
       this.persist=false;
@@ -90,6 +89,7 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
 
   initialiseData(property_bag:any)
   {
+    console.log(property_bag);
     var url="";
     if (property_bag.id==0&&this.definition.initialise_url!=null)
     {
@@ -98,6 +98,7 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
     {
         url=this.definition.data_url.replace('{id}',property_bag.id);
     }
+    url=url.replace("{source_type}",property_bag.source_type);
     if (property_bag.cache&&url!="")
     {
       url=url.replace("{cacheid}",property_bag.cache);
@@ -111,10 +112,10 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
   buttonpressed(event:any)
   {
       var action=event.button.action_key;
-      this.doAction(action);
+      this.doAction(action,null);
   }
 
-  doAction(key:string)
+  doAction(key:string,data:any)
   {
     var action=this.tool.resolveAction(key,this.definition);
     if (action!=null)
@@ -127,7 +128,7 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
             this.confirm.confirm({message:action.confirm_message,accept:()=>{
               if (this.persist==true)
               {
-                this.tool.saveRecord(action,this.data,this.loader_key,this.unique_id);
+                this.data=this.tool.saveRecord(action,this.data,this.loader_key,this.unique_id);
               }else
               {
                 this.tool.updateList(action,this.data,this.propertybag,this.unique_id);
@@ -148,15 +149,23 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
           this.ref.close();
           break;
         case 'close_dialog':
-          this.tool.sendEvent(action,true,this.unique_id);
+          this.tool.sendEvent(action,true,this.unique_id,data);
           this.ref.close();
           break;
         case 'redraw_parent':
-          this.event.cast(this.propertybag.from,{type:'redraw'});
-          this.tool.sendEvent(action,true,this.unique_id);
+          this.event.cast(this.propertybag.from,{type:'redraw',data:data});
+          this.tool.sendEvent(action,true,this.unique_id,data);
           break;
         case 'goto':
-          this.event.cast('top',{type:'goto',url:action.url})
+          this.event.cast('top',{action:'goto',url:action.url});
+          break;
+        case 'move':
+          var url=action.url;
+          url=url.replace("{source_type}",this.propertybag.source_type);
+          url=url.replace("{id}",data.id);
+          console.log(url);
+          this.event.cast('top',{action:'goto',key:url,data:data});
+          break;
       }
     }
   }

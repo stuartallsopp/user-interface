@@ -1,0 +1,20 @@
+<div class="grid" pFocusTrap>
+    <div class="col-12">
+        <h5>{{definition.label}}</h5>
+    </div>
+    <div class="col-12">
+        <div class="p-inputgroup">
+            <span class="p-input-icon-left w-full">
+                <i class="pi pi-search"></i>
+                <input type="text" tabindex="1" autofocus class="search_input_box" debounce [delay]="700" (func)="resolveSearch()" class="min-w-full" pInputText [(ngModel)]="search_text" placeholder="Search">         
+            </span>
+            <button *ngIf="hasnew" (click)="newRecord()" type="button" pButton icon="fa-solid fa-plus" class="p-button-success button-rounding"></button>      
+        </div>
+    </div>
+    <div class="col-12 mt-2">
+        <p-listbox [options]="search_results" [(ngModel)]="selected_item" (onClick)="selectFromList($event)" [optionLabel]="configs.label"></p-listbox>
+    </div>
+    <div class="col-12">
+        <p>{{total_records}} records(s) found</p>
+    </div>
+</div>

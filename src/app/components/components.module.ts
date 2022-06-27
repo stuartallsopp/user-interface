@@ -11,11 +11,13 @@ import {CheckboxModule} from 'primeng/checkbox';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { FocusTrapModule } from 'primeng/focustrap';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { ListComponent } from './list/list.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import {ListboxModule} from 'primeng/listbox';
 import { ListcolumnComponent } from './listcolumn/listcolumn.component';
 import { ListColTextComponent } from './listdatatype/text/list-col-text.component';
 import { ListColNumberComponent } from './listdatatype/list-col-number/list-col-number.component';
@@ -33,6 +35,10 @@ import { SwitchEntryComponent } from './fielddatatype/switch-entry/switch-entry.
 import { ListColLookupComponent } from './listdatatype/list-col-lookup/list-col-lookup.component';
 import { AutocompleteEntryComponent } from './fielddatatype/autocomplete-entry/autocomplete-entry.component';
 import { AcSingleEntryComponent } from './fielddatatype/ac-single-entry/ac-single-entry.component';
+import { FieldpickerComponent } from './fieldpicker/fieldpicker.component';
+import { DebounceModule } from 'ngx-debounce';
+import { AcSingleSearchComponent } from './fielddatatype/ac-single-search/ac-single-search.component';
+import { DividerModule } from 'primeng/divider';
 
 
 
@@ -55,7 +61,9 @@ import { AcSingleEntryComponent } from './fielddatatype/ac-single-entry/ac-singl
     SwitchEntryComponent,
     ListColLookupComponent,
     AutocompleteEntryComponent,
-    AcSingleEntryComponent
+    AcSingleEntryComponent,
+    FieldpickerComponent,
+    AcSingleSearchComponent
   ],
   imports: [
     CommonModule,
@@ -63,11 +71,15 @@ import { AcSingleEntryComponent } from './fielddatatype/ac-single-entry/ac-singl
     NgxUiLoaderModule,
     TableModule,
     CalendarModule,
+    DebounceModule,
     KeyFilterModule,
     InputSwitchModule,
+    DividerModule,
     CheckboxModule,
     DropdownModule,
+    ListboxModule,
     AutoCompleteModule,
+    FocusTrapModule,
     OverlayPanelModule,
     FormsModule,
     ButtonModule,

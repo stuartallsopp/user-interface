@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgEventBus } from 'ng-event-bus';
+import { MenuItem } from 'primeng/api';
 import { MenuService } from 'src/app/services/menu.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 
@@ -43,10 +44,33 @@ redraw(force:boolean=false)
   this.menu.get("user",force).subscribe((result: any[])=>{
     this.items=[{label:"Home",routerLink:"home",icon:"fa-solid fa-house"}];
     this.items=[...this.items,...result];
+    this.checkForFavourites();
     this.refreshPermissions();
   },(err: any)=>{
    // window.location.reload();
   }); 
+}
+
+checkForFavourites()
+{
+  var hasfav=this.getFavourites();
+  if (hasfav!=null)
+  {
+    hasfav.items?.push({separator:true});
+    hasfav.items?.push({label:"Customise...",command:()=>{
+      this.customiseFavourites();
+    }})
+  }
+}
+
+getFavourites()
+{
+    return this.items.filter(p=>p.label=="Favourites")[0];
+}
+
+customiseFavourites()
+{
+  console.log(this.items);
 }
 
   event_subscription()

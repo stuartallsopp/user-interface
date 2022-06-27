@@ -16,3 +16,9 @@
 .p-menubar .p-submenu-list {
     z-index: 10 !important;
 }
+
+button.p-component.button-rounding
+{
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}

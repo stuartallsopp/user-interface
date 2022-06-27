@@ -1,0 +1,8 @@
+<app-text-entry [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='tex_entry'"></app-text-entry>
+<app-number-entry [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='num_entry'"></app-number-entry>
+<app-date-entry [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='dat_entry'"></app-date-entry>
+<app-stnd-display [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type.indexOf('disp')>0"></app-stnd-display>
+<app-plist-entry [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='plst_entry'"></app-plist-entry>
+<app-switch-entry [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='swch_entry'"></app-switch-entry>
+<app-autocomplete-entry [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='aut_entry'"></app-autocomplete-entry>
+<app-ac-single-entry [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='pitem_entry'"></app-ac-single-entry>

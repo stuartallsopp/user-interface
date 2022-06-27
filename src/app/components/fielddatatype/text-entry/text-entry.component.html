@@ -1,4 +1,4 @@
-<span class="p-float-label" *ngIf="data">
+<span class="p-float-label">
     <input [disabled]="disableOn(definition.disable_on)" type="text" [id]="unique_id" pInputText [(ngModel)]="data[definition.fieldname]" *ngIf="definition.key_filter" [pKeyFilter]="checkKeyFilter(definition.key_filter)"> 
     <input [disabled]="disableOn(definition.disable_on)" type="text" [id]="unique_id" pInputText [(ngModel)]="data[definition.fieldname]" *ngIf="!definition.key_filter"> 
     <label [for]="unique_id">

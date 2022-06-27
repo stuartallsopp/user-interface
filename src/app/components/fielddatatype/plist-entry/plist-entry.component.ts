@@ -1,4 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { NgEventBus } from 'ng-event-bus';
 import { DataService } from 'src/app/services/data.service';
 import { BaseComponent } from '../base/base.component';
 
@@ -11,8 +12,8 @@ export class PlistEntryComponent extends BaseComponent implements OnInit,OnChang
 
 
   public content:any[]=[];
-  constructor(ds:DataService) {
-    super(ds);
+  constructor(ds:DataService,event:NgEventBus) {
+    super(ds,event);
    }
 
   override ngOnInit(): void {
@@ -25,7 +26,6 @@ export class PlistEntryComponent extends BaseComponent implements OnInit,OnChang
     {
       if (this.definition.lookup?.content)
       {
-        console.log(this.definition);
         this.content=JSON.parse(this.definition.lookup.content);
       }
     }

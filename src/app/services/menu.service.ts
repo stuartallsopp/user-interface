@@ -46,7 +46,6 @@ export class MenuService {
       var pathkey=link.replace("/pages/","");
       var split=pathkey.split("/");
 
-      console.log(directory,split,pathkey);
 
       return directory;
   }
@@ -54,7 +53,6 @@ export class MenuService {
   checkFavourite(path:string):boolean
   {
     var menutext=localStorage.getItem("menu");
-    console.log(path);
     if (menutext!=null)
     {
       var menus=JSON.parse(menutext);

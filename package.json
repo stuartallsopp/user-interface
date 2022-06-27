@@ -23,6 +23,7 @@
     "bootstrap": "^5.1.3",
     "moment": "^2.29.3",
     "ng-event-bus": "^4.0.0",
+    "ngx-debounce": "^2.0.1",
     "ngx-ui-loader": "^13.0.0",
     "primeflex": "^3.2.1",
     "primeicons": "^5.0.0",

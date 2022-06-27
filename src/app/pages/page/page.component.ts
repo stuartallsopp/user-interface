@@ -45,11 +45,11 @@ export class PageComponent implements OnInit,OnDestroy {
 
   get_page(key:string)
   {
-    this.loader.startLoader("page");
+    this.loader.startBackgroundLoader("page");
     this.page.get(key).subscribe({
       next:(result)=>{
           this.page_definition=result;
-          this.loader.stopLoader("page");
+          this.loader.stopBackgroundLoader("page");
       },
       error:(error)=>{
         this.router.navigate(['error',404,'page']);
@@ -64,7 +64,6 @@ export class PageComponent implements OnInit,OnDestroy {
       const _area=result.get("area")??"";
       const _section=result.get("section")??"";
       this.current_route=this.router.url;
-      console.log('here',this.current_route);
       const _validate=this.page.checkKey(_module,_area,_section);
       this.section=_section;
       this.get_page(_validate);

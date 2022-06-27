@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgEventBus } from 'ng-event-bus';
 import { DataService } from 'src/app/services/data.service';
 import { BaseComponent } from '../base/base.component';
 
@@ -9,8 +10,8 @@ import { BaseComponent } from '../base/base.component';
 })
 export class StndDisplayComponent extends BaseComponent implements OnInit {
 
-  constructor(ds:DataService) {
-    super(ds);
+  constructor(ds:DataService,event:NgEventBus) {
+    super(ds,event);
    }
 
   override ngOnInit(): void {

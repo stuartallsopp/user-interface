@@ -1,4 +1,7 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { NgEventBus } from 'ng-event-bus';
+import { InputText } from 'primeng/inputtext';
+import { OverlayPanel } from 'primeng/overlaypanel';
 import { DataService } from 'src/app/services/data.service';
 import { BaseComponent } from '../base/base.component';
 
@@ -7,69 +10,56 @@ import { BaseComponent } from '../base/base.component';
   templateUrl: './ac-single-entry.component.html',
   styleUrls: ['./ac-single-entry.component.scss']
 })
-export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnChanges {
+export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnChanges,AfterViewInit {
 
 
   public configs:any=null;
-  public search_results:any[]=[];
 
-  constructor(ds:DataService) {
-    super(ds);
+
+  constructor(ds:DataService,event:NgEventBus) {
+    super(ds,event);
    }
+  ngAfterViewInit(): void {
+
+  }
 
   override ngOnInit(): void {
     super.ngOnInit();
   }
 
-  search(event:any)
-  {
-      if (this.definition.data_url_method=="GET")
-      {
-        this.search_get(event.query);
-      }
-      if (this.definition.data_url_method=="POST")
-      {
-        this.search_post(event.query);
-      }
+  override redraw(data: any): void {
+    super.redraw(data);
+    this.updatesource(data);
   }
 
-  search_post(query:string)
+
+  item_selected_on_list(event:any)
   {
-      console.log('post',query);
-      var search_param=JSON.parse(this.definition.data_url_param);
-
-      var search:any[]=[];
-      if (search_param.search)
-      {
-        search.push({type:"begins","column":search_param.search,"value":query});
-      }
-
-      this.dataService.list(this.definition.data_url,0,0,"id","asc",search).subscribe(
-        {
-          next:(result:any)=>{
-            this.search_results=result.records;
-          }
-        }
-      )
+    this.updatesource(event);
   }
 
-  search_get(query:string)
+  resolveDisplay()
   {
-    var url=this.definition.data_url;
-    var params=JSON.parse(this.definition.data_url_param);
-    for(var item of params)
+    if (this.data==undefined||this.data==null){return null;}
+    if (this.definition.fieldname=='.')
     {
-      if (item=="search"){
-        url=url.replace("{search}",query);
+      if (this.data[this.configs.label]==undefined){return null;}
+      return this.data[this.configs.label];
+    }else
+    {
+      if (this.data[this.definition.fieldname])
+      {
+        return this.data[this.definition.fieldname][this.configs.label];
       }else
       {
-        url=url.replace("{"+item+"}",this.data[item]);
+        return null;
       }
     }
-    this.dataService.get(url).subscribe({next:(result:any)=>{
-      this.search_results=result;
-    }})
   }
+
+
+
+
 
   override ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
@@ -78,25 +68,57 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
       if (this.definition.aut_config)
       {
         this.configs=JSON.parse(this.definition.aut_config);
-        console.log(this.configs);
       }
+      this.checkInitialise();
     }
   }
 
-  remove(value:any)
+  checkInitialise()
   {
-    this.updatesource();
+    if (this.definition.initialise_url)
+    {
+      this.dataService.get(this.definition.initialise_url).subscribe(
+        {next:(result)=>{
+         // this.blank_data=result;
+          this.checkDataState();
+        }}
+      )
+    }
   }
 
-  contentChanged()
+  checkDataState()
   {
-    this.updatesource();
+    if (this.definition.fieldname=='.' && (this.data==null))
+    {
+     // this.updatesource(this.blank_data);
+    }
   }
 
-  updatesource()
+  new_record(op:OverlayPanel)
   {
-  //  this.data[this.definition.fieldname]=this.working_list;
-  //  console.log(this.data);
+    var check=this.definition.actions.filter((p: { key: string; })=>p.key=="new_record")[0];
+    this.event.cast('top',{from:this.unique_id,action:'dialog',key:check.dialog_key,id:0,cache:null,row:-1,content:null});
+    op.hide();
+  }
+
+  hasnewbutton():boolean
+  {
+    var check=this.definition.actions.filter((p: { key: string; })=>p.key=="new_record")[0];
+    if (check!=null){return true;}
+    return false;
+  }
+
+  updatesource(event:any)
+  {
+    if (this.definition.fieldname=='.')
+    {
+      super.raise_value_changed(event);
+    }
+    else
+    {
+      this.data[this.definition.fieldname]=event;
+      super.raise_value_changed(this.data[this.definition.fieldname])
+    }
   }
 
 }

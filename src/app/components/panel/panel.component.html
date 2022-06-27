@@ -3,20 +3,37 @@
         {{definition.description}}
     </ng-template>
     <ng-template pTemplate="content">
+        <div class="p-fluid grid mt-2" *ngIf="definition.field">
+            <div class="mb-2 mt-1" [ngClass]="responsive.get(definition.field.size)">
+                <app-fieldpicker (value_changed)="field_changed($event)" [field]="definition.field" [data]="local_data"></app-fieldpicker>
+            </div>
+        </div>
         <ng-container *ngFor="let list of definition.lists">
             <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="list"></app-list>
         </ng-container>
         <ng-container  *ngIf="definition.fieldset">
-                <app-fieldset [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
+            <app-fieldset [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
         </ng-container>
     </ng-template>
 </p-panel>
 <ng-container *ngIf="definition.has_border==false">
-    <ng-container *ngFor="let list of definition.lists">
-        <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="list"></app-list>
-    </ng-container>
-    <ng-container  *ngIf="definition.fieldset">
-        <app-fieldset [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
-    </ng-container>
+    <div class="p-fluid grid mt-2" *ngIf="definition.field">
+        <div class="mb-2 mt-1" [ngClass]="responsive.get(definition.field.size)">
+            <app-fieldpicker (value_changed)="field_changed($event)" [field]="definition.field" [data]="local_data"></app-fieldpicker>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="col-12" *ngIf="definition.display_description">
+            <p-divider styleClass="mb-0 mt-1">{{definition.description}}</p-divider>
+        </div>
+        <div class="col-12" *ngIf="definition.lists?.length>0">
+            <ng-container *ngFor="let list of definition.lists">
+                <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="list"></app-list>
+            </ng-container>
+        </div>
+        <div class="col-12" *ngIf="definition.fieldset">
+            <app-fieldset [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
+        </div>
+    </div>
 </ng-container>
 

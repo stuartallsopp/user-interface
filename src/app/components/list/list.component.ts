@@ -64,7 +64,6 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     if (!this.definition){return;}
     this.footer_columns=[];
     var columns=this.definition.columnset?.list_columns;
-    console.log(columns);
     if (columns)
     {
       if (columns.filter((p: { total: boolean; })=>p.total==true).length==0)
@@ -87,7 +86,6 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
           indxof++;
         }
       }
-      console.log(this.footer_columns);
     }
 
 
@@ -169,7 +167,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
         this.deleteRecord(action.url,action.confirm_message,id);
         break;
       case 'dialog':
-        this.event.cast('top',{from:this.unique_id,action:'dialog',key:action.dialog_key,id:id,cache:this.cacheid,row:rowIndex,content:data});
+        this.event.cast('top',{from:this.unique_id,action:'dialog',key:action.dialog_key,id:id,cache:this.cacheid,row:rowIndex,content:data,source_type:this.source_type});
         break;
       case 'goto':
         this.event.cast('top',{from:this.unique_id,action:'goto',key:action.url,id:id,source_type:this.source_type});
@@ -180,7 +178,6 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   deleteRecord(url:string,message:string,id:number)
   {
       this.comfirm.confirm({message:message,accept:()=>{
-          console.log('accepted');
       }}
       );
   }
@@ -247,7 +244,6 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
               this.list_content=result.records;
               this.list_totals=result.totals;
               this.record_count=result.totalrecords;
-              console.log(result);
           },
           error:(error)=>{
             local.loader.stopLoader(local.loader_key);

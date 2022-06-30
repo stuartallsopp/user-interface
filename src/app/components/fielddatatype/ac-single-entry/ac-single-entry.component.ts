@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
 import { NgEventBus } from 'ng-event-bus';
 import { InputText } from 'primeng/inputtext';
 import { OverlayPanel } from 'primeng/overlaypanel';
@@ -15,12 +15,25 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
 
   public configs:any=null;
 
+  @Input() parentdata:any;
 
   constructor(ds:DataService,event:NgEventBus) {
     super(ds,event);
    }
   ngAfterViewInit(): void {
 
+  }
+
+  clearentry()
+  {
+    if (this.data==undefined||this.data==null){return;}
+    if (this.definition.fieldname=='.')
+    {
+      this.data=null;
+    }else
+    {
+      this.data[this.definition.fieldname]=null;
+    }
   }
 
   override ngOnInit(): void {

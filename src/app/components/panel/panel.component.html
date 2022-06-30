@@ -1,11 +1,11 @@
-<p-panel *ngIf="definition.has_border==true" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up" [toggleable]="true" styleClass="mb-2" >
+<p-panel *ngIf="definition.has_border==true" [showHeader]="definition.display_description" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up" [toggleable]="true" styleClass="mb-2" >
     <ng-template pTemplate="header" *ngIf="definition.display_description">
         {{definition.description}}
     </ng-template>
     <ng-template pTemplate="content">
         <div class="p-fluid grid mt-2" *ngIf="definition.field">
             <div class="mb-2 mt-1" [ngClass]="responsive.get(definition.field.size)">
-                <app-fieldpicker (value_changed)="field_changed($event)" [field]="definition.field" [data]="local_data"></app-fieldpicker>
+                <app-fieldpicker (value_changed)="field_changed($event)" [field]="definition.field" [parentdata]="data" [data]="local_data"></app-fieldpicker>
             </div>
         </div>
         <ng-container *ngFor="let list of definition.lists">
@@ -19,7 +19,7 @@
 <ng-container *ngIf="definition.has_border==false">
     <div class="p-fluid grid mt-2" *ngIf="definition.field">
         <div class="mb-2 mt-1" [ngClass]="responsive.get(definition.field.size)">
-            <app-fieldpicker (value_changed)="field_changed($event)" [field]="definition.field" [data]="local_data"></app-fieldpicker>
+            <app-fieldpicker (value_changed)="field_changed($event)" [field]="definition.field" [parentdata]="data" [data]="local_data"></app-fieldpicker>
         </div>
     </div>
     <div class="grid">

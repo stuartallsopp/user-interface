@@ -1,18 +1,21 @@
     <div class="p-inputgroup">
         <span class="p-float-label" *ngIf="definition">
         <input type="text" [id]="unique_id" pInputText [disabled]="true" [value]="resolveDisplay()">    
-            <label [for]="unique_id">
+            <label [for]="unique_id" class="label-overflow">
                 <span *ngIf="definition.compulsory" class="pi pi-star-fill mr-1 text-red-800"></span>
                 <span>{{definition.label}}</span>
                 <span *ngIf="definition.info_text" class="pi pi-info-circle ml-1"></span>
             </label>
         </span>
-        <button type="button" (click)="op.toggle($event)" class="p-button-primary button-rounding" icon="fa-solid fa-search" pButton></button>     
+        <span class="p-buttonset">
+        <button type="button" (click)="op.toggle($event)" class="p-button-primary button-subtle button-prounding" icon="fa-solid fa-search" pButton></button>  
+        <button type="button" (click)="clearentry()" class="p-button-danger button-subtle button-rounding" icon="fa-solid fa-eraser" pButton></button>  
+    </span>  
     </div>
-    <p-overlayPanel #op appendTo="body" [focusOnShow]="true">
+    <p-overlayPanel #op appendTo="body" [focusOnShow]="true" styleClass="overlay-width">
         <ng-template pTemplate>
             <div style="position:relative">
-                <app-ac-single-search (new_record_selected)="new_record(op)" [hasnew]="hasnewbutton()" (item_selected)="item_selected_on_list($event)" [dialog]="op" [definition]="definition" [configs]="configs"></app-ac-single-search>
+                <app-ac-single-search [data]="parentdata" (new_record_selected)="new_record(op)" [hasnew]="hasnewbutton()" (item_selected)="item_selected_on_list($event)" [dialog]="op" [definition]="definition" [configs]="configs"></app-ac-single-search>
             </div>
         </ng-template>
     </p-overlayPanel>

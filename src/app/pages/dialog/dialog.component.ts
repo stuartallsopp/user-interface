@@ -64,6 +64,7 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
 
   event_subscriber() {
     this.event_listener=this.event.on(this.unique_id).subscribe(result=>{
+        console.log(result);
         this.doAction(result.data.key,result.data.data);
     })
   }
@@ -89,7 +90,6 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
 
   initialiseData(property_bag:any)
   {
-    console.log(property_bag);
     var url="";
     if (property_bag.id==0&&this.definition.initialise_url!=null)
     {
@@ -118,6 +118,7 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
   doAction(key:string,data:any)
   {
     var action=this.tool.resolveAction(key,this.definition);
+    console.log(action,key,data,this.data);
     if (action!=null)
     {
       switch(action.type)
@@ -128,20 +129,20 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
             this.confirm.confirm({message:action.confirm_message,accept:()=>{
               if (this.persist==true)
               {
-                this.data=this.tool.saveRecord(action,this.data,this.loader_key,this.unique_id);
+                this.tool.saveRecord(action,{...this.data},this.loader_key,this.unique_id);
               }else
               {
-                this.tool.updateList(action,this.data,this.propertybag,this.unique_id);
+                this.tool.updateList(action,{...this.data},this.propertybag,this.unique_id);
               }   
             }})
           }else
           {
             if (this.persist==true)
             {
-              this.tool.saveRecord(action,this.data,this.loader_key,this.unique_id);
+              this.tool.saveRecord(action,{...this.data},this.loader_key,this.unique_id);
             }else
             {
-              this.tool.updateList(action,this.data,this.propertybag,this.unique_id);
+              this.tool.updateList(action,{...this.data},this.propertybag,this.unique_id);
             } 
           }
           break;
@@ -167,19 +168,6 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
           this.event.cast('top',{action:'goto',key:url,data:data});
           break;
       }
-    }
-  }
-
-  ret():any
-  {
-    return {
-      "label":"type",
-      "compulsory":"system_compulsory",
-      "options":
-      [
-        {"label":"Multiple","field":"multiple","icon":"pi pi-clone"},
-        {"label":"Compulsory","field":"compulsory","icon":"pi pi-check"}
-      ]
     }
   }
 

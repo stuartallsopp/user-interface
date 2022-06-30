@@ -22,6 +22,13 @@ export class AuthService {
     }));       
 }
 
+public getOrganisationName():string
+{
+  var name=localStorage.getItem("organisation_name");
+  if (name==null){return "Unknown";}
+  return name;
+}
+
 private callForm(email:string,password:string)
 {
   return this.http.post<User>(environment.forms_api+'users/authenticate',{email,password});

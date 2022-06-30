@@ -5,4 +5,4 @@
 <app-plist-entry [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='plst_entry'"></app-plist-entry>
 <app-switch-entry [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='swch_entry'"></app-switch-entry>
 <app-autocomplete-entry [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='aut_entry'"></app-autocomplete-entry>
-<app-ac-single-entry [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='pitem_entry'"></app-ac-single-entry>
+<app-ac-single-entry [data]="data" [parentdata]="parentdata" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='pitem_entry'"></app-ac-single-entry>

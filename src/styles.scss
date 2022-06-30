@@ -22,3 +22,45 @@ button.p-component.button-rounding
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
 }
+
+button.p-component.button-subtle
+{
+    opacity: .75;
+}
+
+button.p-component.button-subtle:hover
+{
+    opacity: 1;
+}
+
+button.p-component.button-prounding
+{
+    border-top-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+}
+
+div.sa_menu
+{
+    position:sticky;
+    top:0;
+    z-index: 9999;
+}
+div.overlay-width
+{
+    max-width: 500px;
+}
+
+.on_top_of_everything
+{
+    z-index:10000;
+}
+
+fieldset.sa-legend legend
+{
+    padding: 1rem 1.25rem;
+    border: 1px solid #dee2e6;
+    color: #212529;
+    background: #efefef;
+    font-weight: 600;
+    border-radius: 4px;
+}

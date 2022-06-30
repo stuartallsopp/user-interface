@@ -21,6 +21,7 @@ import { NavigationModule } from './navigation/navigation.module';
 import { MenuService } from './services/menu.service';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { AngularDateHttpInterceptor } from './tools/dateIntecptor';
+import { CustomiseModule } from './customise/customise.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AngularDateHttpInterceptor } from './tools/dateIntecptor';
     BrowserAnimationsModule,
     DynamicDialogModule,
     NavigationModule,
-    NgxUiLoaderModule
+    NgxUiLoaderModule,
+    CustomiseModule
   ],
   providers: [
     {

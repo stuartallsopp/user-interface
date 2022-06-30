@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { NgEventBus } from 'ng-event-bus';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MessageService } from 'primeng/api';
+import { threadId } from 'worker_threads';
 import { DataService } from './data.service';
 
 @Injectable({
@@ -73,6 +74,7 @@ export class ToolService {
         this.sendEvent(action,true,unique_id,result);
       },
       error:(error)=>{
+        this.message.add({severity:"error",detail:error.error});
         this.loader.stopLoader(loader_key);
         this.sendEvent(action,false,unique_id);
       },

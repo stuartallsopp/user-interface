@@ -9,7 +9,35 @@
 
 <p-overlayPanel #op>
     <ng-template pTemplate>
-
-
     </ng-template>
 </p-overlayPanel>
+
+<p-dialog [draggable]="false" [modal]="true" header="Favourites" [(visible)]="favourite_customise_display" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'}">
+    <p-orderList [disabled]="favourites_posting" [value]="favourite_list" (onReorder)="reorderedlist()">
+        <ng-template let-fav pTemplate="item">
+            <div class="grid">
+                <div class="col-1">
+                      <button *ngIf="edit_position==null" (click)="setcurrentitem(ip,$event,fav)" pButton class="mt-1 p-button-sm p-button-secondary p-button-rounded p-button-text" icon="fa-solid fa-edit"></button>
+                </div>
+                <div class="col-10">
+                    <p-inplace #ip styleClass="pt-2" [preventClick]="true" (onActivate)="currentitemactivated()">
+                        <ng-template pTemplate="display">
+                            <span class="mt-2">{{fav.label}}</span>
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                            <input autofocus (blur)="unsetcurrentitem(ip)" class="w-full" type="text" [id]="'fav_'+fav.id" [(ngModel)]="fav.label" pInputText>
+                        </ng-template>
+                    </p-inplace>
+                </div>
+                <div class="col-1">
+                    <button *ngIf="edit_position==null" (click)="deleteitem(fav)" pButton class="mt-1 p-button-sm p-button-danger p-button-rounded p-button-text" icon="fa-solid fa-trash"></button>
+              </div>
+            </div>
+        </ng-template>
+    </p-orderList>
+    <div class="grid">
+        <div class="col-12 text-right">
+            <button pButton (click)="saveSettings()" icon="fa-solid fa-floppy-disk" class="p-button p-button-outlined p-button-success p-button-rounded"></button>
+        </div>
+    </div>
+</p-dialog>

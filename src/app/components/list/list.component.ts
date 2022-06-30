@@ -26,6 +26,9 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   public footer_columns:any[]=[];
   public list_totals:any[]=[];
   public record_count:number=0;
+  public hasfilters:boolean=false;
+  public filters:any[]=[];
+  private current_filters:any=null;
 
   private event_subscriber:any;
 
@@ -55,9 +58,36 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     }
     if (changes['definition']||changes['data'])
     {
-      this.refresh();
+      this.checkFilters();
     }
   }
+
+  filterChanged(filters:any)
+  {
+    console.log(filters);
+    this.current_filters=filters;
+    this.refresh(0);
+  }
+
+  checkFilters()
+  {
+    if (this.definition.filters.length==0){this.refresh();}else{
+      var filter=this.definition.filters[0];
+      this.dataService.post(filter.definition_url,{items:filter.items}).subscribe({
+        next:(result:any)=>{
+          console.log(result);
+          this.hasfilters=true;
+          this.filters=result.items;
+        },
+        error:(error)=>{
+  
+        }
+      })
+    }
+    
+  }
+
+
 
   resolveFooterColumns()
   {
@@ -109,6 +139,16 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   {
     var check=this.definition.buttonset?.buttons.filter((p: { multiple: boolean; })=>p.multiple==true);
     this.selectionmode=check?.length>0?"multiple":"single";
+  }
+
+  sortlist(event:any)
+  {
+    if (this.definition.sort_key!=event.field||this.definition.direction!=event.order)
+    {
+      this.definition.sort_key=event.field;
+      this.definition.direction=event.order;
+      this.refresh(0);
+    }
   }
 
   event_subscription()
@@ -175,6 +215,11 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     }
   }
 
+  paginate(event:any)
+  {
+    this.refresh(event.page+1,this.current_filters);
+  }
+
   deleteRecord(url:string,message:string,id:number)
   {
       this.comfirm.confirm({message:message,accept:()=>{
@@ -203,14 +248,14 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     }
   }
 
-  refresh()
+  refresh(pageno:number=1,filters:any=null)
   {
-    if (this.definition.data_field?.length>0)
+    if (this.definition.data_field?.length>0 && this.data!=null&&this.data!=undefined)
     {
       this.list_content=this.data[this.definition.data_field];
     }else
     {
-      this.refreshFromUrl();
+      this.refreshFromUrl(pageno,this.current_filters);
     }
   }
 
@@ -226,7 +271,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     return result;
   }
 
-  refreshFromUrl()
+  refreshFromUrl(pageno:number=1,filters:any=null)
   {
     if (this.definition.data_url?.length>0)
     {
@@ -237,7 +282,8 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       }
       this.loader.startLoader(this.loader_key);
       const local=this;
-      this.dataService.list(url,this.definition.page_size,1,this.definition.sort_key,'asc',null)
+      const dir:string=this.definition.direction==undefined||this.definition.direction==1?"asc":"desc";
+      this.dataService.list(url,this.definition.page_size,pageno,this.definition.sort_key,dir,filters)
       .subscribe(
         {
           next:(result:any)=>{

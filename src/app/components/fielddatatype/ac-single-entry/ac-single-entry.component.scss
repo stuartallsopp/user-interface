@@ -1,0 +1,22 @@
+
+:host {
+    ::ng-deep
+    .overlay-width
+    {
+        max-width:200px;
+    }
+    ::ng-deep
+    .p-disabled, .p-component:disabled {
+        opacity: 1;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    ::ng-deep
+    .label-overflow
+    {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

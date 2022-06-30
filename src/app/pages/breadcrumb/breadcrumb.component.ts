@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgEventBus } from 'ng-event-bus';
 import { MenuItem, MessageService,Message } from 'primeng/api';
+import { AuthService } from 'src/app/services/auth.service';
 import { MenuService } from 'src/app/services/menu.service';
 
 @Component({
@@ -19,14 +20,14 @@ export class BreadcrumbComponent implements OnInit,OnChanges {
   @Input() data:any;
   @Input() source_type:string="";
 
-  public home:MenuItem={label:' Home',routerLink:"/home",icon:"fa-solid fa-house"}
+  public home:any;
   public items:MenuItem[]=[];
   public isFavourite:boolean=false;
   public favupdate:any={url:null,name:null};
-  constructor(private mess:MessageService,private menu:MenuService,private event:NgEventBus) { }
+  constructor(private mess:MessageService,private menu:MenuService,private event:NgEventBus,private auth:AuthService) { }
 
   ngOnInit(): void {
-    
+    this.home={label:' '+this.auth.getOrganisationName(),routerLink:"/home",icon:"fa-solid fa-house"};
   }
 
   checkfavevent(op:any,event:any)

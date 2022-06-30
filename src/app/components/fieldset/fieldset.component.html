@@ -1,12 +1,14 @@
-<div class="p-fluid grid" [ngClass]="dialog?'mt-0':'mt-2'"  *ngIf="data">
-    <div *ngFor="let column of columns" [ngClass]="responsive.get(column.width)">
-        <div class="p-fluid grid">
-            <ng-container *ngFor="let field of column.fields">
-                <div class="mb-2 mt-1" [ngClass]="responsive.get(field.width)">
-                    <app-fieldpicker [field]="field" [data]="data"></app-fieldpicker>
-                </div>
-            </ng-container>
+    <div class="p-fluid grid" [ngClass]="dialog?'mt-0':'mt-2'"  *ngIf="data">
+        <div *ngFor="let column of columns" [ngClass]="responsive.get(column.width)">
+            <div class="p-fluid grid">
+                <ng-container *ngFor="let field of column.fields">
+                    <div class="mb-2 mt-1" [ngClass]="responsive.get(field.width)">
+                        <app-fieldpicker [field]="field" [data]="data"></app-fieldpicker>
+                    </div>
+                </ng-container>
+            </div>
         </div>
     </div>
-</div>
+
+
 

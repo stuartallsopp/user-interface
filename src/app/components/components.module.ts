@@ -5,8 +5,11 @@ import {TableModule} from 'primeng/table';
 import { PanelComponent } from './panel/panel.component';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
+import {MultiSelectModule} from 'primeng/multiselect';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { FieldsetModule } from 'primeng/fieldset';
+import { PaginatorModule } from 'primeng/paginator';
 import {CheckboxModule} from 'primeng/checkbox';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { DropdownModule } from 'primeng/dropdown';
@@ -39,6 +42,7 @@ import { FieldpickerComponent } from './fieldpicker/fieldpicker.component';
 import { DebounceModule } from 'ngx-debounce';
 import { AcSingleSearchComponent } from './fielddatatype/ac-single-search/ac-single-search.component';
 import { DividerModule } from 'primeng/divider';
+import { ListfilterComponent } from './listfilter/listfilter.component';
 
 
 
@@ -63,7 +67,8 @@ import { DividerModule } from 'primeng/divider';
     AutocompleteEntryComponent,
     AcSingleEntryComponent,
     FieldpickerComponent,
-    AcSingleSearchComponent
+    AcSingleSearchComponent,
+    ListfilterComponent
   ],
   imports: [
     CommonModule,
@@ -74,9 +79,12 @@ import { DividerModule } from 'primeng/divider';
     DebounceModule,
     KeyFilterModule,
     InputSwitchModule,
+    FieldsetModule,
     DividerModule,
     CheckboxModule,
+    MultiSelectModule,
     DropdownModule,
+    PaginatorModule,
     ListboxModule,
     AutoCompleteModule,
     FocusTrapModule,

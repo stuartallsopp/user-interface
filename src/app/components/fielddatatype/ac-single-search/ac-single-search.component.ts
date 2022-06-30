@@ -22,6 +22,7 @@ export class AcSingleSearchComponent implements OnInit,AfterViewInit {
   @Input() configs:any;
   @Input() definition:any;
   @Input() hasnew:boolean=false;
+  @Input() data:any;
   @Input() dialog?:OverlayPanel;
   @Output() item_selected:EventEmitter<any>=new EventEmitter<any>();
   @Output() new_record_selected:EventEmitter<any>=new EventEmitter<any>();
@@ -81,7 +82,13 @@ export class AcSingleSearchComponent implements OnInit,AfterViewInit {
         search.push({type:"begins","column":search_param.search,"value":query});
       }
 
-      this.dataService.list(this.definition.data_url,50,0,search_param.order,"asc",search).subscribe(
+      var url=this.definition.data_url;
+      if (this.data!=null)
+      {
+        url=url.replace("{id}",this.data.id);
+      }
+      console.log(this.data);
+      this.dataService.list(url,50,0,search_param.order,"asc",search).subscribe(
         {
           next:(result:any)=>{
             this.search_results=result.records;

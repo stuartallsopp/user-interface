@@ -75,10 +75,15 @@ export class MenuService {
     return this.http.post(environment.forms_api+'menu/favourite/update',fav);
   }
 
+  redefineFavourite(list:any[])
+  {
+    return this.http.post(environment.forms_api+'menu/favourite/redefine',{items:list});
+  }
+
   resolveMenuItem(source:any,directory:any[]):MenuItem
   {
     var result:MenuItem={
-      label:source.label,icon:source.icon
+      label:source.label,icon:source.icon,id:source.id
     };
     if (source.routerLink!=null)
     {

@@ -18,7 +18,9 @@ export class DataService {
       page_size:page_size,
       order_by:order_by,
       direction: dir,
-      begins:null
+      begins:null,
+      equals:null,
+      isin:null
     }
     if (search!=null)
     {
@@ -26,6 +28,16 @@ export class DataService {
       if (begins!=null)
       {
         payload.begins=begins;
+      }
+      var equals=search.filter((p: { type: string; })=>p.type=="equals");
+      if (equals!=null)
+      {
+        payload.equals=equals;
+      }
+      var isin=search.filter((p: { type: string; })=>p.type=="isin");
+      if (isin!=null&&isin.value!=null)
+      {
+        payload.isin=isin;
       }
     }
 
@@ -35,6 +47,11 @@ export class DataService {
   get(url:string)
   {
     return this.http.get(environment.data_api+url);
+  }
+
+  post(url:string,payload:any)
+  {
+    return this.http.post(environment.data_api+url,payload);
   }
 
   persist(method:string,url:string,data:any)

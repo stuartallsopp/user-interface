@@ -35,13 +35,31 @@ export class FieldsetComponent implements OnInit,OnChanges {
       this.columns.push({id:1,width:12,fields:this.definition.fields_resolved});
     }else
     {
-      var width=6;
+      var width=this.resolveColumnWidth();
       for(var col of this.definition.columns)
       {
         this.columns.push({id:col.column_no,width:width,fields:col.fields});
       }
     }
     console.log(this.columns);
+  }
+
+  resolveColumnWidth()
+  {
+    if (this.definition.column_count==undefined||this.definition.column_count==null){return 12;}
+    switch(this.definition.column_count)
+    {
+      case 1:
+        return 12;
+      case 2:
+        return 6;
+      case 3:
+        return 4;
+      case 4:
+        return 3;
+      default:
+        return 12;
+    }
   }
 
 }

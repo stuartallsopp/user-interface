@@ -1,0 +1,17 @@
+<div class="inline-flex flex-wrap mb-1 width-m-max">
+    <div class="flex-none mr-2 vertical-align-middle pt-2"><p>Filters</p></div>
+    <ng-container *ngFor="let filter of filters">
+        <div *ngIf="filter.type=='dropdown'" class="flex-grow-1 mr-1">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">{{filter.label}}</span>
+                <p-dropdown (onChange)="filter_value_changed(filter)" styleClass="w-auto" [options]="filter.choices" optionLabel="value" optionValue="id" [(ngModel)]="filter.default_value"></p-dropdown>       
+            </div>
+        </div>
+        <div *ngIf="filter.type=='picklist'" class="mr-1">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">{{filter.label}}</span>
+                <p-multiSelect styleClass="w-auto max-w-30rem" defaultLabel="Any" display="chip" [filter]="false" (onChange)="filter_value_changed(filter)" [options]="filter.choices" [(ngModel)]="filter.default_value" optionLabel="value" optionValue="id"></p-multiSelect>     
+            </div>
+        </div>
+    </ng-container>
+</div>

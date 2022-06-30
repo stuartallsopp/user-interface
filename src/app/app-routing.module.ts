@@ -7,11 +7,15 @@ import { PageComponent } from './pages/page/page.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { RecordComponent } from './pages/record/record.component';
+import { MenuDefinitionComponent } from './customise/menu-definition/menu-definition.component';
+import { FormDefinitionComponent } from './customise/form-definition/form-definition.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {path:'landing',component:LandingComponent,canActivate:[AuthGuard]},
   {path:'home',component:HomeComponent,canActivate:[AuthGuard]},
+  {path:'pages/customise/menus',component:MenuDefinitionComponent,canActivate:[AuthGuard]},
+  {path:'pages/customise/forms',component:FormDefinitionComponent,canActivate:[AuthGuard]},
   {path:'pages/:module/home',component:HomeComponent,canActivate:[AuthGuard]},
   {path:'pages/:module/:area',component:PageComponent,canActivate:[AuthGuard]},
   {path:'pages/:module/:area/:section',component:PageComponent,canActivate:[AuthGuard]},

@@ -1,0 +1,77 @@
+<div class="grid">
+    <div class="col-3">
+        <span>
+            <button pButton (click)="refreshmenu()" label="Refresh" class="m-2 p-button-outlined p-button-rounded p-button-primary"></button>
+            <button pButton label="New" (click)="newitem()" class="m-2 p-button-outlined p-button-rounded p-button-success"></button>
+        </span>
+        <p-tree [value]="menu_definition" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeSelect($event)" [(selection)]="selectedMenu" selectionMode="single" (onNodeDrop)="onDrop($event)" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self">
+            <ng-template let-node pTemplate="default">
+               <div class="inline-flex">
+                <span [ngClass]="node==selectedMenu?'mt-2':''" class="">{{node.label}}</span>
+                <span *ngIf="selectedMenu==node"><button pButton (click)="deleteItem(node)" icon="fa-solid fa-trash" class="ml-1 p-button-danger p-button-text"></button></span>
+               </div>
+            </ng-template>
+        </p-tree>
+    </div>
+    <div class="col-9">
+        <div class="grid" *ngIf="editedItem">
+            <div class="col-12">
+                <button pButton (click)="updateEdit()" label="Update" class="m-2 p-button-outlined p-button-rounded p-button-secondary"></button>
+                <button pButton label="Cancel" (click)="cancelEdit()" class="m-2 p-button-outlined p-button-rounded p-button-danger"></button>
+            </div>
+            <div class="col-12">
+                <div class="p-fluid grid mt-3">
+                    <div class="field col-12 md:col-4">
+                        <span class="p-float-label">
+                            <input type="text" id="description" pInputText [(ngModel)]="editedItem.description"> 
+                            <label for="description">Description</label>
+                        </span>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <span class="p-float-label">
+                            <input type="text" id="icon" pInputText [(ngModel)]="editedItem.icon"> 
+                            <label for="icon">Icon</label>
+                        </span>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <span class="p-float-label">
+                            <p-dropdown [options]="['parent','submenu','page']" [(ngModel)]="editedItem.type"></p-dropdown>
+                            <label for="icon">Type</label>
+                        </span>
+                    </div>
+                    <div *ngIf="editedItem.type=='page'" class="field col-12">
+                        <span class="p-float-label">
+                            <input type="text" id="unique_key" pInputText [(ngModel)]="editedItem.unique_key"> 
+                            <label for="unique_key">Route</label>
+                        </span>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <span class="p-float-label">
+                            <p-dropdown inputId="list_type" [options]="['','recs','cls','trans']" [(ngModel)]="editedItem.list_type"></p-dropdown>
+                            <label for="list_type">List Type</label>
+                        </span>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <span class="p-float-label">
+                            <p-dropdown inputId="list_key" [options]="['','SL','PL','STK','BNK']" [(ngModel)]="editedItem.list_key"></p-dropdown>
+                            <label for="list_key">List Type</label>
+                        </span>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <span class="p-float-label">
+                            <p-dropdown [autoDisplayFirst]="false" [options]="pages" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="editedItem.page_id" optionLabel="description" optionValue="id">
+                                <ng-template let-item pTemplate="item">
+                                    <span>{{item.description}}</span><span class="ml-2">({{item.type}})</span>
+                                </ng-template>
+                            </p-dropdown>
+                            <label for="page_id">Page</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

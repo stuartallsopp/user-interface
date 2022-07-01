@@ -1,0 +1,22 @@
+<div class="grid" *ngIf="fullPage">
+    <div class="col-12">
+        <button pButton (click)="updateEdit()" label="Update" class="m-2 p-button-outlined p-button-rounded p-button-secondary"></button>
+    </div>
+    <div class="col-12">
+        <div class="p-fluid grid mt-3">
+            <div class="field col-12">
+                <span class="p-float-label">
+                    <input type="text" id="description" pInputText [(ngModel)]="fullPage.description"> 
+                    <label for="description">Description</label>
+                </span>
+            </div>
+            <div class="field col-12">
+                <span class="p-float-label">
+                    <textarea pInputTextarea id="content" pInputTextarea rows="5" [(ngModel)]="fullPage.content"></textarea>
+                    <label for="content">Content</label>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+        

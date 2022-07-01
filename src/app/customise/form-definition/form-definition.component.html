@@ -56,14 +56,27 @@
                             </ng-template>
                         </p-table>
                     </p-tabPanel>
+                    <p-tabPanel header="Lookups">
+                        <p-table [value]="lookups" selectionMode="single" (onRowSelect)="rowSelected('lookup')" (onRowUnselect)="rowSelected('lookup')" [(selection)]="selectedObject" dataKey="id">
+                            <ng-template pTemplate="body" let-lookup>
+                                <tr [pSelectableRow]="lookup">
+                                    <td>{{lookup.description}}</td>
+                                    <td>
+                                        <button pButton (click)="delete('lookup',lookup)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-danger" icon="fa-solid fa-trash"></button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </p-tabPanel>
                 </p-tabView>
             </div>
         </div>
     </div>
     <div class="col-9">
         <app-form-outline *ngIf="fullObject&&objectType=='form'" [buttonlist]="buttons" [fullPage]="fullObject"></app-form-outline>
-        <app-column-outline *ngIf="fullObject&&objectType=='column'" [fullPage]="fullObject"></app-column-outline>
-        <app-field-outline *ngIf="fullObject&&objectType=='field'" [fullPage]="fullObject"></app-field-outline>
+        <app-column-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='column'" [fullPage]="fullObject"></app-column-outline>
+        <app-field-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='field'" [lookuplist]="lookups" [fullPage]="fullObject"></app-field-outline>
         <app-button-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='button'" [fullPage]="fullObject"></app-button-outline>
+        <app-lookup-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='lookup'" [fullPage]="fullObject"></app-lookup-outline>
     </div>
 </div>

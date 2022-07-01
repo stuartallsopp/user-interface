@@ -19,6 +19,7 @@ import { FormOutlineComponent } from './form-outline/form-outline.component';
 import { ColumnOutlineComponent } from './column-outline/column-outline.component';
 import { FieldOutlineComponent } from './field-outline/field-outline.component';
 import { ButtonOutlineComponent } from './button-outline/button-outline.component';
+import { LookupOutlineComponent } from './lookup-outline/lookup-outline.component';
 
 
 
@@ -29,7 +30,8 @@ import { ButtonOutlineComponent } from './button-outline/button-outline.componen
     FormOutlineComponent,
     ColumnOutlineComponent,
     FieldOutlineComponent,
-    ButtonOutlineComponent
+    ButtonOutlineComponent,
+    LookupOutlineComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { runInThisContext } from 'vm';
 import { CustomdataService } from '../customdata.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class FormDefinitionComponent implements OnInit {
     this.getButtons();
     this.getColumns();
     this.getFields();
+    this.getLookups();
   }
 
   public objectType:string="form";
@@ -23,6 +25,7 @@ export class FormDefinitionComponent implements OnInit {
   public fields:any[]=[];
   public columns:any[]=[];
   public buttons:any[]=[];
+  public lookups:any[]=[];
   public fullObject:any;
 
 
@@ -45,6 +48,10 @@ export class FormDefinitionComponent implements OnInit {
     case 3:
       this.objectType="button";
       this.getButtons();
+      break;
+    case 4:
+      this.objectType="lookup";
+      this.getLookups();
       break;
 
   }
@@ -84,6 +91,13 @@ export class FormDefinitionComponent implements OnInit {
           }})
         }
         break; 
+      case 'lookup':
+          if (this.selectedObject==null){this.fullObject=null;}else{
+            this.dataService.get_lookup_by_id(this.selectedObject.id).subscribe({next:(result)=>{
+              this.fullObject=result;
+            }})
+          }
+          break; 
     }
 
   }
@@ -94,9 +108,21 @@ export class FormDefinitionComponent implements OnInit {
       {
         this.tabChanged({index:0});
       }
+      if (this.objectType=="column")
+      {
+        this.tabChanged({index:1});
+      }
+      if (this.objectType=="field")
+      {
+        this.tabChanged({index:2});
+      }
       if (this.objectType=="button")
       {
         this.tabChanged({index:3});
+      }
+      if (this.objectType=="lookup")
+      {
+        this.tabChanged({index:4});
       }
   }
 
@@ -130,6 +156,13 @@ export class FormDefinitionComponent implements OnInit {
   {
     this.dataService.get_field().subscribe({next:(result:any)=>{
       this.fields=[...result];
+    }})
+  }
+
+  getLookups()
+  {
+    this.dataService.get_lookup().subscribe({next:(result:any)=>{
+      this.lookups=[...result];
     }})
   }
 }

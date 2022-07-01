@@ -1,0 +1,94 @@
+<div class="grid" *ngIf="fullPage">
+    <div class="col-12">
+        <button pButton (click)="updateEdit()" label="Update" class="m-2 p-button-outlined p-button-rounded p-button-secondary"></button>
+    </div>
+    <div class="col-12">
+        <div class="p-fluid grid mt-3">
+            <div class="field col-12">
+                <span class="p-float-label">
+                    <input type="text" id="description" pInputText [(ngModel)]="fullPage.description"> 
+                    <label for="description">Description</label>
+                </span>
+            </div>
+            <div class="col-12">
+                <p-table sortField="sort_order" [value]="fullPage.buttons" dataKey="id">
+                    <ng-template pTemplate="header">
+                        <th>Label</th>
+                        <th>View</th>
+                        <th>Action</th>
+                        <th>Location</th>
+                        <th>Multiple</th>
+                        <th><button (click)="addButton()" pButton class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-success" icon="fa-solid fa-plus"></button></th>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-button let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{button.label}}</td>
+                            <td>
+                                <div class="inline-flex">
+                                    <span><button pButton [icon]="button.icon" [ngClass]="colour(button.colour)" class="p-button-rounded p-button-outlined"></button></span>
+                                    <span><button pButton [icon]="button.icon" [label]="button.label" [ngClass]="colour(button.colour)" class="p-button-rounded p-button-outlined"></button></span>      
+                                </div>
+                          </td>
+                          <td>{{button.action_key}}</td>
+                          <td>{{button.location}}</td>
+                          <td>{{button.multiple}}</td>
+                          <td>
+                            <span class="p-button-set">
+                                <button pButton (click)="editButton(button,rowIndex)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-primary" icon="fa-solid fa-edit"></button>
+                                <button pButton (click)="deleteButton(button,rowIndex)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-danger" icon="fa-solid fa-trash"></button>
+                                <button pButton [disabled]="rowIndex==0" (click)="moveup(rowIndex,button)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-secondary" icon="fa-solid fa-arrow-up"></button>
+                                <button pButton [disabled]="rowIndex==(fullPage.buttons.length-1)" (click)="movedown(rowIndex,button)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-secondary" icon="fa-solid fa-arrow-down"></button>
+                            </span>
+                          </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="Button" [modal]="true" [(visible)]="button_edit_display" *ngIf="edited_button">
+    <div class="p-fluid grid mt-2">
+        <div class="field col-12 md:col-3">
+            <span class="p-float-label">
+                <input type="text" id="label" pInputText [(ngModel)]="edited_button.label"> 
+                <label for="label">Label</label>
+            </span>
+        </div>
+        <div class="field col-12 md:col-3">
+            <span class="p-float-label">
+                <p-dropdown inputId="colour" appendTo="body" [options]="['primary','secondary','danger','success','info','warning']" [(ngModel)]="edited_button.colour"></p-dropdown>
+                <label for="colour">Colour</label>
+            </span>
+        </div>
+        <div class="field col-12 md:col-3">
+            <span class="p-float-label">
+                <p-dropdown [editable]="true" appendTo="body" inputId="action_key" [options]="['new_record','edit_record','delete_record','save_record','cancel_dialog']" [(ngModel)]="edited_button.action_key"></p-dropdown>
+                <label for="action_key">Action</label>
+            </span>
+        </div>
+        <div  class="field col-12 md:col-3">
+            <span class="flex">
+                <p-inputSwitch styleClass="mt-1" inputId="multiple" [(ngModel)]="edited_button.multiple"></p-inputSwitch>
+                <label class="pl-2 pt-2" for="multiple">Multiple</label>
+            </span>
+        </div>
+        <div class="field col-12 md:col-8">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i [class]="edited_button.icon"></i></span>
+                    <span class="p-float-label">
+                    <input type="text" id="icon" pInputText [(ngModel)]="edited_button.icon"> 
+                    <label for="label">Icon</label>
+                </span>
+                </div>
+        </div>
+        <div class="field col-12 md:col-4">
+            <span class="p-float-label">
+                <p-dropdown [editable]="true" appendTo="body" inputId="location" [options]="['top','row','both']" [(ngModel)]="edited_button.location"></p-dropdown>
+                <label for="location">Location</label>
+            </span>
+        </div>
+        <div class="col-12 text-right"><button (click)="saveButton()" pButton icon="fa-solid fa-floppy-disk" class="p-button-success p-button-rounded p-button-outlined"></button></div>
+    </div>
+</p-dialog>

@@ -20,6 +20,8 @@ import { ColumnOutlineComponent } from './column-outline/column-outline.componen
 import { FieldOutlineComponent } from './field-outline/field-outline.component';
 import { ButtonOutlineComponent } from './button-outline/button-outline.component';
 import { LookupOutlineComponent } from './lookup-outline/lookup-outline.component';
+import { ActionOutlineComponent } from './action-outline/action-outline.component';
+import { PanelOutlineComponent } from './panel-outline/panel-outline.component';
 
 
 
@@ -31,7 +33,9 @@ import { LookupOutlineComponent } from './lookup-outline/lookup-outline.componen
     ColumnOutlineComponent,
     FieldOutlineComponent,
     ButtonOutlineComponent,
-    LookupOutlineComponent
+    LookupOutlineComponent,
+    ActionOutlineComponent,
+    PanelOutlineComponent
   ],
   imports: [
     CommonModule,

@@ -9,6 +9,10 @@ export class FormOutlineComponent implements OnInit {
 
   @Input() fullPage:any;
   @Input() buttonlist:any[]=[];
+
+
+
+
   constructor() { }
 
   ngOnInit(): void {
@@ -25,4 +29,6 @@ export class FormOutlineComponent implements OnInit {
     
   }
 
+
+ 
 }

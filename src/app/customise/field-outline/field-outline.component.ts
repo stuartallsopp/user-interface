@@ -34,7 +34,7 @@ export class FieldOutlineComponent implements OnInit {
   addButton()
   {
     this.edited_row=-1;
-    this.edited_field={id:0,label:'',icon:'',action_key:''}
+    this.edited_field={id:0,label:'',icon:'',action_key:'',type:'tex_entry',compulsory:false}
     this.field_edit_display=true;
   }
 
@@ -64,10 +64,10 @@ export class FieldOutlineComponent implements OnInit {
   {
       if (this.edited_row==-1)
       {
-        this.fullPage.buttons.push({...this.edited_field});
+        this.fullPage.fields.push({...this.edited_field});
       }else
       {
-        this.fullPage.buttons[this.edited_row]={...this.edited_field};
+        this.fullPage.fields[this.edited_row]={...this.edited_field};
       }
       this.edited_field=null;
       this.field_edit_display=false;

@@ -116,6 +116,12 @@
                 <label for="key_filter">Key Filter</label>
             </span>
         </div>
+        <div class="field col-12 md:col-3">
+            <span class="p-float-label">
+                <input type="text" id="suffix" pInputText [(ngModel)]="edited_field.suffix"> 
+                <label for="suffix">Suffix</label>
+            </span>
+        </div>
         <div class="field col-12 md:col-3" *ngIf="edited_field.type=='pitem_entry'||edited_field.type=='plst_entry'">
             <span class="p-float-label">
                 <p-dropdown appendTo="body" [autoDisplayFirst]="false" [options]="lookuplist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="edited_field.lookup_id" optionLabel="description" optionValue="id">
@@ -143,7 +149,7 @@
                 <div class="field col-12 md:col-6">
                     <span class="p-float-label">
                         <textarea id="data_url_param" pInputTextarea pInputTextarea rows="3" [(ngModel)]="edited_field.data_url_param"></textarea>
-                        <label for="data_url_param">Help Text</label>
+                        <label for="data_url_param">Data Url Parameters</label>
                     </span>
                 </div>
                 <div class="field col-12 md:col-6">

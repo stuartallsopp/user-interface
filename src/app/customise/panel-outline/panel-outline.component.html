@@ -1,0 +1,29 @@
+<div class="grid">
+    <div class="col-12">Panels</div>
+    <div class="col-12">
+        <p-table sortField="sort_order" [value]="panels" dataKey="id">
+            <ng-template pTemplate="header">
+                <th>Description</th>
+                <th>Colour</th>
+                <th>Has Border</th>
+                <th><button (click)="addPanel()" pButton class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-success" icon="fa-solid fa-plus"></button></th>
+            </ng-template>
+            <ng-template pTemplate="body" let-panel let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{panel.description}}</td>
+                  <td>{{panel.colour}}</td>
+                  <td>{{panel.has_border}}</td>
+                  <td>
+                    <span class="p-button-set">
+                        <button pButton (click)="editPanel(panel,rowIndex)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-primary" icon="fa-solid fa-edit"></button>
+                        <button pButton (click)="deletePanel(panel,rowIndex)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-danger" icon="fa-solid fa-trash"></button>
+                        <button pButton [disabled]="rowIndex==0" (click)="moveup(rowIndex,panel)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-secondary" icon="fa-solid fa-arrow-up"></button>
+                        <button pButton [disabled]="rowIndex==(panels.length-1)" (click)="movedown(rowIndex,panel)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-secondary" icon="fa-solid fa-arrow-down"></button>
+                    </span>
+                  </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+

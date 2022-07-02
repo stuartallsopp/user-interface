@@ -17,6 +17,7 @@ export class FormDefinitionComponent implements OnInit {
     this.getColumns();
     this.getFields();
     this.getLookups();
+    this.getActions();
   }
 
   public objectType:string="form";
@@ -26,6 +27,7 @@ export class FormDefinitionComponent implements OnInit {
   public columns:any[]=[];
   public buttons:any[]=[];
   public lookups:any[]=[];
+  public actions:any[]=[];
   public fullObject:any;
 
 
@@ -53,6 +55,9 @@ export class FormDefinitionComponent implements OnInit {
       this.objectType="lookup";
       this.getLookups();
       break;
+    case 5:
+      this.objectType="action";
+      this.getActions();
 
   }
   this.selectedObject=null;
@@ -98,8 +103,40 @@ export class FormDefinitionComponent implements OnInit {
             }})
           }
           break; 
+        case 'action':
+            if (this.selectedObject==null){this.fullObject=null;}else{
+              this.dataService.get_action_by_id(this.selectedObject.id).subscribe({next:(result)=>{
+                this.fullObject=result;
+              }})
+            }
+            break; 
     }
 
+  }
+
+  newObject()
+  {
+    this.selectedObject=null;
+    switch(this.objectType)
+    {
+      case "form":
+        this.fullObject={id:0,description:""};
+        break;
+      case "button":
+        this.fullObject={id:0,description:"",buttons:[]};
+        break;
+      case "field":
+        this.fullObject={id:0,description:"",column_count:0,fields:[]};
+        break;
+      case "lookup":
+        this.fullObject={id:0,description:"",content:""};
+        break;
+      case "column":
+        this.fullObject={id:0,description:"",columns:[]};
+        break;
+      case "action":
+        this.fullObject={id:0,description:"",actions:[]};
+    }
   }
 
   refresh(source:any)
@@ -123,6 +160,10 @@ export class FormDefinitionComponent implements OnInit {
       if (this.objectType=="lookup")
       {
         this.tabChanged({index:4});
+      }
+      if (this.objectType=="action")
+      {
+        this.tabChanged({index:5});
       }
   }
 
@@ -163,6 +204,12 @@ export class FormDefinitionComponent implements OnInit {
   {
     this.dataService.get_lookup().subscribe({next:(result:any)=>{
       this.lookups=[...result];
+    }})
+  }
+  getActions()
+  {
+    this.dataService.get_action().subscribe({next:(result:any)=>{
+      this.actions=[...result];
     }})
   }
 }

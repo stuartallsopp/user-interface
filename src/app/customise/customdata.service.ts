@@ -40,6 +40,11 @@ export class CustomdataService {
     return this.http.get(environment.forms_api+"menutree/field/"+id);
   }
 
+  get_action_by_id(id:number)
+  {
+    return this.http.get(environment.forms_api+"menutree/action/"+id);
+  }
+
   get_menu()
   {
     return this.http.get(environment.forms_api+"menutree");
@@ -48,6 +53,11 @@ export class CustomdataService {
   get_page()
   {
     return this.http.get(environment.forms_api+"menutree/page");
+  }
+
+  get_action()
+  {
+    return this.http.get(environment.forms_api+"menutree/action");
   }
 
   get_lookup()
@@ -83,6 +93,11 @@ export class CustomdataService {
   update_field(field:any)
   {
     return this.http.post(environment.forms_api+"menutree/field",field);
+  }
+
+  update_action(action:any)
+  {
+    return this.http.post(environment.forms_api+"menutree/action",action);
   }
 
   update(node:any)

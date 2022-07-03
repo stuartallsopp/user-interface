@@ -1,0 +1,69 @@
+<div class="p-fluid grid mt-2">
+    <div class="field col-12 md:col-6">
+        <span class="p-float-label">
+            <input type="text" id="description" pInputText [(ngModel)]="panel.description"> 
+            <label for="description">Description</label>
+        </span>
+    </div>
+    <div class="field col-12 md:col-2">
+        <span class="p-float-label">
+            <p-dropdown inputId="type" appendTo="body" [options]="['field','list']" [(ngModel)]="panel.type"></p-dropdown>
+            <label for="type">Type</label>
+        </span>
+    </div>
+    <div class="field col-12 md:col-2">
+        <span class="p-float-label">
+            <p-dropdown inputId="colour" appendTo="body" [options]="['primary','secondary','danger','success','info','warning']" [(ngModel)]="panel.colour"></p-dropdown>
+            <label for="colour">Colour</label>
+        </span>
+    </div>
+    <div class="field col-12 md:col-2">
+        <span class="p-float-label">
+            <input type="text" id="data_field" pInputText [(ngModel)]="panel.data_field"> 
+            <label for="data_field">Data Field</label>
+        </span>
+    </div>
+    <div class="field col-12 md:col-3" *ngIf="panel.type=='list'">
+        <span class="p-float-label">
+            <p-dropdown appendTo="body" inputId="list_id" [autoDisplayFirst]="false" [options]="listlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="panel.list_id" optionLabel="description" optionValue="id">
+                <ng-template let-item pTemplate="item">
+                    <span>{{item.description}}</span>
+                </ng-template>
+            </p-dropdown>
+            <label for="list_id">List</label>
+        </span>
+    </div>
+    <div class="field col-12 md:col-3" *ngIf="panel.type=='field'">
+        <span class="p-float-label">
+            <p-dropdown appendTo="body" inputId="fieldset_id" [autoDisplayFirst]="false" [options]="fieldlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="panel.fieldset_id" optionLabel="description" optionValue="id">
+                <ng-template let-item pTemplate="item">
+                    <span>{{item.description}}</span>
+                </ng-template>
+            </p-dropdown>
+            <label for="fieldset_id">Fields</label>
+        </span>
+    </div>
+    <div  class="field col-12 md:col-2">
+        <span class="flex">
+            <p-inputSwitch styleClass="mt-1" inputId="display_description" [(ngModel)]="panel.display_description"></p-inputSwitch>
+            <label class="pl-2 pt-2" for="display_description">Display Description</label>
+        </span>
+    </div>
+    <div  class="field col-12 md:col-2">
+        <span class="flex">
+            <p-inputSwitch styleClass="mt-1" inputId="has_border" [(ngModel)]="panel.has_border"></p-inputSwitch>
+            <label class="pl-2 pt-2" for="has_border">Has Border</label>
+        </span>
+    </div>
+    <div  class="field col-12 md:col-2">
+        <span class="flex">
+            <p-inputSwitch styleClass="mt-1" inputId="has_border" (onChange)="includeexcludefield()" [(ngModel)]="has_field"></p-inputSwitch>
+            <label class="pl-2 pt-2" for="has_border">Has Field</label>
+        </span>
+    </div>
+    <div class="col-12" *ngIf="has_field==true">
+        <p>Field</p>
+        <app-field-edit [(field)]="panel.field" [lookuplist]="lookuplist"></app-field-edit>
+    </div>
+    <div class="col-12 text-right"><button (click)="savePanel.emit(panel)" pButton icon="fa-solid fa-floppy-disk" class="p-button-success p-button-rounded p-button-outlined"></button></div>
+</div>

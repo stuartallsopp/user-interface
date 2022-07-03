@@ -27,3 +27,9 @@
     </div>
 </div>
 
+<p-dialog header="Panel" [modal]="true" [(visible)]="panel_edit_display" *ngIf="edited_panel" [style]="{width: '60vw'}">
+    <app-panel-edit [lookuplist]="lookuplist" [(panel)]="edited_panel" (savePanel)="savePanel($event)" [listlist]="listlist" [fieldlist]="fieldlist"></app-panel-edit>
+</p-dialog>
+
+
+

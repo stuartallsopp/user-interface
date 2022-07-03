@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-panel-outline',
@@ -9,10 +9,16 @@ export class PanelOutlineComponent implements OnInit {
 
 
   @Input() panels:any[]=[];
+  @Output() panelsChange=new EventEmitter<any[]>();
+
+  @Input() fieldlist:any[]=[];
+  @Input() listlist:any[]=[];
+  @Input() lookuplist:any[]=[];
 
   public panel_edit_display:boolean=false;
   public edited_panel:any=null;
   public edited_row:number=0;
+
 
   constructor() { }
 
@@ -41,10 +47,12 @@ export class PanelOutlineComponent implements OnInit {
   {
     this.panels.splice(row,1);
     this.panels=[...this.panels];
+    this.panelsChange.emit(this.panels);
   }
 
-  savePanel()
+  savePanel(event:any)
   {
+    this.edited_panel=event;
       if (this.edited_row==-1)
       {
         this.panels.push({...this.edited_panel});
@@ -55,6 +63,7 @@ export class PanelOutlineComponent implements OnInit {
       this.edited_panel=null;
       this.panel_edit_display=false;
       this.panels=[...this.panels];
+      this.panelsChange.emit(this.panels);
   }
 
   moveup(row:number,panel:any)
@@ -64,6 +73,7 @@ export class PanelOutlineComponent implements OnInit {
     this.panels.splice(row-1,0,panel);
     this.setRows();
     this.panels=[...this.panels];
+    this.panelsChange.emit(this.panels);
   }
 
   setRows()
@@ -84,5 +94,6 @@ export class PanelOutlineComponent implements OnInit {
     this.panels.splice(row+1,0,panel);
     this.setRows();
     this.panels=[...this.panels];
+    this.panelsChange.emit(this.panels);
   }
 }

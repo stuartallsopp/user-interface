@@ -79,7 +79,7 @@ export class AcSingleSearchComponent implements OnInit,AfterViewInit {
       var search:any[]=[];
       if (search_param.search)
       {
-        search.push({type:"begins","column":search_param.search,"value":query});
+        search.push({type:"contains","column":search_param.search,"value":query});
       }
 
       var url=this.definition.data_url;
@@ -87,7 +87,6 @@ export class AcSingleSearchComponent implements OnInit,AfterViewInit {
       {
         url=url.replace("{id}",this.data.id);
       }
-      console.log(this.data);
       this.dataService.list(url,50,0,search_param.order,"asc",search).subscribe(
         {
           next:(result:any)=>{

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pagecolumn-outline',
@@ -8,10 +8,16 @@ import { Component, Input, OnInit } from '@angular/core';
 export class PagecolumnOutlineComponent implements OnInit {
 
   @Input() columns:any[]=[];
+  @Output() columnsChange=new EventEmitter<any>();
+  @Input() fieldlist:any[]=[];
+  @Input() lookuplist:any[]=[];
+  @Input() listlist:any[]=[];
 
   public column_edit_display:boolean=false;
   public edited_column:any=null;
   public edited_row:number=0;
+
+
 
   constructor() { }
 
@@ -54,6 +60,7 @@ export class PagecolumnOutlineComponent implements OnInit {
       this.edited_column=null;
       this.column_edit_display=false;
       this.columns=[...this.columns];
+      this.columnsChange.emit(this.columns);
   }
 
   moveup(row:number,column:any)
@@ -63,6 +70,7 @@ export class PagecolumnOutlineComponent implements OnInit {
     this.columns.splice(row-1,0,column);
     this.setRows();
     this.columns=[...this.columns];
+    this.columnsChange.emit(this.columns);
   }
 
   setRows()
@@ -83,6 +91,7 @@ export class PagecolumnOutlineComponent implements OnInit {
     this.columns.splice(row+1,0,column);
     this.setRows();
     this.columns=[...this.columns];
+    this.columnsChange.emit(this.columns);
   }
 
 }

@@ -27,6 +27,8 @@ import { PanelOutlineComponent } from './panel-outline/panel-outline.component';
 import { PagecolumnOutlineComponent } from './pagecolumn-outline/pagecolumn-outline.component';
 import { ActioncustomOutlineComponent } from './actioncustom-outline/actioncustom-outline.component';
 import { ListOutlineComponent } from './list-outline/list-outline.component';
+import { PanelEditComponent } from './panel-edit/panel-edit.component';
+import { FieldEditComponent } from './field-edit/field-edit.component';
 
 
 
@@ -43,7 +45,9 @@ import { ListOutlineComponent } from './list-outline/list-outline.component';
     PanelOutlineComponent,
     PagecolumnOutlineComponent,
     ActioncustomOutlineComponent,
-    ListOutlineComponent
+    ListOutlineComponent,
+    PanelEditComponent,
+    FieldEditComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,106 @@
+<div class="p-fluid grid mt-2">
+    <div class="field col-12 md:col-2">
+        <span class="p-float-label">
+            <input type="text" id="label" pInputText [(ngModel)]="field.label"> 
+            <label for="label">Label</label>
+        </span>
+    </div>
+    <div class="field col-12 md:col-3">
+        <span class="p-float-label">
+            <input type="text" id="fieldname" pInputText [(ngModel)]="field.fieldname"> 
+            <label for="fieldname">Field</label>
+        </span>
+    </div>
+    <div  class="field col-12 md:col-1">
+        <span class="p-float-label">
+            <p-inputNumber [min]="1" [max]="12" inputId="width" [(ngModel)]="field.width" [showButtons]="true" [maxFractionDigits]="0" mode="decimal"></p-inputNumber>
+            <label for="width">Width</label>
+        </span>
+    </div>
+    <div class="field col-12 md:col-2">
+        <span class="p-float-label">
+            <p-dropdown inputId="type" appendTo="body" [options]="['tex_entry','aut_entry','tex_disp','num_entry','num_disp','dat_entry','dat_disp','plst_entry','swch_entry','pitem_entry']" [(ngModel)]="field.type"></p-dropdown>
+            <label for="type">Type</label>
+        </span>
+    </div>
+    <div class="field col-12 md:col-2" *ngIf="field.type.indexOf('disp')<0">
+        <span class="p-float-label">
+            <input type="text" id="dsiable_on" pInputText [(ngModel)]="field.disable_on"> 
+            <label for="disable_on">Disable On</label>
+        </span>
+    </div>
+    <div  class="field col-12 md:col-2" *ngIf="field.type.indexOf('disp')<0">
+        <span class="flex">
+            <p-inputSwitch styleClass="mt-1" inputId="compulsory" [(ngModel)]="field.compulsory"></p-inputSwitch>
+            <label class="pl-2 pt-2" for="multiple">Compulsory</label>
+        </span>
+    </div>
+    <div  class="field col-12 md:col-11">
+        <span class="p-float-label">
+            <input type="text" id="info_text" pInputText [(ngModel)]="field.info_text"> 
+            <label for="info_text">Information Text</label>
+        </span>
+    </div>
+    <div  class="field col-12 md:col-1">
+        <span class="p-float-label">
+            <p-inputNumber [min]="0" [max]="12" inputId="column_no" [(ngModel)]="field.column_no" [showButtons]="true" [maxFractionDigits]="0" mode="decimal"></p-inputNumber>
+            <label for="column_no">Column</label>
+        </span>
+    </div>
+    <div class="field col-12 md:col-3" *ngIf="field.type=='num_entry'||field.type=='dat_entry'||field.type=='num_disp'||field.type=='dat_disp'">
+        <span class="p-float-label">
+            <input type="text" id="format" pInputText [(ngModel)]="field.format"> 
+            <label for="format">Format</label>
+        </span>
+    </div>
+    <div class="field col-12 md:col-3" *ngIf="field.type=='tex_entry'">
+        <span class="p-float-label">
+            <input type="text" id="key_filter" pInputText [(ngModel)]="field.key_filter"> 
+            <label for="key_filter">Key Filter</label>
+        </span>
+    </div>
+    <div class="field col-12 md:col-3">
+        <span class="p-float-label">
+            <input type="text" id="suffix" pInputText [(ngModel)]="field.suffix"> 
+            <label for="suffix">Suffix</label>
+        </span>
+    </div>
+    <div class="field col-12 md:col-3" *ngIf="field.type=='pitem_entry'||field.type=='plst_entry'">
+        <span class="p-float-label">
+            <p-dropdown appendTo="body" [autoDisplayFirst]="false" [options]="lookuplist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="field.lookup_id" optionLabel="description" optionValue="id">
+                <ng-template let-item pTemplate="item">
+                    <span>{{item.description}}</span>
+                </ng-template>
+            </p-dropdown>
+            <label for="lookup">Lookup</label>
+        </span>
+    </div>
+    <div class="col-12"  *ngIf="field.type=='pitem_entry'||field.type=='plst_entry'||field.type=='aut_entry'">
+        <div class="grid">
+            <div class="field col-12 md:col-10">
+                <span class="p-float-label">
+                    <input type="text" id="data_url" pInputText [(ngModel)]="field.data_url"> 
+                    <label for="data_url">Data Url</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-2">
+                <span class="p-float-label">
+                    <p-dropdown inputId="type" appendTo="body" [options]="['','POST','GET']" [(ngModel)]="field.data_url_method"></p-dropdown>
+                    <label for="data_url_method">Method</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <textarea id="data_url_param" pInputTextarea pInputTextarea rows="3" [(ngModel)]="field.data_url_param"></textarea>
+                    <label for="data_url_param">Data Url Parameters</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-6">
+                <span class="p-float-label">
+                    <textarea id="aut_config" pInputTextarea pInputTextarea rows="3" [(ngModel)]="field.aut_config"></textarea>
+                    <label for="aut_config">Configurations</label>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,6 +12,9 @@
                             <app-panel [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
                         </ng-container>
                 </div>
+                <div *ngFor="let panel of page_definition.panels" class="pb-0 pt-0" [ngClass]="responsive.get(12)">
+                    <app-panel [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                </div>
             </div>
         </div>
         <div class="hidden sm:hidden md:block md:col-3 lg:block lg:col-2 xl:block xl:col-2">

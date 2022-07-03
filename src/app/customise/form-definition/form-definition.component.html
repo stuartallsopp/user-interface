@@ -74,7 +74,7 @@
         </div>
     </div>
     <div class="col-8">
-        <app-form-outline *ngIf="fullObject&&objectType=='form'" [actionlist]="actions" [buttonlist]="buttons" [fullPage]="fullObject"></app-form-outline>
+        <app-form-outline *ngIf="fullObject&&objectType=='form'" [lookuplist]="lookups" [listlist]="lists" [fieldlist]="fields" [actionlist]="actions" [buttonlist]="buttons" [fullPage]="fullObject"></app-form-outline>
         <app-column-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='column'" [lookuplist]="lookups" [fullPage]="fullObject"></app-column-outline>
         <app-field-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='field'" [lookuplist]="lookups" [fullPage]="fullObject"></app-field-outline>
         <app-button-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='button'" [fullPage]="fullObject"></app-button-outline>

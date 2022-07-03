@@ -19,6 +19,7 @@ export class DataService {
       order_by:order_by,
       direction: dir,
       begins:null,
+      contains:null,
       equals:null,
       isin:null
     }
@@ -33,6 +34,11 @@ export class DataService {
       if (equals!=null)
       {
         payload.equals=equals;
+      }
+      var contains=search.filter((p: { type: string; })=>p.type=="contains");
+      if (contains!=null)
+      {
+        payload.contains=contains;
       }
       var isin=search.filter((p: { type: string; })=>p.type=="isin");
       if (isin!=null&&isin.value!=null)

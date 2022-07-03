@@ -11,6 +11,9 @@ export class FormOutlineComponent implements OnInit {
   @Input() fullPage:any;
   @Input() buttonlist:any[]=[];
   @Input() actionlist:any[]=[];
+  @Input() fieldlist:any[]=[];
+  @Input() listlist:any[]=[];
+  @Input() lookuplist:any[]=[];
 
 
 

@@ -273,6 +273,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
 
   refreshFromUrl(pageno:number=1,filters:any=null)
   {
+    console.log(filters);
     if (this.definition.data_url?.length>0)
     {
       var url=this.definition.data_url;

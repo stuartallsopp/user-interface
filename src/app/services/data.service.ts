@@ -33,6 +33,7 @@ export class DataService {
       var equals=search.filter((p: { type: string; })=>p.type=="equals");
       if (equals!=null)
       {
+        console.log('got equals');
         payload.equals=equals;
       }
       var contains=search.filter((p: { type: string; })=>p.type=="contains");
@@ -41,12 +42,11 @@ export class DataService {
         payload.contains=contains;
       }
       var isin=search.filter((p: { type: string; })=>p.type=="isin");
-      if (isin!=null&&isin.value!=null)
+      if (isin!=null&&isin[0].value!=null)
       {
         payload.isin=isin;
       }
     }
-
     return this.http.post(environment.data_api+url,payload);
   }
 

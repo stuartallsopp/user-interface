@@ -8,8 +8,8 @@
                 <app-fieldpicker (value_changed)="field_changed($event)" [field]="definition.field" [parentdata]="data" [data]="local_data"></app-fieldpicker>
             </div>
         </div>
-        <ng-container *ngFor="let list of definition.lists">
-            <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="list"></app-list>
+        <ng-container *ngIf="definition.list">
+            <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-list>
         </ng-container>
         <ng-container  *ngIf="definition.fieldset">
             <app-fieldset [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
@@ -26,10 +26,8 @@
         <div class="col-12" *ngIf="definition.display_description">
             <p-divider styleClass="mb-0 mt-1">{{definition.description}}</p-divider>
         </div>
-        <div class="col-12" *ngIf="definition.lists?.length>0">
-            <ng-container *ngFor="let list of definition.lists">
-                <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="list"></app-list>
-            </ng-container>
+        <div class="col-12" *ngIf="definition.list">
+            <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-list>
         </div>
         <div class="col-12" *ngIf="definition.fieldset">
             <app-fieldset [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>

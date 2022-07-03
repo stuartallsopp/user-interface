@@ -38,3 +38,33 @@
         </div>
     </div>
 </div>
+
+<p-dialog header="Action" [modal]="true" [(visible)]="action_edit_display" *ngIf="edited_action" [style]="{width: '40vw'}">
+    <div class="p-fluid grid mt-2">
+        <div class="field col-12 md:col-6">
+            <span class="p-float-label">
+                <input type="text" id="key" pInputText [(ngModel)]="edited_action.key"> 
+                <label for="key">Key</label>
+            </span>
+        </div>
+        <div class="field col-12 md:col-6">
+            <span class="p-float-label">
+                <p-dropdown [editable]="true" appendTo="body" inputId="type" [options]="['dialog','delete','goto','save','close_dialog','redraw_parent','cancel_page','move']" [(ngModel)]="edited_action.type"></p-dropdown>
+                <label for="type">Type</label>
+            </span>
+        </div>
+        <div class="field col-12 md:col-6">
+            <span class="p-float-label">
+                <input type="text" id="valid_key" pInputText [(ngModel)]="edited_action.valid_key"> 
+                <label for="valid_key">Key If Valid</label>
+            </span>
+        </div>
+        <div class="field col-12 md:col-6">
+            <span class="p-float-label">
+                <input type="text" id="invalid_key" pInputText [(ngModel)]="edited_action.invalid_key"> 
+                <label for="invalid_key">Key If Not Valid</label>
+            </span>
+        </div>
+        <div class="col-12 text-right"><button (click)="saveAction()" pButton icon="fa-solid fa-floppy-disk" class="p-button-success p-button-rounded p-button-outlined"></button></div>
+    </div>
+</p-dialog>

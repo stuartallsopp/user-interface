@@ -18,6 +18,7 @@ export class FormDefinitionComponent implements OnInit {
     this.getFields();
     this.getLookups();
     this.getActions();
+    this.getLists();
   }
 
   public objectType:string="form";
@@ -28,8 +29,14 @@ export class FormDefinitionComponent implements OnInit {
   public buttons:any[]=[];
   public lookups:any[]=[];
   public actions:any[]=[];
+  public lists:any[]=[];
   public fullObject:any;
 
+  closeTab(event:any)
+  {
+    this.fullObject=null;
+    this.objectType="";
+  }
 
   tabChanged(event:any)
 {
@@ -58,6 +65,10 @@ export class FormDefinitionComponent implements OnInit {
     case 5:
       this.objectType="action";
       this.getActions();
+      break;
+    case 6:
+      this.objectType="list";
+      this.getLists();
 
   }
   this.selectedObject=null;
@@ -103,13 +114,20 @@ export class FormDefinitionComponent implements OnInit {
             }})
           }
           break; 
-        case 'action':
-            if (this.selectedObject==null){this.fullObject=null;}else{
-              this.dataService.get_action_by_id(this.selectedObject.id).subscribe({next:(result)=>{
-                this.fullObject=result;
-              }})
-            }
-            break; 
+      case 'action':
+          if (this.selectedObject==null){this.fullObject=null;}else{
+            this.dataService.get_action_by_id(this.selectedObject.id).subscribe({next:(result)=>{
+              this.fullObject=result;
+            }})
+          }
+          break; 
+      case 'list':
+        if (this.selectedObject==null){this.fullObject=null;}else{
+          this.dataService.get_list_by_id(this.selectedObject.id).subscribe({next:(result)=>{
+            this.fullObject=result;
+          }})
+        }
+        break; 
     }
 
   }
@@ -136,6 +154,10 @@ export class FormDefinitionComponent implements OnInit {
         break;
       case "action":
         this.fullObject={id:0,description:"",actions:[]};
+        break;
+      case "list":
+        this.fullObject={id:0,description:"",columns:[]};
+        break;
     }
   }
 
@@ -164,6 +186,10 @@ export class FormDefinitionComponent implements OnInit {
       if (this.objectType=="action")
       {
         this.tabChanged({index:5});
+      }
+      if (this.objectType=="list")
+      {
+        this.tabChanged({index:6});
       }
   }
 
@@ -210,6 +236,13 @@ export class FormDefinitionComponent implements OnInit {
   {
     this.dataService.get_action().subscribe({next:(result:any)=>{
       this.actions=[...result];
+    }})
+  }
+
+  getLists()
+  {
+    this.dataService.get_list().subscribe({next:(result:any)=>{
+      this.lists=[...result];
     }})
   }
 }

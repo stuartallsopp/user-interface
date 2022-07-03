@@ -44,20 +44,30 @@
                     </div>
                 </div>
             </div>
-            <div class="field col-8">
+            <div class="field col-6">
                 <span class="p-float-label">
                     <textarea pInputTextarea pInputTextarea rows="2" [(ngModel)]="fullPage.help_text"></textarea>
                     <label for="help_text">Help Text</label>
                 </span>
             </div>
-            <div class="field col-4">
+            <div class="field col-3">
                 <span class="p-float-label">
-                    <p-dropdown [autoDisplayFirst]="false" [options]="buttonlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="fullPage.button_set_id" optionLabel="description" optionValue="id">
+                    <p-dropdown inputId="button_set_id"  [autoDisplayFirst]="false" [options]="buttonlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="fullPage.button_set_id" optionLabel="description" optionValue="id">
                         <ng-template let-item pTemplate="item">
                             <span>{{item.description}}</span>
                         </ng-template>
                     </p-dropdown>
-                    <label for="page_id">Buttons</label>
+                    <label for="button_set_id">Buttons</label>
+                </span>
+            </div>
+            <div class="field col-3">
+                <span class="p-float-label">
+                    <p-dropdown inputId="actionset_id" [autoDisplayFirst]="false" [options]="actionlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="fullPage.actionset_id" optionLabel="description" optionValue="id">
+                        <ng-template let-item pTemplate="item">
+                            <span>{{item.description}}</span>
+                        </ng-template>
+                    </p-dropdown>
+                    <label for="actionset_id">Actions</label>
                 </span>
             </div>
             <div class="col-12"  *ngIf="fullPage.type!='dialog'">
@@ -94,12 +104,16 @@
             </div>
         </div>
     </div>
-    <div class="col-12" *ngIf="fullPage.format_type=='panels'">
+    <div class="col-6" *ngIf="fullPage.format_type=='panels'">
         <app-panel-outline [panels]="fullPage.panels"></app-panel-outline>
     </div>
-    <div class="col-12" *ngIf="fullPage.format_type=='columns'">
-        Columns
+    <div class="col-6" *ngIf="fullPage.format_type=='columns'">
+        <app-pagecolumn-outline [columns]="fullPage.columns"></app-pagecolumn-outline>
+    </div>
+    <div class="col-6" *ngIf="fullPage.actionset_id!=undefined&&fullPage.actionset_id!=null&&fullPage.actionset_id!=0">
+        <app-actioncustom-outline [(items)]="fullPage.action_customisations"></app-actioncustom-outline>
     </div>
 </div>
+
 
 

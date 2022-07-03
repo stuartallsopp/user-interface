@@ -25,6 +25,11 @@ export class CustomdataService {
     return this.http.get(environment.forms_api+"menutree/button/"+id);
   }
 
+  get_list_by_id(id:number)
+  {
+    return this.http.get(environment.forms_api+"menutree/list/"+id);
+  }
+
   get_column_by_id(id:number)
   {
     return this.http.get(environment.forms_api+"menutree/column/"+id);
@@ -60,6 +65,11 @@ export class CustomdataService {
     return this.http.get(environment.forms_api+"menutree/action");
   }
 
+  get_list()
+  {
+    return this.http.get(environment.forms_api+"menutree/list");
+  }
+
   get_lookup()
   {
     return this.http.get(environment.forms_api+"menutree/lookup");
@@ -85,9 +95,24 @@ export class CustomdataService {
     return this.http.post(environment.forms_api+"menutree/button",button);
   }
 
+  update_column(column:any)
+  {
+    return this.http.post(environment.forms_api+"menutree/column",column);
+  }
+
   update_lookup(lookup:any)
   {
     return this.http.post(environment.forms_api+"menutree/lookup",lookup);
+  }
+
+  update_form(form:any)
+  {
+    return this.http.post(environment.forms_api+"menutree/page",form);
+  }
+
+  update_list(list:any)
+  {
+    return this.http.post(environment.forms_api+"menutree/list",list);
   }
 
   update_field(field:any)

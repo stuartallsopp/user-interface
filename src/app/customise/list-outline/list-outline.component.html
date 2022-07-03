@@ -1,0 +1,127 @@
+<div class="grid" *ngIf="fullPage">
+    <div class="col-12">
+        <button pButton (click)="updateEdit()" label="Update" class="m-2 p-button-outlined p-button-rounded p-button-secondary"></button>
+    </div>
+    <div class="col-12">
+        <div class="p-fluid grid mt-3">
+            <div class="field col-12 md:col-4">
+                <span class="p-float-label">
+                    <input type="text" id="description" pInputText [(ngModel)]="fullPage.description"> 
+                    <label for="description">Description</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-2">
+                <span class="p-float-label">
+                    <p-dropdown inputId="column_set_id"  [autoDisplayFirst]="false" [options]="columnlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="fullPage.column_set_id" optionLabel="description" optionValue="id">
+                        <ng-template let-item pTemplate="item">
+                            <span>{{item.description}}</span>
+                        </ng-template>
+                    </p-dropdown>
+                    <label for="column_set_id">Columns</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-2">
+                <span class="p-float-label">
+                    <p-dropdown inputId="button_set_id"  [autoDisplayFirst]="false" [options]="buttonlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="fullPage.button_set_id" optionLabel="description" optionValue="id">
+                        <ng-template let-item pTemplate="item">
+                            <span>{{item.description}}</span>
+                        </ng-template>
+                    </p-dropdown>
+                    <label for="button_set_id">Buttons</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-2">
+                <span class="p-float-label">
+                    <p-dropdown inputId="actionset_id"  [autoDisplayFirst]="false" [options]="actionlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="fullPage.actionset_id" optionLabel="description" optionValue="id">
+                        <ng-template let-item pTemplate="item">
+                            <span>{{item.description}}</span>
+                        </ng-template>
+                    </p-dropdown>
+                    <label for="actionset_id">Actions</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-2">
+                <span class="p-float-label">
+                    <p-dropdown inputId="colour" appendTo="body" [options]="['none','primary','secondary','danger','success','info','warning']" [(ngModel)]="fullPage.colour"></p-dropdown>
+                    <label for="colour">Colour</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-2">
+                <span class="p-float-label">
+                    <input type="text" id="sort_key" pInputText [(ngModel)]="fullPage.sort_key"> 
+                    <label for="sort_key">Sort by</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-1">
+                <span class="p-float-label">
+                    <p-inputNumber [min]="0" inputId="column_count" [(ngModel)]="fullPage.page_size" [showButtons]="true" [maxFractionDigits]="0" mode="decimal"></p-inputNumber>
+                    <label for="page_size">Page Size</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-7">
+                <span class="p-float-label">
+                    <input type="text" id="data_url" pInputText [(ngModel)]="fullPage.data_url"> 
+                    <label for="data_url">Url</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-2">
+                <span class="p-float-label">
+                    <input type="text" id="data_field" pInputText [(ngModel)]="fullPage.data_field"> 
+                    <label for="data_field">Field</label>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 md:col-6">
+        <p-table sortField="id" [value]="fullPage.filters" dataKey="id">
+            <ng-template pTemplate="header">
+                <th>Definition</th>
+                <th><button (click)="addFilter()" pButton class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-success" icon="fa-solid fa-plus"></button></th>
+            </ng-template>
+            <ng-template pTemplate="body" let-filter let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{filter.definition_url}}</td>
+                  <td>
+                    <span class="p-button-set">
+                        <button pButton (click)="editFilter(filter,rowIndex)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-primary" icon="fa-solid fa-edit"></button>
+                        <button pButton (click)="deleteFilter(filter,rowIndex)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-danger" icon="fa-solid fa-trash"></button>
+                     </span>
+                  </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="col-12 md:col-6" *ngIf="fullPage.actionset_id!=undefined&&fullPage.actionset_id!=null&&fullPage.actionset_id!=0">
+        <app-actioncustom-outline [(items)]="fullPage.action_customisations"></app-actioncustom-outline>
+    </div>
+</div>
+
+<p-dialog header="Filter" [modal]="true" [(visible)]="filter_edit_display" *ngIf="edited_filter" [style]="{width: '40vw'}">
+    <div class="p-fluid grid mt-2">
+        <div class="field col-12 md:col-12">
+            <span class="p-float-label">
+                <input type="text" id="label" pInputText [(ngModel)]="edited_filter.definition_url"> 
+                <label for="label">Definition Url</label>
+            </span>
+        </div>
+        <div class="col-12">
+            <p-table [value]="edited_filter.items" sortField="id" dataKey="id">
+                <ng-template pTemplate="header">
+                    <th>Item</th>
+                    <th><button (click)="addFilterItem()" pButton class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-success" icon="fa-solid fa-plus"></button></th>
+                </ng-template>
+                <ng-template pTemplate="body" let-filteritem let-rowIndex="rowIndex">
+                    <tr>
+                        <td><input pInputText [(ngModel)]="filteritem.type"/></td>
+                      <td>
+                        <span class="p-button-set">
+                             <button pButton (click)="deleteFilterItem(filteritem,rowIndex)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-danger" icon="fa-solid fa-trash"></button>
+                         </span>
+                      </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="col-12 text-right"><button (click)="saveFilter()" pButton icon="fa-solid fa-floppy-disk" class="p-button-success p-button-rounded p-button-outlined"></button></div>
+    </div>
+</p-dialog>

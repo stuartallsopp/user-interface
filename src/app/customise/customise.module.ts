@@ -6,6 +6,8 @@ import {TabViewModule} from 'primeng/tabview';
 import {TableModule} from 'primeng/table';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {ChipModule} from 'primeng/chip';
+import {AccordionModule} from 'primeng/accordion';
 import {DropdownModule} from 'primeng/dropdown';
 import {DialogModule} from 'primeng/dialog';
 import {InputTextareaModule} from 'primeng/inputtextarea';
@@ -22,6 +24,9 @@ import { ButtonOutlineComponent } from './button-outline/button-outline.componen
 import { LookupOutlineComponent } from './lookup-outline/lookup-outline.component';
 import { ActionOutlineComponent } from './action-outline/action-outline.component';
 import { PanelOutlineComponent } from './panel-outline/panel-outline.component';
+import { PagecolumnOutlineComponent } from './pagecolumn-outline/pagecolumn-outline.component';
+import { ActioncustomOutlineComponent } from './actioncustom-outline/actioncustom-outline.component';
+import { ListOutlineComponent } from './list-outline/list-outline.component';
 
 
 
@@ -35,7 +40,10 @@ import { PanelOutlineComponent } from './panel-outline/panel-outline.component';
     ButtonOutlineComponent,
     LookupOutlineComponent,
     ActionOutlineComponent,
-    PanelOutlineComponent
+    PanelOutlineComponent,
+    PagecolumnOutlineComponent,
+    ActioncustomOutlineComponent,
+    ListOutlineComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +53,9 @@ import { PanelOutlineComponent } from './panel-outline/panel-outline.component';
     DropdownModule,
     AutoCompleteModule,
     InputNumberModule,
+    AccordionModule,
     DialogModule,
+    ChipModule,
     InputSwitchModule,
     TableModule,
     InputTextareaModule,

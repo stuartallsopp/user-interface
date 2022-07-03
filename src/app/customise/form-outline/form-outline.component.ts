@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CustomdataService } from '../customdata.service';
 
 @Component({
   selector: 'app-form-outline',
@@ -9,11 +10,12 @@ export class FormOutlineComponent implements OnInit {
 
   @Input() fullPage:any;
   @Input() buttonlist:any[]=[];
+  @Input() actionlist:any[]=[];
 
 
 
 
-  constructor() { }
+  constructor(private dataService:CustomdataService) { }
 
   ngOnInit(): void {
   }
@@ -21,7 +23,9 @@ export class FormOutlineComponent implements OnInit {
 
   updateEdit()
   {
-
+      this.dataService.update_form(this.fullPage).subscribe({next:(result)=>{
+        console.log(result);
+      }})
   }
 
   cancelEdit()

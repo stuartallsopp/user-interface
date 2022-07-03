@@ -5,90 +5,81 @@
                 <button pButton  label="New" (click)="newObject()"  class="m-2 p-button-outlined p-button-rounded p-button-secondary"></button>
              </div>
             <div class="col-12">
-                <p-tabView (onChange)="tabChanged($event)">
-                    <p-tabPanel header="Forms">
+                <p-accordion (onOpen)="tabChanged($event)" (onClose)="closeTab($event)">
+                    <p-accordionTab header="Forms">
                         <p-table [value]="pages" selectionMode="single" (onRowSelect)="rowSelected('form')" (onRowUnselect)="rowSelected('form')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-page>
                                 <tr [pSelectableRow]="page">
-                                    <td>{{page.description}}</td>
-                                    <td>{{page.type}}</td>
-                                    <td>
-                                        <button pButton (click)="delete('form',page)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-danger" icon="fa-solid fa-trash"></button>
-                                    </td>
+                                    <td>{{page.description}} ({{page.type}}) <p-chip styleClass="custom-chip" [label]="page.id"></p-chip></td>
                                 </tr>
                             </ng-template>
                         </p-table>
-                    </p-tabPanel>
-                    <p-tabPanel header="Column Sets">
+                    </p-accordionTab>
+                    <p-accordionTab header="Column Sets">
                         <p-table [value]="columns" selectionMode="single" (onRowSelect)="rowSelected('column')" (onRowUnselect)="rowSelected('column')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-column>
                                 <tr [pSelectableRow]="column">
-                                    <td>{{column.description}}</td>
-                                    <td>
-                                        <button pButton (click)="delete('column',column)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-danger" icon="fa-solid fa-trash"></button>
-                                    </td>
+                                    <td>{{column.description}}<p-chip styleClass="custom-chip" [label]="column.id"></p-chip></td>
                                 </tr>
                             </ng-template>
                         </p-table>
-                    </p-tabPanel>
-                    <p-tabPanel header="Field Sets">
+                    </p-accordionTab>
+                    <p-accordionTab header="Field Sets">
                         <p-table [value]="fields" selectionMode="single" (onRowSelect)="rowSelected('field')" (onRowUnselect)="rowSelected('field')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-field>
                                 <tr [pSelectableRow]="field">
-                                    <td>{{field.description}}</td>
-                                    <td>
-                                        <button pButton (click)="delete('field',field)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-danger" icon="fa-solid fa-trash"></button>
-                                    </td>
+                                    <td>{{field.description}}<p-chip styleClass="custom-chip" [label]="field.id"></p-chip></td>
                                 </tr>
                             </ng-template>
                         </p-table>
-                    </p-tabPanel>
-                    <p-tabPanel header="Button Sets">
+                    </p-accordionTab>
+                    <p-accordionTab header="Button Sets">
                         <p-table [value]="buttons" selectionMode="single" (onRowSelect)="rowSelected('button')" (onRowUnselect)="rowSelected('button')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-button>
                                 <tr [pSelectableRow]="button">
-                                    <td>{{button.description}}</td>
-                                    <td>
-                                        <button pButton (click)="delete('button',button)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-danger" icon="fa-solid fa-trash"></button>
-                                    </td>
+                                    <td>{{button.description}}<p-chip styleClass="custom-chip" [label]="button.id"></p-chip></td>
                                 </tr>
                             </ng-template>
                         </p-table>
-                    </p-tabPanel>
-                    <p-tabPanel header="Lookups">
+                    </p-accordionTab>
+                    <p-accordionTab header="Lookups">
                         <p-table [value]="lookups" selectionMode="single" (onRowSelect)="rowSelected('lookup')" (onRowUnselect)="rowSelected('lookup')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-lookup>
                                 <tr [pSelectableRow]="lookup">
-                                    <td>{{lookup.description}}</td>
-                                    <td>
-                                        <button pButton (click)="delete('lookup',lookup)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-danger" icon="fa-solid fa-trash"></button>
-                                    </td>
+                                    <td>{{lookup.description}}<p-chip styleClass="custom-chip" [label]="lookup.id"></p-chip></td>
                                 </tr>
                             </ng-template>
                         </p-table>
-                    </p-tabPanel>
-                    <p-tabPanel header="Action Sets">
+                    </p-accordionTab>
+                    <p-accordionTab header="Actions">
                         <p-table [value]="actions" selectionMode="single" (onRowSelect)="rowSelected('action')" (onRowUnselect)="rowSelected('action')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-action>
                                 <tr [pSelectableRow]="action">
-                                    <td>{{action.description}}</td>
-                                    <td>
-                                        <button pButton (click)="delete('action',action)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-danger" icon="fa-solid fa-trash"></button>
-                                    </td>
+                                    <td>{{action.description}}<p-chip styleClass="custom-chip" [label]="action.id"></p-chip></td>
                                 </tr>
                             </ng-template>
                         </p-table>
-                    </p-tabPanel>
-                </p-tabView>
+                    </p-accordionTab>
+                    <p-accordionTab header="Lists">
+                        <p-table [value]="lists" selectionMode="single" (onRowSelect)="rowSelected('list')" (onRowUnselect)="rowSelected('list')" [(selection)]="selectedObject" dataKey="id">
+                            <ng-template pTemplate="body" let-list>
+                                <tr [pSelectableRow]="list">
+                                    <td>{{list.description}}<p-chip styleClass="custom-chip" [label]="list.id"></p-chip></td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </p-accordionTab>
+                </p-accordion>
             </div>
         </div>
     </div>
     <div class="col-8">
-        <app-form-outline *ngIf="fullObject&&objectType=='form'" [buttonlist]="buttons" [fullPage]="fullObject"></app-form-outline>
-        <app-column-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='column'" [fullPage]="fullObject"></app-column-outline>
+        <app-form-outline *ngIf="fullObject&&objectType=='form'" [actionlist]="actions" [buttonlist]="buttons" [fullPage]="fullObject"></app-form-outline>
+        <app-column-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='column'" [lookuplist]="lookups" [fullPage]="fullObject"></app-column-outline>
         <app-field-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='field'" [lookuplist]="lookups" [fullPage]="fullObject"></app-field-outline>
         <app-button-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='button'" [fullPage]="fullObject"></app-button-outline>
         <app-lookup-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='lookup'" [fullPage]="fullObject"></app-lookup-outline>
         <app-action-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='action'" [fullPage]="fullObject"></app-action-outline>
+        <app-list-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='list'" [actionlist]="actions" [buttonlist]="buttons" [columnlist]="columns" [fullPage]="fullObject"></app-list-outline>
     </div>
 </div>

@@ -1,1 +1,121 @@
-<p>column-outline works!</p>
+<div class="grid" *ngIf="fullPage">
+    <div class="col-12">
+        <button pButton (click)="updateEdit()" label="Update" class="m-2 p-button-outlined p-button-rounded p-button-secondary"></button>
+    </div>
+    <div class="col-12">
+        <div class="p-fluid grid mt-3">
+            <div class="field col-12">
+                <span class="p-float-label">
+                    <input type="text" id="description" pInputText [(ngModel)]="fullPage.description"> 
+                    <label for="description">Description</label>
+                </span>
+            </div>
+            <div class="col-12">
+                <p-table sortField="sort_order" [value]="fullPage.list_columns" dataKey="id">
+                    <ng-template pTemplate="header">
+                        <th>Label</th>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Format</th>
+                        <th>Align</th>
+                        <th><button (click)="addColumn()" pButton class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-success" icon="fa-solid fa-plus"></button></th>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-column let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{column.label}}</td>
+                          <td>{{column.field}}</td>
+                          <td>{{column.type}}</td>
+                          <td>{{column.format}}</td>
+                          <td>{{column.alignment}}</td>
+                          <td>
+                            <span class="p-button-set">
+                                <button pButton (click)="editColumn(column,rowIndex)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-primary" icon="fa-solid fa-edit"></button>
+                                <button pButton (click)="deleteColumn(column,rowIndex)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-danger" icon="fa-solid fa-trash"></button>
+                                <button pButton [disabled]="rowIndex==0" (click)="moveup(rowIndex,column)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-secondary" icon="fa-solid fa-arrow-up"></button>
+                                <button pButton [disabled]="rowIndex==(fullPage.list_columns.length-1)" (click)="movedown(rowIndex,column)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-secondary" icon="fa-solid fa-arrow-down"></button>
+                            </span>
+                          </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="Column" [modal]="true" [(visible)]="column_edit_display" *ngIf="edited_column" [style]="{width: '50vw'}">
+    <div class="p-fluid grid mt-2">
+        <div class="field col-12 md:col-3">
+            <span class="p-float-label">
+                <input type="text" id="label" pInputText [(ngModel)]="edited_column.label"> 
+                <label for="label">Label</label>
+            </span>
+        </div>
+        <div class="field col-12 md:col-3">
+            <span class="p-float-label">
+                <input type="text" id="field" pInputText [(ngModel)]="edited_column.field"> 
+                <label for="field">Field</label>
+            </span>
+        </div>
+        <div class="field col-12 md:col-1">
+            <span class="p-float-label">
+                <p-dropdown appendTo="body" inputId="alignment" [options]="['L','R','C']" [(ngModel)]="edited_column.alignment"></p-dropdown>
+                <label for="alignment">Align</label>
+            </span>
+        </div>
+        <div class="field col-12 md:col-2">
+            <span class="p-float-label">
+                <p-dropdown appendTo="body" inputId="type" [options]="['tex_disp','num_disp','dat_disp','lkp_disp']" [(ngModel)]="edited_column.type"></p-dropdown>
+                <label for="type">Type</label>
+            </span>
+        </div>
+        <div class="field col-12 md:col-2">
+            <span class="p-float-label">
+                <input type="text" id="format" pInputText [(ngModel)]="edited_column.format"> 
+                <label for="format">Format</label>
+            </span>
+        </div>
+        <div class="field col-12 md:col-1">
+            <span class="p-float-label">
+                <input type="text" id="suffix" pInputText [(ngModel)]="edited_column.suffix"> 
+                <label for="suffix">Suffix</label>
+            </span>
+        </div>
+        <div class="field col-12 md:col-3" *ngIf="edited_column.type=='lkp_disp'">
+            <span class="p-float-label">
+                <p-dropdown appendTo="body" [autoDisplayFirst]="false" [options]="lookuplist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="edited_column.lookup_id" optionLabel="description" optionValue="id">
+                    <ng-template let-item pTemplate="item">
+                        <span>{{item.description}}</span>
+                    </ng-template>
+                </p-dropdown>
+                <label for="lookup">Lookup</label>
+            </span>
+        </div>
+        <div  class="field col-12 md:col-2">
+            <span class="flex">
+                <p-inputSwitch styleClass="mt-1" inputId="sortable" [(ngModel)]="edited_column.sortable"></p-inputSwitch>
+                <label class="pl-2 pt-2" for="sortable">Sortable</label>
+            </span>
+        </div>
+        <div  class="field col-12 md:col-2">
+            <span class="flex">
+                <p-inputSwitch styleClass="mt-1" inputId="searchable" [(ngModel)]="edited_column.searchable"></p-inputSwitch>
+                <label class="pl-2 pt-2" for="searchable">Searchable</label>
+            </span>
+        </div>
+        <div  class="field col-12 md:col-2">
+            <span class="flex">
+                <p-inputSwitch styleClass="mt-1" inputId="filterable" [(ngModel)]="edited_column.filterable"></p-inputSwitch>
+                <label class="pl-2 pt-2" for="filterable">Filterable</label>
+            </span>
+        </div>
+        <div  class="field col-12 md:col-2">
+            <span class="flex">
+                <p-inputSwitch styleClass="mt-1" inputId="total" [(ngModel)]="edited_column.total"></p-inputSwitch>
+                <label class="pl-2 pt-2" for="total">Total</label>
+            </span>
+        </div>
+        <div class="col-12 text-right"><button (click)="saveColumn()" pButton icon="fa-solid fa-floppy-disk" class="p-button-success p-button-rounded p-button-outlined"></button></div>
+    </div>
+</p-dialog>
+

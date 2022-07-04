@@ -61,6 +61,15 @@
             <label class="pl-2 pt-2" for="has_border">Has Field</label>
         </span>
     </div>
+    <div class="field col-12 md:col-3">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i [class]="panel.icon"></i></span>
+            <span class="p-float-label">
+            <input type="text" id="icon" pInputText [(ngModel)]="panel.icon"> 
+            <label for="label">Icon</label>
+        </span>
+        </div>
+</div>
     <div class="col-12" *ngIf="has_field==true">
         <p>Field</p>
         <app-field-edit [(field)]="panel.field" [lookuplist]="lookuplist"></app-field-edit>

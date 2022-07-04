@@ -8,7 +8,7 @@
             <div class="grid" *ngIf="page_definition&&page_definition.type=='display'">
                 <div *ngFor="let col of page_definition.columns" class="pb-0 pt-0" [ngClass]="responsive.get(col.size)">
                     <p-divider *ngIf="col.show_description" align="left" type="dashed">
-                        {{col.description}}
+                        <h4><i *ngIf="col.icon" [ngClass]="col.icon" class="mr-1"></i>{{col.description}}</h4>
                     </p-divider>
                     <ng-container *ngFor="let panel of col.panels">
                         <app-panel  [definition]="panel"></app-panel>

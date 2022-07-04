@@ -27,7 +27,7 @@
 
 <p-dialog header="Column" [modal]="true" [(visible)]="column_edit_display" *ngIf="edited_column" [style]="{width: '60vw'}">
     <div class="p-fluid grid mt-2">
-        <div class="field col-12 md:col-8">
+        <div class="field col-12 md:col-4">
             <span class="p-float-label">
                 <input type="text" id="description" pInputText [(ngModel)]="edited_column.description"> 
                 <label for="description">Description</label>
@@ -39,12 +39,21 @@
                 <label for="width">Width</label>
             </span>
         </div>
-        <div  class="field col-12 md:col-2">
+        <div  class="field col-12 md:col-3">
             <span class="flex">
                 <p-inputSwitch styleClass="mt-1" inputId="show_description" [(ngModel)]="edited_column.show_description"></p-inputSwitch>
                 <label class="pl-2 pt-2" for="show_description">Show Description</label>
             </span>
         </div>
+        <div class="field col-12 md:col-3">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i [class]="edited_column.icon"></i></span>
+                <span class="p-float-label">
+                <input type="text" id="icon" pInputText [(ngModel)]="edited_column.icon"> 
+                <label for="label">Icon</label>
+            </span>
+            </div>
+    </div>
         <div class="col-12">
             <app-panel-outline [(panels)]="edited_column.panels" [fieldlist]="fieldlist" [listlist]="listlist" [lookuplist]="lookuplist"></app-panel-outline>
         </div>

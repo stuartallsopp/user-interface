@@ -1,0 +1,29 @@
+:host {
+    ::ng-deep
+    th.p-sortable-column.p-highlight
+    {
+        background: inherit;
+        color:inherit;
+    }
+    th.p-sortable-column
+    {
+        background: inherit;
+        color:inherit;
+    }
+    th.sa-list-column{
+        background: inherit;
+        color:inherit;
+    }
+    ::ng-deep
+    .p-datatable .p-datatable-tfoot > tr > td
+    {
+        background: inherit;
+        color:inherit;
+    }
+    ::ng-deep
+    .p-paginator
+    {
+        background: inherit;
+        color:inherit;
+    }
+}

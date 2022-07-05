@@ -45,6 +45,11 @@ export class CustomdataService {
     return this.http.get(environment.forms_api+"menutree/field/"+id);
   }
 
+  get_sundryfield_by_id(id:number)
+  {
+    return this.http.get(environment.forms_api+"menutree/sundryfield/"+id);
+  }
+
   get_action_by_id(id:number)
   {
     return this.http.get(environment.forms_api+"menutree/action/"+id);
@@ -63,6 +68,26 @@ export class CustomdataService {
   get_action()
   {
     return this.http.get(environment.forms_api+"menutree/action");
+  }
+
+  clear_cache()
+  {
+    return this.http.get(environment.forms_api+"page/clearcache");
+  }
+
+  get_cache()
+  {
+    return this.http.get(environment.forms_api+"page/cache");
+  }
+
+  delete_cache(key:string)
+  {
+    return this.http.delete(environment.forms_api+"page/clearcache/"+key);
+  }
+
+  cache_all_pages()
+  {
+    return this.http.post(environment.forms_api+"menutree/page/cache",{});
   }
 
   get_list()
@@ -88,6 +113,11 @@ export class CustomdataService {
   get_field()
   {
     return this.http.get(environment.forms_api+"menutree/field");
+  }
+
+  get_sundryfield()
+  {
+    return this.http.get(environment.forms_api+"menutree/sundryfield");
   }
 
   update_button(button:any)
@@ -118,6 +148,11 @@ export class CustomdataService {
   update_field(field:any)
   {
     return this.http.post(environment.forms_api+"menutree/field",field);
+  }
+
+  update_sundryfield(field:any)
+  {
+    return this.http.post(environment.forms_api+"menutree/sundryfield",field);
   }
 
   update_action(action:any)

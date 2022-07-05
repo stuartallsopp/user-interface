@@ -24,7 +24,7 @@
                     {{column.label}}
                     <p-sortIcon *ngIf="column.sortable" [field]="column.field"></p-sortIcon>
                 </th>
-                <th class="text-right" *ngIf="definition?.buttonset">
+                <th class="sa-list-column text-right" *ngIf="definition?.buttonset">
                     <app-buttongroup (itemselected)="buttonclick($event)" [buttons]="definition.buttonset" location="top"></app-buttongroup>
                 </th>
             </tr>

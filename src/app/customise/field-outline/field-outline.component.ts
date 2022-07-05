@@ -10,6 +10,7 @@ export class FieldOutlineComponent implements OnInit {
 
   @Input() fullPage:any;
   @Input() lookuplist:any;
+  @Input() actionlist:any;
   @Output() done:EventEmitter<any>=new EventEmitter<any>();
 
   public field_edit_display:boolean=false;

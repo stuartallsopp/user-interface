@@ -48,7 +48,7 @@
     </div>
 </div>
 
-<p-dialog header="Button" [modal]="true" [(visible)]="button_edit_display" *ngIf="edited_button" [style]="{width: '70vw'}">
+<p-dialog appendTo="body" header="Button" [modal]="true" [(visible)]="button_edit_display" *ngIf="edited_button" [style]="{width: '70vw'}">
     <div class="p-fluid grid mt-2">
         <div class="field col-12 md:col-3">
             <span class="p-float-label">
@@ -58,7 +58,7 @@
         </div>
         <div class="field col-12 md:col-3">
             <span class="p-float-label">
-                <p-dropdown inputId="colour" appendTo="body" [options]="['primary','secondary','danger','success','info','warning']" [(ngModel)]="edited_button.colour"></p-dropdown>
+                <p-dropdown inputId="colour" appendTo="body" [options]="['primary','secondary','danger','success','info','warning','none']" [(ngModel)]="edited_button.colour"></p-dropdown>
                 <label for="colour">Colour</label>
             </span>
         </div>

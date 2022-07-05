@@ -75,6 +75,16 @@
             <label for="lookup">Lookup</label>
         </span>
     </div>
+    <div class="field col-12 md:col-3">
+        <span class="p-float-label">
+            <p-dropdown appendTo="body" inputId="actionset_id"  [autoDisplayFirst]="false" [options]="actionlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="field.actionset_id" optionLabel="description" optionValue="id">
+                <ng-template let-item pTemplate="item">
+                    <span>{{item.description}}</span>
+                </ng-template>
+            </p-dropdown>
+            <label for="actionset_id">Actions</label>
+        </span>
+    </div>
     <div class="col-12"  *ngIf="field.type=='pitem_entry'||field.type=='plst_entry'||field.type=='aut_entry'">
         <div class="grid">
             <div class="field col-12 md:col-10">
@@ -102,5 +112,8 @@
                 </span>
             </div>
         </div>
+    </div>
+    <div class="col-12 md:col-6" *ngIf="field.actionset_id!=undefined&&field.actionset_id!=null&&field.actionset_id!=0">
+        <app-actioncustom-outline [(items)]="field.action_customisations"></app-actioncustom-outline>
     </div>
 </div>

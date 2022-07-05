@@ -1,0 +1,14 @@
+
+:host {
+    ::ng-deep
+    div.p-dialog div.p-dialog-header
+    {
+        border-bottom:0px none none;
+    }
+    ::ng-deep
+    div.sa-innertabview > div.p-tab-panels
+    {
+        padding-left:0;
+        padding-right:0;
+    }
+}

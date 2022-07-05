@@ -14,6 +14,7 @@ export class LookupOutlineComponent implements OnInit {
   constructor(private dataService:CustomdataService) { }
 
   ngOnInit(): void {
+
   }
 
 

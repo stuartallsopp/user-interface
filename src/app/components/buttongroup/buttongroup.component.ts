@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { stringify } from 'querystring';
+import { DecorationService } from 'src/app/services/decoration.service';
 
 @Component({
   selector: 'app-buttongroup',
@@ -17,7 +18,7 @@ export class ButtongroupComponent implements OnInit,OnChanges {
   @Input() rowIndex:number=-1;
   @Input() location:string="";
 
-  constructor() { }
+  constructor(public decor:DecorationService) { }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['buttons'])
     {
@@ -44,10 +45,7 @@ export class ButtongroupComponent implements OnInit,OnChanges {
     this.sendevent(parseInt(event.item.id));
   }
 
-  colour(input:string)
-  {
-    return 'p-button-'+input;
-  }
+
 
   initialiseButtons()
   {

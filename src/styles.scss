@@ -22,6 +22,11 @@ span.p-button-set
     white-space: nowrap;
 }
 
+div.p-dialog div.p-dialog-header
+{
+    border-bottom:none;
+}
+
 button.p-component.button-rounding
 {
     border-top-right-radius: 50%;
@@ -44,11 +49,17 @@ button.p-component.button-prounding
     border-bottom-left-radius: 0%;
 }
 
+div.sa-innertabview.p-tabview .p-tabview-panels
+{
+    padding-left:0;
+    padding-right:0;
+}
+
 div.sa_menu
 {
     position:sticky;
     top:0;
-    z-index: 9999;
+    z-index: 1099;
 }
 div.overlay-width
 {

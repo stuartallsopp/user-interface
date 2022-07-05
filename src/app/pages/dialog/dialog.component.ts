@@ -4,10 +4,10 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogComponent, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DataService } from 'src/app/services/data.service';
+import { DecorationService } from 'src/app/services/decoration.service';
 import { ResponsiveService } from 'src/app/services/responsive.service';
 import { ToolService } from 'src/app/services/tool.service';
 import { v4 as uuidv4 } from 'uuid';
-import { threadId } from 'worker_threads';
 
 
 @Component({
@@ -38,7 +38,8 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
     public element: ElementRef,
     private event: NgEventBus,
     private confirm : ConfirmationService,
-    private tool: ToolService
+    private tool: ToolService,
+    public decor: DecorationService
     ) { }
 
 
@@ -179,7 +180,7 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
           this.data=result;
       },
       error:(error)=>{
-          this.message.add({severity:'error',detail:error.message});
+          this.message.add({key:"standard",severity:'error',detail:error.message});
           this.loader.stopLoader(this.loader_key);
       },
       complete:()=>{

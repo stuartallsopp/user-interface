@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<p-dialog header="Column" [modal]="true" [(visible)]="column_edit_display" *ngIf="edited_column" [style]="{width: '60vw'}">
+<p-dialog appendTo="body" header="Column" [modal]="true" [(visible)]="column_edit_display" *ngIf="edited_column" [style]="{width: '60vw'}">
     <div class="p-fluid grid mt-2">
         <div class="field col-12 md:col-4">
             <span class="p-float-label">

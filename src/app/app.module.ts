@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { NgEventBus } from 'ng-event-bus';
 import {ToastModule} from 'node_modules/primeng/toast';
 import {MessagesModule} from 'primeng/messages';
+import {SliderModule} from 'primeng/slider';
 import {MessageModule} from 'primeng/message';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {ConfirmDialogModule} from 'node_modules/primeng/confirmdialog';
@@ -22,6 +23,8 @@ import { MenuService } from './services/menu.service';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { AngularDateHttpInterceptor } from './tools/dateIntecptor';
 import { CustomiseModule } from './customise/customise.module';
+import { SignalrService } from './services/signalr.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,7 @@ import { CustomiseModule } from './customise/customise.module';
     AppRoutingModule,
     HttpClientModule,
     SecurityModule,
+    SliderModule,
     PagesModule,
     MessagesModule,
     MessageModule,
@@ -41,7 +45,8 @@ import { CustomiseModule } from './customise/customise.module';
     DynamicDialogModule,
     NavigationModule,
     NgxUiLoaderModule,
-    CustomiseModule
+    CustomiseModule,
+    FormsModule
   ],
   providers: [
     {
@@ -57,6 +62,7 @@ import { CustomiseModule } from './customise/customise.module';
     AuthService,
     PermissionsService,
     MessageService,
+    SignalrService,
     MenuService,
     NgEventBus,
     ConfirmationService,

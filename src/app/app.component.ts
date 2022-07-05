@@ -6,6 +6,7 @@ import { PageService } from './services/page.service';
 import { MessageService } from 'primeng/api';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
+import { SignalrService } from './services/signalr.service';
 
 @Component({
   selector: 'app-root',
@@ -24,9 +25,11 @@ export class AppComponent  {
     private page:PageService,
     private message: MessageService,
     private loading: NgxUiLoaderService,
-    private router:Router
+    private router:Router,
+    private signalr: SignalrService
   ) { 
     this.event_subscriber();
+    this.signalr.connect();
   }
   event_subscriber() {
     this.event_listener=this.event.on("top").subscribe(result=>{
@@ -71,7 +74,8 @@ export class AppComponent  {
     });
     },
     error:(error)=>{
-        this.message.add({severity:"error",detail:error.message})
+        this.message.add({key:"standard",severity:"error",detail:error.message});
+        this.loading.stopBackgroundLoader("application");
     },
     complete:()=>{
       this.loading.stopBackgroundLoader("application");

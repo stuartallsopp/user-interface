@@ -12,7 +12,7 @@
             </div>
             <div class="field col-12 md:col-2">
                 <span class="p-float-label">
-                    <p-dropdown inputId="column_set_id"  [autoDisplayFirst]="false" [options]="columnlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="fullPage.column_set_id" optionLabel="description" optionValue="id">
+                    <p-dropdown appendTo="body" inputId="column_set_id"  [autoDisplayFirst]="false" [options]="columnlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="fullPage.column_set_id" optionLabel="description" optionValue="id">
                         <ng-template let-item pTemplate="item">
                             <span>{{item.description}}</span>
                         </ng-template>
@@ -22,7 +22,7 @@
             </div>
             <div class="field col-12 md:col-2">
                 <span class="p-float-label">
-                    <p-dropdown inputId="button_set_id"  [autoDisplayFirst]="false" [options]="buttonlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="fullPage.button_set_id" optionLabel="description" optionValue="id">
+                    <p-dropdown appendTo="body" inputId="button_set_id"  [autoDisplayFirst]="false" [options]="buttonlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="fullPage.button_set_id" optionLabel="description" optionValue="id">
                         <ng-template let-item pTemplate="item">
                             <span>{{item.description}}</span>
                         </ng-template>
@@ -32,7 +32,7 @@
             </div>
             <div class="field col-12 md:col-2">
                 <span class="p-float-label">
-                    <p-dropdown inputId="actionset_id"  [autoDisplayFirst]="false" [options]="actionlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="fullPage.actionset_id" optionLabel="description" optionValue="id">
+                    <p-dropdown appendTo="body" inputId="actionset_id"  [autoDisplayFirst]="false" [options]="actionlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="fullPage.actionset_id" optionLabel="description" optionValue="id">
                         <ng-template let-item pTemplate="item">
                             <span>{{item.description}}</span>
                         </ng-template>
@@ -96,7 +96,7 @@
     </div>
 </div>
 
-<p-dialog header="Filter" [modal]="true" [(visible)]="filter_edit_display" *ngIf="edited_filter" [style]="{width: '40vw'}">
+<p-dialog appendTo="body" header="Filter" [modal]="true" [(visible)]="filter_edit_display" *ngIf="edited_filter" [style]="{width: '40vw'}">
     <div class="p-fluid grid mt-2">
         <div class="field col-12 md:col-12">
             <span class="p-float-label">

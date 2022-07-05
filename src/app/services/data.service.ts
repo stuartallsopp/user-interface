@@ -26,28 +26,33 @@ export class DataService {
     if (search!=null)
     {
       var begins=search.filter((p: { type: string; })=>p.type=="begins");
-      if (begins!=null)
+      if (begins.length>0)
       {
         payload.begins=begins;
       }
       var equals=search.filter((p: { type: string; })=>p.type=="equals");
-      if (equals!=null)
+      if (equals.length>0)
       {
         console.log('got equals');
         payload.equals=equals;
       }
       var contains=search.filter((p: { type: string; })=>p.type=="contains");
-      if (contains!=null)
+      if (contains.length>0)
       {
         payload.contains=contains;
       }
       var isin=search.filter((p: { type: string; })=>p.type=="isin");
-      if (isin!=null&&isin[0].value!=null)
+      if (isin.length>0&&isin[0].value!=null)
       {
         payload.isin=isin;
       }
     }
     return this.http.post(environment.data_api+url,payload);
+  }
+
+  getNotes(type:string,id:number)
+  {
+    return this.http.get(environment.data_api+"note/"+type+"/"+id.toString());
   }
 
   get(url:string)

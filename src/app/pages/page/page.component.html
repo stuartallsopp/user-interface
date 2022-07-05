@@ -10,8 +10,21 @@
                     <p-divider *ngIf="col.show_description" align="left" type="dashed">
                         <h4><i *ngIf="col.icon" [ngClass]="col.icon" class="mr-1"></i>{{col.description}}</h4>
                     </p-divider>
-                    <ng-container *ngFor="let panel of col.panels">
-                        <app-panel  [definition]="panel"></app-panel>
+                    <ng-container *ngFor="let panel_outer of col.panels_resolved">
+                        <ng-container *ngIf="panel_outer.key==''">
+                            <div *ngFor="let panel of panel_outer.panels" class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
+                                <app-panel [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="panel_outer.key!=''">
+                            <div class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
+                                <p-tabView styleClass="sa-innertabview">
+                                    <p-tabPanel *ngFor="let panel of panel_outer.panels" [header]="panel.description">
+                                        <app-panel [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                                    </p-tabPanel>
+                                </p-tabView>
+                            </div>
+                        </ng-container>
                     </ng-container>
                 </div>
             </div>
@@ -19,12 +32,38 @@
                 <div class="col-12 sm:col-12 md:col-9 lg:col-10 xl:col-10">
                     <div class="grid mt-3" *ngIf="page_definition">
                         <div *ngFor="let col of page_definition.columns" class="pb-0 pt-0" [ngClass]="responsive.get(col.size)">
-                                <ng-container *ngFor="let panel of col.panels">
-                                    <app-panel [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                            <ng-container *ngFor="let panel_outer of col.panels_resolved">
+                                <ng-container *ngIf="panel_outer.key==''">
+                                    <div *ngFor="let panel of panel_outer.panels" class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
+                                        <app-panel [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                                    </div>
                                 </ng-container>
+                                <ng-container *ngIf="panel_outer.key!=''">
+                                    <div class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
+                                        <p-tabView styleClass="sa-innertabview">
+                                            <p-tabPanel *ngFor="let panel of panel_outer.panels" [header]="panel.description">
+                                                <app-panel [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                                            </p-tabPanel>
+                                        </p-tabView>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
                         </div>
-                        <div *ngFor="let panel of page_definition.panels" class="pb-0 pt-0" [ngClass]="responsive.get(12)">
-                            <app-panel [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                        <div *ngFor="let panel_outer of page_definition.panels_resolved" class="pb-0 pt-0" [ngClass]="responsive.get(12)">
+                            <ng-container *ngIf="panel_outer.key==''">
+                                <div *ngFor="let panel of panel_outer.panels" class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
+                                    <app-panel [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="panel_outer.key!=''">
+                                <div class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
+                                    <p-tabView styleClass="sa-innertabview">
+                                        <p-tabPanel *ngFor="let panel of panel_outer.panels" [header]="panel.description">
+                                            <app-panel [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                                        </p-tabPanel>
+                                    </p-tabView>
+                                </div>
+                            </ng-container>
                         </div>
                     </div>
                 </div>

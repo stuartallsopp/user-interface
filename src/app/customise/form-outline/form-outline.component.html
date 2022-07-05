@@ -22,7 +22,13 @@
                     <label for="format_type">Type</label>
                 </span>
             </div>
-            <div class="field col-12 md:col-4">
+            <div class="field col-12 md:col-2">
+                <span class="p-float-label">
+                    <p-dropdown inputId="colour" appendTo="body" [options]="['primary','secondary','danger','success','info','warning']" [(ngModel)]="fullPage.colour"></p-dropdown>
+                    <label for="colour">Colour</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-2">
                 <span class="p-float-label">
                     <input type="text" [disabled]="fullPage.type!='page'" id="unique_key" pInputText [(ngModel)]="fullPage.unique_key"> 
                     <label for="unique_key">Unique Key</label>

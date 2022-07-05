@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { ForwardRefHandling } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { map, Observable, of, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -8,7 +9,16 @@ import { environment } from 'src/environments/environment';
 })
 export class PageService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    var recent=localStorage.getItem("recent_pages");
+    if (recent!=null)
+    {
+      this.recent_pages=JSON.parse(recent);
+    }
+   }
+
+
+  private recent_pages:any[]=[];
 
   checkKey(key1:string,key2:string,key3:string):any
   {
@@ -30,20 +40,40 @@ export class PageService {
 
   getdialog(id:number)
   {
+    if (this.recent_pages.filter(p=>p.key==id.toString())[0]!=null)
+    {
+      return of(this.recent_pages.filter(p=>p.key==id.toString())[0].form);
+    }
     return this.http.get<any[]>(environment.forms_api+"page/dialog/"+id.toString()).pipe(
       take(1),
       map((data) => {
+          this.appendToCatalog(data,id.toString());
           return data;
       }
       )
     );
   }
 
+  appendToCatalog(data:any,key:string)
+  {
+    this.recent_pages.push({key:key,form:data});
+    if (this.recent_pages.length>10)
+    {
+      this.recent_pages.splice(0,1);
+    }
+    localStorage.setItem("recent_pages",JSON.stringify(this.recent_pages));
+  }
+
   get(unique_key:string):Observable<any>
   {
+    if (this.recent_pages.filter(p=>p.key==unique_key)[0]!=null)
+    {
+      return of(this.recent_pages.filter(p=>p.key==unique_key)[0].form);
+    }
     return this.http.get<any[]>(environment.forms_api+"page/"+unique_key).pipe(
       take(1),
       map((data) => {
+          this.appendToCatalog(data,unique_key);
           return data;
       }
       )
@@ -52,9 +82,14 @@ export class PageService {
 
   getbykey(unique_key:string):Observable<any>
   {
+    if (this.recent_pages.filter(p=>p.key==unique_key)[0]!=null)
+    {
+      return of(this.recent_pages.filter(p=>p.key==unique_key)[0].form);
+    }
     return this.http.get<any[]>(environment.forms_api+"page/key/"+unique_key).pipe(
       take(1),
       map((data) => {
+          this.appendToCatalog(data,unique_key);
           return data;
       }
       )

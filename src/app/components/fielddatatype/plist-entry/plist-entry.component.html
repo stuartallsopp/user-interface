@@ -1,5 +1,5 @@
 <span class="p-float-label" *ngIf="data">
-    <p-dropdown [disabled]="disableOn(definition.disable_on)" [options]="content" [(ngModel)]="data[definition.fieldname]" optionValue="c" optionLabel="n"></p-dropdown>
+    <p-dropdown  [disabled]="disableOn(definition.disable_on)" [inputId]="unique_id" [options]="content" [(ngModel)]="data[definition.fieldname]" optionValue="c" optionLabel="n"></p-dropdown>
     <label [for]="unique_id">
         <span *ngIf="definition.compulsory" class="pi pi-star-fill mr-1 text-red-800"></span>
         <span>{{definition.label}}</span>

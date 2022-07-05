@@ -39,7 +39,7 @@
     </div>
 </div>
 
-<p-dialog header="Action" [modal]="true" [(visible)]="action_edit_display" *ngIf="edited_action" [style]="{width: '40vw'}">
+<p-dialog appendTo="body" header="Action" [modal]="true" [(visible)]="action_edit_display" *ngIf="edited_action" [style]="{width: '40vw'}">
     <div class="p-fluid grid mt-2">
         <div class="field col-12 md:col-6">
             <span class="p-float-label">

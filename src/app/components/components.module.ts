@@ -17,6 +17,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ScrollerModule } from 'primeng/scroller';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { ListComponent } from './list/list.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
@@ -43,6 +44,7 @@ import { DebounceModule } from 'ngx-debounce';
 import { AcSingleSearchComponent } from './fielddatatype/ac-single-search/ac-single-search.component';
 import { DividerModule } from 'primeng/divider';
 import { ListfilterComponent } from './listfilter/listfilter.component';
+import { NoteViewerComponent } from './note-viewer/note-viewer.component';
 
 
 
@@ -68,7 +70,8 @@ import { ListfilterComponent } from './listfilter/listfilter.component';
     AcSingleEntryComponent,
     FieldpickerComponent,
     AcSingleSearchComponent,
-    ListfilterComponent
+    ListfilterComponent,
+    NoteViewerComponent
   ],
   imports: [
     CommonModule,
@@ -83,6 +86,7 @@ import { ListfilterComponent } from './listfilter/listfilter.component';
     DividerModule,
     CheckboxModule,
     MultiSelectModule,
+    ScrollerModule,
     DropdownModule,
     PaginatorModule,
     ListboxModule,

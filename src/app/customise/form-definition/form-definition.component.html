@@ -3,6 +3,8 @@
         <div class="grid">
             <div class="col-12">
                 <button pButton  label="New" (click)="newObject()"  class="m-2 p-button-outlined p-button-rounded p-button-secondary"></button>
+                <button pButton  label="Clear Cache" (click)="clearCache()"  class="m-2 p-button-outlined p-button-rounded p-button-secondary"></button>
+                <button pButton  label="Create Cache" (click)="createCache()"  class="m-2 p-button-outlined p-button-rounded p-button-secondary"></button>
              </div>
             <div class="col-12">
                 <p-accordion (onOpen)="tabChanged($event)" (onClose)="closeTab($event)">
@@ -10,7 +12,7 @@
                         <p-table [value]="pages" selectionMode="single" (onRowSelect)="rowSelected('form')" (onRowUnselect)="rowSelected('form')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-page>
                                 <tr [pSelectableRow]="page">
-                                    <td>{{page.description}} ({{page.type}}) <p-chip styleClass="custom-chip" [label]="page.id"></p-chip></td>
+                                    <td>{{page.description}} ({{page.type}}) <p-chip styleClass="ml-2 custom-chip" [label]="page.id"></p-chip></td>
                                 </tr>
                             </ng-template>
                         </p-table>
@@ -19,7 +21,7 @@
                         <p-table [value]="columns" selectionMode="single" (onRowSelect)="rowSelected('column')" (onRowUnselect)="rowSelected('column')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-column>
                                 <tr [pSelectableRow]="column">
-                                    <td>{{column.description}}<p-chip styleClass="custom-chip" [label]="column.id"></p-chip></td>
+                                    <td>{{column.description}}<p-chip styleClass="ml-2 custom-chip" [label]="column.id"></p-chip></td>
                                 </tr>
                             </ng-template>
                         </p-table>
@@ -28,7 +30,7 @@
                         <p-table [value]="fields" selectionMode="single" (onRowSelect)="rowSelected('field')" (onRowUnselect)="rowSelected('field')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-field>
                                 <tr [pSelectableRow]="field">
-                                    <td>{{field.description}}<p-chip styleClass="custom-chip" [label]="field.id"></p-chip></td>
+                                    <td>{{field.description}}<p-chip styleClass="ml-2 custom-chip" [label]="field.id"></p-chip></td>
                                 </tr>
                             </ng-template>
                         </p-table>
@@ -37,7 +39,7 @@
                         <p-table [value]="buttons" selectionMode="single" (onRowSelect)="rowSelected('button')" (onRowUnselect)="rowSelected('button')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-button>
                                 <tr [pSelectableRow]="button">
-                                    <td>{{button.description}}<p-chip styleClass="custom-chip" [label]="button.id"></p-chip></td>
+                                    <td>{{button.description}}<p-chip styleClass="ml-2 custom-chip" [label]="button.id"></p-chip></td>
                                 </tr>
                             </ng-template>
                         </p-table>
@@ -46,7 +48,7 @@
                         <p-table [value]="lookups" selectionMode="single" (onRowSelect)="rowSelected('lookup')" (onRowUnselect)="rowSelected('lookup')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-lookup>
                                 <tr [pSelectableRow]="lookup">
-                                    <td>{{lookup.description}}<p-chip styleClass="custom-chip" [label]="lookup.id"></p-chip></td>
+                                    <td>{{lookup.description}}<p-chip styleClass="ml-2 custom-chip" [label]="lookup.id"></p-chip></td>
                                 </tr>
                             </ng-template>
                         </p-table>
@@ -55,7 +57,7 @@
                         <p-table [value]="actions" selectionMode="single" (onRowSelect)="rowSelected('action')" (onRowUnselect)="rowSelected('action')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-action>
                                 <tr [pSelectableRow]="action">
-                                    <td>{{action.description}}<p-chip styleClass="custom-chip" [label]="action.id"></p-chip></td>
+                                    <td>{{action.description}}<p-chip styleClass="ml-2 custom-chip" [label]="action.id"></p-chip></td>
                                 </tr>
                             </ng-template>
                         </p-table>
@@ -64,7 +66,25 @@
                         <p-table [value]="lists" selectionMode="single" (onRowSelect)="rowSelected('list')" (onRowUnselect)="rowSelected('list')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-list>
                                 <tr [pSelectableRow]="list">
-                                    <td>{{list.description}}<p-chip styleClass="custom-chip" [label]="list.id"></p-chip></td>
+                                    <td>{{list.description}}<p-chip styleClass="ml-2 custom-chip" [label]="list.id"></p-chip></td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </p-accordionTab>
+                    <p-accordionTab header="Sundry Fields">
+                        <p-table [value]="sundryfields" selectionMode="single" (onRowSelect)="rowSelected('sundryfield')" (onRowUnselect)="rowSelected('sundryfield')" [(selection)]="selectedObject" dataKey="id">
+                            <ng-template pTemplate="body" let-sundryfield>
+                                <tr [pSelectableRow]="sundryfield">
+                                    <td>{{sundryfield.label}}<p-chip styleClass="ml-2 custom-chip" [label]="sundryfield.id"></p-chip></td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </p-accordionTab>
+                    <p-accordionTab header="Caches">
+                        <p-table [value]="caches">
+                            <ng-template pTemplate="body" let-cache>
+                                <tr>
+                                    <td>{{cache}} <button pButton icon="fa-solid fa-trash" (click)="deleteCache(cache)" class="p-button-danger"></button></td>
                                 </tr>
                             </ng-template>
                         </p-table>
@@ -76,10 +96,11 @@
     <div class="col-8">
         <app-form-outline *ngIf="fullObject&&objectType=='form'" [lookuplist]="lookups" [listlist]="lists" [fieldlist]="fields" [actionlist]="actions" [buttonlist]="buttons" [fullPage]="fullObject"></app-form-outline>
         <app-column-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='column'" [lookuplist]="lookups" [fullPage]="fullObject"></app-column-outline>
-        <app-field-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='field'" [lookuplist]="lookups" [fullPage]="fullObject"></app-field-outline>
+        <app-field-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='field'" [actionlist]="actions" [lookuplist]="lookups" [fullPage]="fullObject"></app-field-outline>
         <app-button-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='button'" [fullPage]="fullObject"></app-button-outline>
         <app-lookup-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='lookup'" [fullPage]="fullObject"></app-lookup-outline>
         <app-action-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='action'" [fullPage]="fullObject"></app-action-outline>
+        <app-sundryfield-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='sundryfield'" [actionlist]="actions" [lookuplist]="lookups" [fullPage]="fullObject"></app-sundryfield-outline>
         <app-list-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='list'" [actionlist]="actions" [buttonlist]="buttons" [columnlist]="columns" [fullPage]="fullObject"></app-list-outline>
     </div>
 </div>

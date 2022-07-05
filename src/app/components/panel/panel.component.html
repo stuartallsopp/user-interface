@@ -1,6 +1,9 @@
-<p-panel *ngIf="definition.has_border==true" [showHeader]="definition.display_description" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up" [toggleable]="true" styleClass="mb-2" >
+<p-panel *ngIf="definition.has_border==true" 
+[showHeader]="definition.display_description" 
+expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up" 
+[toggleable]="true" styleClass="mb-2">
     <ng-template pTemplate="header" *ngIf="definition.display_description">
-        {{definition.description}}
+        <span><i [ngClass]="definition.icon"></i></span><span class="ml-1">{{definition.description}}</span>
     </ng-template>
     <ng-template pTemplate="content">
         <div class="p-fluid grid mt-2" *ngIf="definition.field">
@@ -8,11 +11,14 @@
                 <app-fieldpicker (value_changed)="field_changed($event)" [field]="definition.field" [parentdata]="data" [data]="local_data"></app-fieldpicker>
             </div>
         </div>
-        <ng-container *ngIf="definition.list">
+        <ng-container *ngIf="definition.list&&definition.type=='list'">
             <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-list>
         </ng-container>
-        <ng-container  *ngIf="definition.fieldset">
+        <ng-container  *ngIf="definition.fieldset&&definition.type=='field'">
             <app-fieldset [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
+        </ng-container>
+        <ng-container *ngIf="definition.type=='note'">
+            <app-note-viewer [data]="local_data"></app-note-viewer>
         </ng-container>
     </ng-template>
 </p-panel>
@@ -26,11 +32,14 @@
         <div class="col-12" *ngIf="definition.display_description">
             <p-divider styleClass="mb-0 mt-1">{{definition.description}}</p-divider>
         </div>
-        <div class="col-12" *ngIf="definition.list">
+        <div class="col-12" [ngClass]="decor.resolveNonePanelBackground(definition.colour)" *ngIf="definition.list&&definition.type=='list'">
             <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-list>
         </div>
-        <div class="col-12" *ngIf="definition.fieldset">
+        <div class="col-12" *ngIf="definition.fieldset&&definition.type=='field'">
             <app-fieldset [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
+        </div>
+        <div class="col-12" *ngIf="definition.type=='note'">
+            <app-note-viewer [data]="local_data"></app-note-viewer>
         </div>
     </div>
 </ng-container>

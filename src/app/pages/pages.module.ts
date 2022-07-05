@@ -16,6 +16,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { RecordComponent } from './record/record.component';
 import { ActionpanelComponent } from './actionpanel/actionpanel.component';
 import { FormsModule } from '@angular/forms';
+import { TabViewModule } from 'primeng/tabview';
 
 
 
@@ -36,6 +37,7 @@ import { FormsModule } from '@angular/forms';
     BreadcrumbModule,
     OverlayPanelModule,
     InputTextModule,
+    TabViewModule,
     ButtonModule,
     ComponentsModule,
     FormsModule,

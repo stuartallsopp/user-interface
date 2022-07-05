@@ -5,5 +5,20 @@
     <router-outlet></router-outlet>
   </div>
 </div>
-<p-toast styleClass="on_top_of_everything" position="bottom-left"></p-toast>
+<p-toast key="custom" styleClass="on_top_of_everything" position="bottom-left">
+  <ng-template let-message pTemplate="message">
+    <div class="flex flex-column" style="flex: 1">
+        <div class="text-center">
+            <i class="pi pi-exclamation-triangle" *ngIf="message.severity=='warning'" style="font-size: 3rem"></i>
+            <i class="pi pi-times" *ngIf="message.severity=='error'" style="font-size: 3rem"></i>
+            <i class="pi pi-check" *ngIf="message.severity=='success'" style="font-size: 3rem"></i>
+            <i class="pi pi-info" *ngIf="message.severity=='info'" style="font-size: 3rem"></i>
+            <h4>{{message.summary}}</h4>
+            <p>{{message.detail}}</p>
+            <p-slider [disabled]="true" *ngIf="message.data&&message.data.display_index&&message.data.of>0" [max]="message.data.of" [(ngModel)]="message.data.index"></p-slider>
+        </div>
+    </div>
+</ng-template>
+</p-toast>
+<p-toast key="standard" styleClass="on_top_of_everything" position="bottom-left"></p-toast>
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

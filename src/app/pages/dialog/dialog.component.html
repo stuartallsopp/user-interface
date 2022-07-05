@@ -1,22 +1,43 @@
 <div style="position: relative">
     <ngx-ui-loader pbColor="#883cae" [fgsSize]="0" fgsColor="#883cae" overlayColor="rgba(180,82,238,0.1)" [loaderId]="loader_key"></ngx-ui-loader>
     <div class="grid">
-        <div class="col-12">{{definition.help_text}}</div>
-        <div class="col-12"><p-divider styleClass="mb-1"></p-divider></div>
-        <div class="col-12">
-            <div class="grid" *ngIf="definition">
+        <div *ngIf="definition.help_text!=null&&definition.help_text!=''" [ngClass]="decor.alertcolour(definition.colour)" class="col-12 alert">{{definition.help_text}}</div>
+        <div class="col-12" *ngIf="definition&&definition.columns?.length>0">
+            <div class="grid">
                 <div *ngFor="let col of definition.columns" class="pb-0 pt-0" [ngClass]="responsive.get(col.size)">
-                        <ng-container *ngFor="let panel of col.panels">
-                            <app-panel [data]="data" [definition]="panel"></app-panel>
+                    <ng-container *ngFor="let panel_outer of col.panels_resolved">
+                        <ng-container *ngIf="panel_outer.key==''">
+                             <app-panel  *ngFor="let panel of panel_outer.panels" [data]="data" [definition]="panel"></app-panel>
                         </ng-container>
+                        <ng-container *ngIf="panel_outer.key!=''">
+                            <p-tabView styleClass="sa-innertabview">
+                                <p-tabPanel *ngFor="let panel of panel_outer.panels" [header]="panel.description">
+                                    <app-panel [data]="data" [dialog]="true" [definition]="panel"></app-panel>
+                                </p-tabPanel>
+                            </p-tabView>
+                        </ng-container>
+                    </ng-container>
                 </div>
             </div>
         </div>
         <div class="col-12">
             <div class="grid" *ngIf="definition">
-                <div *ngFor="let panel of definition.panels" class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
-                    <app-panel [data]="data" [dialog]="true" [definition]="panel"></app-panel>
-                </div>
+                <ng-container *ngFor="let panel_outer of definition.panels_resolved">
+                    <ng-container *ngIf="panel_outer.key==''">
+                        <div *ngFor="let panel of panel_outer.panels" class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
+                            <app-panel [data]="data" [dialog]="true" [definition]="panel"></app-panel>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="panel_outer.key!=''">
+                        <div class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
+                            <p-tabView styleClass="sa-innertabview">
+                                <p-tabPanel *ngFor="let panel of panel_outer.panels" [header]="panel.description">
+                                    <app-panel [data]="data" [dialog]="true" [definition]="panel"></app-panel>
+                                </p-tabPanel>
+                            </p-tabView>
+                        </div>
+                    </ng-container>
+                </ng-container>
             </div>
         </div>
         <div class="col-12"><p-divider styleClass="mt-0 mb-0"></p-divider></div>

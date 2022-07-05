@@ -9,6 +9,7 @@ export class FieldEditComponent implements OnInit {
 
 
   @Input() lookuplist:any[]=[];
+  @Input() actionlist:any[]=[];
   @Input() field:any;
   @Output() fieldChange= new EventEmitter<any>();
 

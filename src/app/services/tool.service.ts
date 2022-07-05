@@ -65,7 +65,7 @@ export class ToolService {
     }
     url=data.action_uri?data.action_uri[method]:"";
     if (method==""||url==""){
-      this.message.add({severity:"error",detail:"Could not resolve the Url"});
+      this.message.add({key:"standard",severity:"error",detail:"Could not resolve the Url"});
       return;
     }
     this.loader.startLoader(loader_key);
@@ -74,7 +74,7 @@ export class ToolService {
         this.sendEvent(action,true,unique_id,result);
       },
       error:(error)=>{
-        this.message.add({severity:"error",detail:error.error});
+        this.message.add({key:"standard",severity:"error",detail:error.error});
         this.loader.stopLoader(loader_key);
         this.sendEvent(action,false,unique_id);
       },

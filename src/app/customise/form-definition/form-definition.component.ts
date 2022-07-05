@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { runInThisContext } from 'vm';
+import { DialogService } from 'primeng/dynamicdialog';
 import { CustomdataService } from '../customdata.service';
+import { LookupOutlineComponent } from '../lookup-outline/lookup-outline.component';
+import { NewobjectpoupComponent } from '../newobjectpoup/newobjectpoup.component';
 
 @Component({
   selector: 'app-form-definition',
   templateUrl: './form-definition.component.html',
-  styleUrls: ['./form-definition.component.scss']
+  styleUrls: ['./form-definition.component.scss'],
+  providers:[DialogService]
 })
 export class FormDefinitionComponent implements OnInit {
 
-  constructor(private dataService:CustomdataService) { }
+  constructor(private dataService:CustomdataService,private dialog:DialogService) { }
 
   ngOnInit(): void {
     this.getPages();
@@ -19,6 +22,8 @@ export class FormDefinitionComponent implements OnInit {
     this.getLookups();
     this.getActions();
     this.getLists();
+    this.getCaches();
+    this.getSundryFields();
   }
 
   public objectType:string="form";
@@ -30,6 +35,8 @@ export class FormDefinitionComponent implements OnInit {
   public lookups:any[]=[];
   public actions:any[]=[];
   public lists:any[]=[];
+  public caches:string[]=[];
+  public sundryfields:any[]=[];
   public fullObject:any;
 
   closeTab(event:any)
@@ -69,6 +76,15 @@ export class FormDefinitionComponent implements OnInit {
     case 6:
       this.objectType="list";
       this.getLists();
+      break;
+    case 7:
+      this.objectType="sundryfield";
+      this.getSundryFields();
+      break;
+    case 8:
+      this.objectType="cache";
+      this.getCaches();
+      break;
 
   }
   this.selectedObject=null;
@@ -122,43 +138,107 @@ export class FormDefinitionComponent implements OnInit {
           }
           break; 
       case 'list':
+          if (this.selectedObject==null){this.fullObject=null;}else{
+            this.dataService.get_list_by_id(this.selectedObject.id).subscribe({next:(result)=>{
+              this.fullObject=result;
+            }})
+          }
+          break; 
+      case 'sundryfield':
         if (this.selectedObject==null){this.fullObject=null;}else{
-          this.dataService.get_list_by_id(this.selectedObject.id).subscribe({next:(result)=>{
+          this.dataService.get_sundryfield_by_id(this.selectedObject.id).subscribe({next:(result)=>{
             this.fullObject=result;
           }})
         }
-        break; 
+          break; 
     }
 
   }
 
+
+  clearCache()
+  {
+    this.dataService.clear_cache().subscribe({next:(result)=>{
+        localStorage.setItem("recent_pages",JSON.stringify([]));
+    }})
+  }
+
+  createCache()
+  {
+    this.dataService.cache_all_pages().subscribe({next:(result)=>{
+
+    }})
+  }
+
   newObject()
   {
-    this.selectedObject=null;
-    switch(this.objectType)
+    var payload={fullPage:{},type:'',lookups:this.lookups,lists:this.lists,buttons:this.buttons,fields:this.fields,actions:this.actions,columns:this.columns};
+    var size="50%";
+    var title="";
+
+    if (this.objectType=="lookup")
     {
-      case "form":
-        this.fullObject={id:0,description:""};
-        break;
-      case "button":
-        this.fullObject={id:0,description:"",buttons:[]};
-        break;
-      case "field":
-        this.fullObject={id:0,description:"",column_count:0,fields:[]};
-        break;
-      case "lookup":
-        this.fullObject={id:0,description:"",content:""};
-        break;
-      case "column":
-        this.fullObject={id:0,description:"",columns:[]};
-        break;
-      case "action":
-        this.fullObject={id:0,description:"",actions:[]};
-        break;
-      case "list":
-        this.fullObject={id:0,description:"",columns:[]};
-        break;
+      title="Lookup";
+      payload.fullPage={id:0,description:'',content:''};
+      payload.type='lookup';
     }
+    if (this.objectType=="button")
+    {
+      title="Button Set";
+      payload.fullPage={id:0,description:'',buttons:[]};
+      payload.type='button';
+    }
+    if (this.objectType=="action")
+    {
+      title="Action Set";
+      payload.fullPage={id:0,description:'',actions:[]};
+      payload.type='action';
+    }
+    if (this.objectType=="field")
+    {
+      title="Field Set";
+      payload.fullPage={id:0,description:'',fields:[],column_count:0};
+      payload.type='field';
+    }
+    if (this.objectType=="column")
+    {
+      title="Column Set";
+      payload.fullPage={id:0,description:'',list_columns:[]};
+      payload.type='column';
+    }
+    if (this.objectType=="form")
+    {
+      title="Form";
+      payload.fullPage={id:0,description:'',action_customisations:[],closeable:false,columns:[],panels:[],type:'display',dialog_width:0,format_type:'columns'};
+      payload.type='form';
+      size:'100%';
+    }
+    if (this.objectType=="list")
+    {
+      title="List";
+      payload.fullPage={id:0,description:'',action_customisations:[],filters:[],page_size:0,colour:'none'};
+      payload.type='list';
+      size:'90%'
+    }
+    if (this.objectType=="sundryfield")
+    {
+      title="Sundry Field";
+      payload.fullPage={id:0,description:'',action_customisations:[],type:'tex_entry',width:2};
+      payload.type='sundryfield';
+      size:'90%'
+    }
+    if (title!="")
+    {
+      const ref=this.dialog.open(NewobjectpoupComponent,{
+        data:payload,
+        header:title,
+        width:size
+      });
+      ref.onClose.subscribe((i)=>{
+        this.refresh(i);
+      })
+    }
+
   }
 
   refresh(source:any)
@@ -190,6 +270,14 @@ export class FormDefinitionComponent implements OnInit {
       if (this.objectType=="list")
       {
         this.tabChanged({index:6});
+      }
+      if (this.objectType=="sundryfield")
+      {
+        this.tabChanged({index:7});
+      }
+      if (this.objectType=="cache")
+      {
+        this.tabChanged({index:8});
       }
   }
 
@@ -225,6 +313,29 @@ export class FormDefinitionComponent implements OnInit {
       this.fields=[...result];
     }})
   }
+
+  getSundryFields()
+  {
+    this.dataService.get_sundryfield().subscribe({next:(result:any)=>{
+      this.sundryfields=[...result];
+    }})
+  }
+
+  getCaches()
+  {
+    this.dataService.get_cache().subscribe({next:(result:any)=>{
+      this.caches=[...result];
+    }})
+  }
+
+  deleteCache(key:string)
+  {
+    this.dataService.delete_cache(key).subscribe({next:(result:any)=>{
+      localStorage.setItem("recent_pages",JSON.stringify([]));
+      this.getCaches();
+    }})
+  }
+
 
   getLookups()
   {

@@ -1,0 +1,8 @@
+<div class="grid" *ngIf="fullPage">
+    <div class="col-12">
+        <button pButton (click)="updateEdit()" label="Update" class="m-2 p-button-outlined p-button-rounded p-button-secondary"></button>
+    </div>
+    <div class="col-12">
+        <app-field-edit [field]="fullPage" [actionlist]="actionlist" [lookuplist]="lookuplist"></app-field-edit>
+    </div>
+</div>

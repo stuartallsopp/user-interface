@@ -253,6 +253,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     if (this.definition.data_field?.length>0 && this.data!=null&&this.data!=undefined)
     {
       this.list_content=this.data[this.definition.data_field];
+      this.record_count=this.list_content.length;
     }else
     {
       this.refreshFromUrl(pageno,this.current_filters);

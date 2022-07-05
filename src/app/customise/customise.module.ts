@@ -8,6 +8,7 @@ import {InputSwitchModule} from 'primeng/inputswitch';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {ChipModule} from 'primeng/chip';
 import {AccordionModule} from 'primeng/accordion';
+import {DialogService, DynamicDialogModule} from 'primeng/dynamicdialog';
 import {DropdownModule} from 'primeng/dropdown';
 import {DialogModule} from 'primeng/dialog';
 import {InputTextareaModule} from 'primeng/inputtextarea';
@@ -29,6 +30,8 @@ import { ActioncustomOutlineComponent } from './actioncustom-outline/actioncusto
 import { ListOutlineComponent } from './list-outline/list-outline.component';
 import { PanelEditComponent } from './panel-edit/panel-edit.component';
 import { FieldEditComponent } from './field-edit/field-edit.component';
+import { NewobjectpoupComponent } from './newobjectpoup/newobjectpoup.component';
+import { SundryfieldOutlineComponent } from './sundryfield-outline/sundryfield-outline.component';
 
 
 
@@ -47,7 +50,9 @@ import { FieldEditComponent } from './field-edit/field-edit.component';
     ActioncustomOutlineComponent,
     ListOutlineComponent,
     PanelEditComponent,
-    FieldEditComponent
+    FieldEditComponent,
+    NewobjectpoupComponent,
+    SundryfieldOutlineComponent
   ],
   imports: [
     CommonModule,
@@ -58,6 +63,7 @@ import { FieldEditComponent } from './field-edit/field-edit.component';
     AutoCompleteModule,
     InputNumberModule,
     AccordionModule,
+    DynamicDialogModule,
     DialogModule,
     ChipModule,
     InputSwitchModule,
@@ -66,6 +72,7 @@ import { FieldEditComponent } from './field-edit/field-edit.component';
     DragDropModule,
     InputTextModule,
     ButtonModule
-  ]
+  ],
+  providers:[DialogService]
 })
 export class CustomiseModule { }

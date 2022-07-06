@@ -1,0 +1,26 @@
+.bubble {
+	position: relative;
+	border-radius: .4em;
+    padding-left:1rem;
+    padding-right:1rem;
+    padding-top: 1rem;
+    padding-bottom: 0.1rem;
+    background-color: var(--bs-info);
+    color:var(--primary-color-text);
+  }
+  
+  .bubble-bottom-left:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 0.219em solid transparent;
+	border-right-color: var(--bs-info);
+	border-left: 0;
+	margin-top: -0.219em;
+	margin-left: -0.219em;
+  }
+
+

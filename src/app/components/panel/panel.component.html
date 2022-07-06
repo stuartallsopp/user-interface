@@ -18,7 +18,7 @@ expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up"
             <app-fieldset [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
         </ng-container>
         <ng-container *ngIf="definition.type=='note'">
-            <app-note-viewer [data]="local_data"></app-note-viewer>
+            <app-note-viewer *ngIf="local_data" [data]="local_data"></app-note-viewer>
         </ng-container>
     </ng-template>
 </p-panel>
@@ -39,7 +39,7 @@ expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up"
             <app-fieldset [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
         </div>
         <div class="col-12" *ngIf="definition.type=='note'">
-            <app-note-viewer [data]="local_data"></app-note-viewer>
+            <app-note-viewer *ngIf="local_data" [data]="local_data"></app-note-viewer>
         </div>
     </div>
 </ng-container>

@@ -1,1 +1,42 @@
 
+<div class="grid mt-2">
+    <div class="hidden sm:hidden md:block md:col-1 lg:block lg:col-1 xl:block xl:col-1"></div>
+    <div class="col-12 md:col-10">
+        <div class="p-inputgroup">
+            <span class="p-float-label">
+                <textarea [mention]="users" [mentionConfig]="{labelKey:'name'}" [(ngModel)]="currentcomment" id="comment_entry" [rows]="2" style="resize:none;" pInputTextarea></textarea>
+                <label for="comment_entry"><span *ngIf="current_edit_id==0">Make a comment</span><span *ngIf="current_edit_id!=0">Edit a comment</span></label>
+            </span>
+            <button [disabled]="currentcomment==''" (click)="post_comment()" pButton icon="fa-solid fa-comment"></button>
+            <button *ngIf="current_edit_id!=0" (click)="clearedit()" class="p-button-danger" pButton icon="fa-solid fa-multiply"></button>
+        </div>
+
+    </div>
+    <div class="col-12">
+        <ng-container *ngIf="notes.length>0">
+    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+        <div class="grid">
+            <ng-container *ngFor="let item of notes">
+                <div class="hidden sm:hidden md:block md:col-1 lg:block lg:col-1 xl:block xl:col-1 text-center vertical-align-middle"><p-avatar [label]="item.initials" size="large" shape="circle"></p-avatar></div>
+                <div class="col-12 md:col-10">
+                    <div class="sa-bubble bubble bubble-bottom-left">
+                        <div class="grid">
+                            <div class="col-12 p-0">
+                                <span>{{item.note_data}}</span><button (click)="edit_current(item)" pButton icon="fa-solid fa-pencil" class="p-0 p-button-text p-button-secondary p-button-sm" *ngIf="item.user_id==current_user_id"></button>
+                            </div>
+                            <div class="col-6 p-0"><small>by {{item.user_name}}</small></div>
+                            <div class="col-6 p-0 text-right"><small><i [pTooltip]="item.create_date" class="fa-solid fa-clock mr-1"></i>{{item.create_date | amTimeAgo}}</small></div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="hidden sm:hidden md:block md:col-1 lg:block lg:col-1 xl:block xl:col-1 text-center">
+
+                </div>
+            </ng-container>
+        </div>
+    </p-scrollPanel>
+</ng-container>
+    </div>
+</div>
+
+

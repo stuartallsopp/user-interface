@@ -55,6 +55,11 @@ export class DataService {
     return this.http.get(environment.data_api+"note/"+type+"/"+id.toString());
   }
 
+  postNote(payload:any)
+  {
+    return this.http.post(environment.data_api+"note",payload);
+  }
+
   get(url:string)
   {
     return this.http.get(environment.data_api+url);

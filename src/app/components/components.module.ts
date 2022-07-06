@@ -1,3 +1,4 @@
+import * as moment from 'moment'
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {PanelModule} from 'primeng/panel';
@@ -11,17 +12,21 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { FieldsetModule } from 'primeng/fieldset';
 import { PaginatorModule } from 'primeng/paginator';
 import {CheckboxModule} from 'primeng/checkbox';
+import {MomentModule} from 'ngx-moment';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { FocusTrapModule } from 'primeng/focustrap';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { ScrollerModule } from 'primeng/scroller';
+import { TooltipModule } from 'primeng/tooltip';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { ListComponent } from './list/list.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import {ListboxModule} from 'primeng/listbox';
+import {AvatarModule} from 'primeng/avatar';
 import { ListcolumnComponent } from './listcolumn/listcolumn.component';
 import { ListColTextComponent } from './listdatatype/text/list-col-text.component';
 import { ListColNumberComponent } from './listdatatype/list-col-number/list-col-number.component';
@@ -45,6 +50,8 @@ import { AcSingleSearchComponent } from './fielddatatype/ac-single-search/ac-sin
 import { DividerModule } from 'primeng/divider';
 import { ListfilterComponent } from './listfilter/listfilter.component';
 import { NoteViewerComponent } from './note-viewer/note-viewer.component';
+import { NoteViewerDirDirective } from './note-viewer-dir.directive';
+import { MentionModule } from 'angular-mentions';
 
 
 
@@ -71,7 +78,8 @@ import { NoteViewerComponent } from './note-viewer/note-viewer.component';
     FieldpickerComponent,
     AcSingleSearchComponent,
     ListfilterComponent,
-    NoteViewerComponent
+    NoteViewerComponent,
+    NoteViewerDirDirective
   ],
   imports: [
     CommonModule,
@@ -81,15 +89,20 @@ import { NoteViewerComponent } from './note-viewer/note-viewer.component';
     CalendarModule,
     DebounceModule,
     KeyFilterModule,
+    AvatarModule,
     InputSwitchModule,
     FieldsetModule,
     DividerModule,
     CheckboxModule,
     MultiSelectModule,
-    ScrollerModule,
+    ScrollPanelModule,
     DropdownModule,
     PaginatorModule,
+    InputTextareaModule,
+    TooltipModule,
+    MentionModule,
     ListboxModule,
+    MomentModule,
     AutoCompleteModule,
     FocusTrapModule,
     OverlayPanelModule,

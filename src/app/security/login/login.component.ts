@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgEventBus } from 'ng-event-bus';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,10 +11,10 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  public form!: FormGroup;
+  public form!: UntypedFormGroup;
   public dialogvisible!:any;
 
-  constructor(private fb:FormBuilder, 
+  constructor(private fb:UntypedFormBuilder, 
     private authService: AuthService, 
     private router: Router, private events: NgEventBus) {
       this.form = this.fb.group({

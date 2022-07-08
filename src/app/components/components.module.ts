@@ -113,7 +113,7 @@ import { MentionModule } from 'angular-mentions';
     MenuModule
   ],
   exports:[
-    PanelComponent,ButtongroupComponent
+    PanelComponent,ButtongroupComponent,NoteViewerComponent
   ]
 })
 export class ComponentsModule { }

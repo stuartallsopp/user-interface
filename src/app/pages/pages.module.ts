@@ -17,6 +17,7 @@ import { RecordComponent } from './record/record.component';
 import { ActionpanelComponent } from './actionpanel/actionpanel.component';
 import { FormsModule } from '@angular/forms';
 import { TabViewModule } from 'primeng/tabview';
+import { NoteviewComponent } from './noteview/noteview.component';
 
 
 
@@ -29,7 +30,8 @@ import { TabViewModule } from 'primeng/tabview';
     BreadcrumbComponent,
     DialogComponent,
     RecordComponent,
-    ActionpanelComponent
+    ActionpanelComponent,
+    NoteviewComponent
   ],
   imports: [
     CommonModule,

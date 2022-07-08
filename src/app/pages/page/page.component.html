@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="grid" *ngIf="page_definition&&page_definition.type=='list'">
-                <div class="col-12 sm:col-12 md:col-9 lg:col-10 xl:col-10">
+                <div class="col-12 sm:col-12 md:col-9 lg:col-9 xl:col-9">
                     <div class="grid mt-3" *ngIf="page_definition">
                         <div *ngFor="let col of page_definition.columns" class="pb-0 pt-0" [ngClass]="responsive.get(col.size)">
                             <ng-container *ngFor="let panel_outer of col.panels_resolved">
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="hidden sm:hidden md:block md:col-3 lg:block lg:col-2 xl:block xl:col-2">
+                <div class="hidden sm:hidden md:block md:col-3 lg:block lg:col-3 xl:block xl:col-3">
                     <app-actionpanel [definition]="page_definition"></app-actionpanel>
                 </div>
             </div>

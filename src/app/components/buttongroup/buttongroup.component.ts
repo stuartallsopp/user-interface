@@ -60,9 +60,15 @@ export class ButtongroupComponent implements OnInit,OnChanges {
       {
         for(const button of this.localbuttons)
         {
+          if (button.action_key=='divider')
+          {
+            this.items.push({separator:true});
+          }else
+          {
             this.items.push({label:button.label,id:idx.toString(),icon:button.icon,command:(event)=>{
               this.resolvemenuclick(event);
             }});
+          }
             idx++;
         }
       }

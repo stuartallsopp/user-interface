@@ -1,0 +1,10 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="alert alert-info mb-0">
+            <span>{{description}}</span><span class="ml-2" *ngIf="code!=''&&code!=null&&code!=undefined">({{code}})</span>
+        </div>
+    </div>
+    <div class="col-12">
+        <app-note-viewer [data]="data"></app-note-viewer>
+    </div>
+</div>

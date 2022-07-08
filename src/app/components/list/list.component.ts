@@ -212,6 +212,10 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       case 'goto':
         this.event.cast('top',{from:this.unique_id,action:'goto',key:action.url,id:id,source_type:this.source_type});
         break;
+      case 'note':
+        console.log(data);
+        this.event.cast('top',{from:this.unique_id,action:'note',id:id,source_type:data.action_uri.type,data:data});
+        break;
     }
   }
 

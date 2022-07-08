@@ -50,6 +50,11 @@ export class DataService {
     return this.http.post(environment.data_api+url,payload);
   }
 
+  checkNoteType(type:string)
+  {
+    return this.http.get(environment.data_api+"note/checktype/"+type);
+  }
+
   getNotes(type:string,id:number)
   {
     return this.http.get(environment.data_api+"note/"+type+"/"+id.toString());

@@ -7,6 +7,8 @@ import { MessageService } from 'primeng/api';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
 import { SignalrService } from './services/signalr.service';
+import { NoteviewComponent } from './pages/noteview/noteview.component';
+import { DataService } from './services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +25,7 @@ export class AppComponent  {
     private event:NgEventBus,
     private dialog: DialogService,
     private page:PageService,
+    private dataService: DataService,
     private message: MessageService,
     private loading: NgxUiLoaderService,
     private router:Router,
@@ -41,6 +44,9 @@ export class AppComponent  {
         case 'goto':
           this.gotoPage(result.data.key,result.data);
           break;
+        case 'note':
+          this.openNote(result.data.id,result.data.source_type,result.data);
+          break;
       }
       
     })
@@ -54,6 +60,33 @@ export class AppComponent  {
     this.router.navigate([routerLink]);
   }
 
+  openNote(id:number,type:string,data:any)
+  {
+    console.log(data);
+    this.loading.startBackgroundLoader("application");
+    this.dataService.checkNoteType(type).subscribe({next:(result:any)=>{
+      const ref=this.dialog.open(NoteviewComponent,
+        {
+          data:{
+            propertybag:{id:id,type:result.type,description:data.data[result.record_description],code:data.data[result.record_code]}
+          },
+          header: "Notes for " + result.description,
+          width : '30%',
+          closable:true,
+          styleClass:'sa-dialog-scroll-fix',
+          modal:true,
+          closeOnEscape : true
+        });
+    },
+  error:(error)=>{
+    this.message.add({key:"standard",severity:"error",detail:error.message});
+    this.loading.stopBackgroundLoader("application");
+  },
+  complete:()=>{
+    this.loading.stopBackgroundLoader("application");
+  }
+})
+  }
 
   openDialog(id:number,content:any)
   {

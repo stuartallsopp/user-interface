@@ -52,15 +52,6 @@ export class FieldOutlineComponent implements OnInit {
     this.fullPage.fields=[...this.fullPage.fields];
   }
 
-  moveup(row:number,field:any)
-  {
-    if (row==0){return;}
-    this.fullPage.fields.splice(row,1);
-    this.fullPage.fields.splice(row-1,0,field);
-    this.setRows();
-    this.fullPage.fields=[...this.fullPage.fields];
-  }
-
   saveField()
   {
       if (this.edited_row==-1)
@@ -75,6 +66,17 @@ export class FieldOutlineComponent implements OnInit {
       this.fullPage.fields=[...this.fullPage.fields];
   }
 
+  moveup(row:number,field:any)
+  {
+    if (row==0){return;}
+    this.fullPage.fields.splice(row,1);
+    this.fullPage.fields.splice(row-1,0,field);
+    this.setRows();
+    this.fullPage.fields=[...this.fullPage.fields];
+  }
+
+
+
   setRows()
   {
     var idx=0;
@@ -83,7 +85,6 @@ export class FieldOutlineComponent implements OnInit {
         item.sort_order=idx;
         idx++;
     }
-    console.log(this.fullPage.fields);
   }
 
   movedown(row:number,field:any)

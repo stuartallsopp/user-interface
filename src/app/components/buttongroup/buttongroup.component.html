@@ -1,20 +1,27 @@
-<ng-container *ngIf="localbuttons&&localbuttons.length==1&&location!='dialog'&&location!='page'">
+<ng-container *ngIf="localbuttons&&localbuttons.length==1&&location!='dialog'&&location!='page' && displayas!='full'">
     <button pButton (click)="sendevent(0)" [icon]="localbuttons[0].icon" 
     [ngClass]="resolveColour(localbuttons[0].colour)" *ngIf="location=='row'" class="p-button-sm p-button-rounded p-button-text"></button>
     <button pButton (click)="sendevent(0)" [icon]="localbuttons[0].icon" 
     [ngClass]="resolveColour(localbuttons[0].colour)" *ngIf="location=='top'" class="p-button-sm p-button-rounded p-button-outlined"></button>
 </ng-container>
-<ng-container *ngIf="localbuttons&&localbuttons.length>1&&location!='dialog'&&location!='page'">
+<ng-container *ngIf="localbuttons&&localbuttons.length>1&&location!='dialog'&&location!='page' && displayas!='full'">
     <button (click)="menu.toggle($event)" 
     [ngClass]="resolveColour(localbuttons[0].colour)" pButton icon="fa-solid fa-ellipsis-vertical" 
     class="p-button-sm p-button-rounded p-button-text"></button>
     <p-menu appendTo="body" #menu [popup]="true" [model]="items"></p-menu> 
 </ng-container>
-<ng-container *ngIf="localbuttons&&localbuttons.length>0&&location=='dialog'">
+<ng-container *ngIf="localbuttons&&localbuttons.length>0&&location=='dialog' && displayas!='full'">
     <button (click)="sendevent(i)" *ngFor="let button of localbuttons;let i = index" [ngClass]="decor.buttoncolour(button.colour)" pButton class="p-button-rounded p-button-outlined btn-lg p-button-outlined ml-2" [icon]="button.icon"></button>
 </ng-container>
 <ng-container *ngIf="localbuttons&&localbuttons.length>0&&location=='page'">
     <span class="p-buttonset flex justify-content-center">
-        <button (click)="sendevent(i)" *ngFor="let button of localbuttons;let i = index" [label]="button.label" [ngClass]="decor.buttoncolour(button.colour)" pButton class="p-button-outlined p-button-rounded p-button-lg flex-grow-1" [icon]="button.icon"></button>
+        <button (click)="sendevent(i)" *ngFor="let button of localbuttons;let i = index" [label]="button.label" [ngClass]="decor.buttoncolour(button.colour)" pButton class="p-button-outlined min-w-min max-w-10rem p-button-rounded p-button-lg flex-grow-1" [icon]="button.icon"></button>
     </span>
+</ng-container>
+<ng-container *ngIf="localbuttons&&localbuttons.length>0&&displayas=='full'">
+    <div class="grid">
+        <div class="col-12 pb-0 pl-6" *ngFor="let button of localbuttons;let i = index">
+            <button (click)="sendevent(i)"  [label]="button.label" [ngClass]="decor.buttoncolour(button.colour)" pButton class="p-button-text text-left p-0 w-full p-button-lg flex-grow-1" [icon]="button.icon"></button>
+        </div>
+    </div>
 </ng-container>

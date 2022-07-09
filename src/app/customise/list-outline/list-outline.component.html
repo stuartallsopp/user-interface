@@ -105,7 +105,7 @@
             </span>
         </div>
         <div class="col-12">
-            <p-table [value]="edited_filter.items" sortField="id" dataKey="id">
+            <p-table [value]="edited_filter.items" sortField="sort_order" dataKey="id">
                 <ng-template pTemplate="header">
                     <th>Item</th>
                     <th><button (click)="addFilterItem()" pButton class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-success" icon="fa-solid fa-plus"></button></th>
@@ -116,6 +116,9 @@
                       <td>
                         <span class="p-button-set">
                              <button pButton (click)="deleteFilterItem(filteritem,rowIndex)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-danger" icon="fa-solid fa-trash"></button>
+                             <button pButton [disabled]="rowIndex==0" (click)="moveup(rowIndex,filteritem)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-secondary" icon="fa-solid fa-arrow-up"></button>
+                             <button pButton [disabled]="rowIndex==(edited_filter.items.length-1)" (click)="movedown(rowIndex,filteritem)" class="ml-2 p-button-sm p-button-rounded p-button-outlined p-button-secondary" icon="fa-solid fa-arrow-down"></button>
+                 
                          </span>
                       </td>
                     </tr>

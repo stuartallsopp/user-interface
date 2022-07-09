@@ -65,15 +65,6 @@ export class ListOutlineComponent implements OnInit {
     this.edited_filter.items=[...this.edited_filter.items];
   }
 
-  moveup(row:number,filter:any)
-  {
-    if (row==0){return;}
-    this.fullPage.filters.splice(row,1);
-    this.fullPage.filters.splice(row-1,0,filter);
-    this.setRows();
-    this.fullPage.filters=[...this.fullPage.filters];
-  }
-
   saveFilter()
   {
       if (this.edited_row==-1)
@@ -88,23 +79,31 @@ export class ListOutlineComponent implements OnInit {
       this.fullPage.filters=[...this.fullPage.filters];
   }
 
+  moveup(row:number,filteritem:any)
+  {
+    if (row==0){return;}
+    this.edited_filter.items.splice(row,1);
+    this.edited_filter.items.splice(row-1,0,filteritem);
+    this.setRows();
+    this.edited_filter.items=[...this.edited_filter.items];
+  }
+
   setRows()
   {
     var idx=0;
-    for(var item of this.fullPage.filters)
+    for(var item of this.edited_filter.items)
     {
         item.sort_order=idx;
         idx++;
     }
-    console.log(this.fullPage.filters);
   }
 
-  movedown(row:number,filter:any)
+  movedown(row:number,filteritem:any)
   {
-    if (row==this.fullPage.filters.length-1){return;}
-    this.fullPage.filters.splice(row,1);
-    this.fullPage.filters.splice(row+1,0,filter);
+    if (row==this.edited_filter.items.length-1){return;}
+    this.edited_filter.items.splice(row,1);
+    this.edited_filter.items.splice(row+1,0,filteritem);
     this.setRows();
-    this.fullPage.filters=[...this.fullPage.filters];
+    this.edited_filter.items=[...this.fullPage.filters];
   }
 }

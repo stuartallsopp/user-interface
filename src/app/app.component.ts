@@ -39,6 +39,7 @@ export class AppComponent  {
       switch(result.data.action)
       {
         case 'dialog':
+          console.log(result);
           this.openDialog(parseInt(result.data.key),result.data);
           break;
         case 'goto':
@@ -91,7 +92,7 @@ export class AppComponent  {
   openDialog(id:number,content:any)
   {
     this.loading.startBackgroundLoader("application");
-    this.page.getdialog(id).subscribe({next:(result:any)=>{
+    this.page.getdialog(id,content.source_type).subscribe({next:(result:any)=>{
       const ref = this.dialog.open(DialogComponent, {
         data: {
             propertybag:content,

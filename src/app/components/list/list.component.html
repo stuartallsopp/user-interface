@@ -42,6 +42,7 @@
         </ng-template>
         <ng-template pTemplate="footer">
             <tr>
+                <td *ngIf="selectionmode=='multiple'"></td>
                 <td [attr.colspan]="col.colspan" [ngClass]="col.type=='total'?'text-right':'text-left'" *ngFor="let col of footer_columns">
                     <span *ngIf="col.type=='totalrecords'">{{record_count}} record(s)</span>
                     <span *ngIf="col.type=='total'">{{getTotal(col.key)|number:col.format}}</span>

@@ -1,9 +1,29 @@
 <div class="grid">
+    <div class="hidden sm:hidden md:block md:col-12 lg:block lg:col-12 xl:block xl:col-12" *ngIf="listbuttons.length==0">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h5 class="card-title">{{definition.description}}</h5>
+                <p-divider></p-divider>
+                <h6 class="card-subtitle mb-2 text-muted">{{definition.help_text}}</h6>
+            </div>
+        </div>
+    </div>
     <div class="col-12">
         <app-buttongroup (itemselected)="buttonpressed($event)" [buttons]="definition.pagebuttons" location="page"></app-buttongroup>
     </div>
-    <div class="hidden sm:hidden md:block lg:block xl:block mr-2 ml-2">
-        <h3 class="text-primary">{{definition.description}}</h3>
-        <p class="text-color-secondary font-italic">{{definition.help_text}}</p>
+    <div class="hidden sm:hidden md:block md:col-12 lg:block lg:col-12 xl:block xl:col-12" *ngIf="listbuttons.length>0">
+        <div class="grid">
+            <div *ngFor="let list of listbuttons" class="col-12">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title">{{definition.description}}</h5>
+                        <p-divider></p-divider>
+                        <app-buttongroup (itemselected)="listbuttonpressed($event)" [buttons]="list.buttonset" displayas="full" location="top" [from]="list.from"></app-buttongroup>
+                        <p-divider *ngIf="definition.help_text"></p-divider>
+                        <h6 class="card-subtitle mb-2 text-muted">{{definition.help_text}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

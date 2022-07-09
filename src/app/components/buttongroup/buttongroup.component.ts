@@ -17,6 +17,8 @@ export class ButtongroupComponent implements OnInit,OnChanges {
   @Input() buttons:any;
   @Input() rowIndex:number=-1;
   @Input() location:string="";
+  @Input() from:string="";
+  @Input() displayas:string="";
 
   constructor(public decor:DecorationService) { }
   ngOnChanges(changes: SimpleChanges): void {
@@ -37,7 +39,7 @@ export class ButtongroupComponent implements OnInit,OnChanges {
   sendevent(id:number)
   {
     var selected=this.localbuttons[id];
-    this.itemselected.next({rowindex:this.rowIndex,button:selected});
+    this.itemselected.next({rowindex:this.rowIndex,button:selected,from:this.from});
   }
 
   resolvemenuclick(event:any)

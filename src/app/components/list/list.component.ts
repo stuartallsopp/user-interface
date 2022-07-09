@@ -19,6 +19,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
 
   public loader_key:string="";
 
+  private buttons_published:boolean=false;
   public unique_id:string=uuidv4();
   public selectionmode:string="";
   public list_content:any[]=[];
@@ -55,6 +56,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       this.loader_key="list_"+this.definition.id;
       this.resolveFooterColumns();
       this.resolveselectionMode();
+      this.publishButtons();
     }
     if (changes['definition']||changes['data'])
     {
@@ -87,6 +89,14 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     
   }
 
+  publishButtons()
+  {
+    if (this.buttons_published==false)
+    {
+      this.event.cast('actionpanel',{from:this.unique_id,buttonset:this.definition.buttonset});
+    }
+    
+  }
 
 
   resolveFooterColumns()
@@ -157,6 +167,10 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       if (result.data.type=='redraw')
       {
         this.refresh();
+      }
+      if (result.data.type=='listbuttonclick')
+      {
+        this.sendEvent(-1,result.data.button.action_key);
       }
       if (result.data.type=='update_list')
       {
@@ -258,7 +272,8 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     {
       this.list_content=this.data[this.definition.data_field];
       this.record_count=this.list_content.length;
-    }else
+    }
+    if (this.definition.data_url!=undefined&&this.definition.data_url!=null)
     {
       this.refreshFromUrl(pageno,this.current_filters);
     }

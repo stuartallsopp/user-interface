@@ -38,16 +38,16 @@ export class PageService {
     if (check2==null){return null}else{return check2.id;}
   }
 
-  getdialog(id:number)
+  getdialog(id:number,source_type:string)
   {
-    if (this.recent_pages.filter(p=>p.key==id.toString())[0]!=null)
+    if (this.recent_pages.filter(p=>p.key==id.toString()+"_"+source_type)[0]!=null)
     {
-      return of(this.recent_pages.filter(p=>p.key==id.toString())[0].form);
+      return of(this.recent_pages.filter(p=>p.key==id.toString()+"_"+source_type)[0].form);
     }
-    return this.http.get<any[]>(environment.forms_api+"page/dialog/"+id.toString()).pipe(
+    return this.http.get<any[]>(environment.forms_api+"page/dialog/"+source_type+"/"+id.toString()).pipe(
       take(1),
       map((data) => {
-          this.appendToCatalog(data,id.toString());
+          this.appendToCatalog(data,id.toString()+"_"+source_type);
           return data;
       }
       )

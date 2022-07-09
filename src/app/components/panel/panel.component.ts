@@ -24,7 +24,7 @@ export class PanelComponent implements OnInit,OnChanges,AfterViewInit {
   constructor(public responsive:ResponsiveService,private dataService:DataService, public decor:DecorationService,private renderer:Renderer2) { }
   ngAfterViewInit(): void {
 
-    if (this.definition.colour!=null&&this.definition.colour!="")
+    if (this.definition.colour!=null&&this.definition.colour!=""&&this.definition.colour!='none')
     {
       if (this.panelObject==undefined){return;}
       var el=this.panelObject.el.nativeElement;

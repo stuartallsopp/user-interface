@@ -83,6 +83,7 @@ export class BreadcrumbComponent implements OnInit,OnChanges {
     {
       var resolves=this.crumbspath.split(",");
     }
+    if (this.crumbs==null){return;}
     const split=this.crumbs.split("/");
     var idx=0;
     for(var item of split)

@@ -32,6 +32,7 @@ import { PanelEditComponent } from './panel-edit/panel-edit.component';
 import { FieldEditComponent } from './field-edit/field-edit.component';
 import { NewobjectpoupComponent } from './newobjectpoup/newobjectpoup.component';
 import { SundryfieldOutlineComponent } from './sundryfield-outline/sundryfield-outline.component';
+import { FilterService } from 'primeng/api';
 
 
 
@@ -73,6 +74,6 @@ import { SundryfieldOutlineComponent } from './sundryfield-outline/sundryfield-o
     InputTextModule,
     ButtonModule
   ],
-  providers:[DialogService]
+  providers:[DialogService,FilterService]
 })
 export class CustomiseModule { }

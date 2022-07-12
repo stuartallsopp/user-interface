@@ -23,6 +23,7 @@ export class AcSingleSearchComponent implements OnInit,AfterViewInit {
   @Input() definition:any;
   @Input() hasnew:boolean=false;
   @Input() data:any;
+  @Input() source_type:string="";
   @Input() dialog?:OverlayPanel;
   @Output() item_selected:EventEmitter<any>=new EventEmitter<any>();
   @Output() new_record_selected:EventEmitter<any>=new EventEmitter<any>();
@@ -87,6 +88,7 @@ export class AcSingleSearchComponent implements OnInit,AfterViewInit {
       {
         url=url.replace("{id}",this.data.id);
       }
+      url=url.replace("{source_type}",this.source_type);
       this.dataService.list(url,50,0,search_param.order,"asc",search).subscribe(
         {
           next:(result:any)=>{

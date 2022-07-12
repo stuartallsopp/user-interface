@@ -11,6 +11,7 @@ export class BaseComponent implements OnInit,OnChanges,OnDestroy {
 
   @Input() data:any={};
   @Input() definition:any;
+  @Input() source_type:string="";
   @Output() value_changed:EventEmitter<any>=new EventEmitter<any>();
   
 

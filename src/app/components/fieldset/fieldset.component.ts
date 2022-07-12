@@ -11,6 +11,7 @@ export class FieldsetComponent implements OnInit,OnChanges {
   @Input() definition:any;
   @Input() data:any;
   @Input() dialog:boolean=false;
+  @Input() source_type:string='';
 
   public columns:any[]=[];
 

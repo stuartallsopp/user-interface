@@ -18,6 +18,8 @@ import { ActionpanelComponent } from './actionpanel/actionpanel.component';
 import { FormsModule } from '@angular/forms';
 import { TabViewModule } from 'primeng/tabview';
 import { NoteviewComponent } from './noteview/noteview.component';
+import { BaseComponent } from './base/base.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 
 
@@ -31,7 +33,9 @@ import { NoteviewComponent } from './noteview/noteview.component';
     DialogComponent,
     RecordComponent,
     ActionpanelComponent,
-    NoteviewComponent
+    NoteviewComponent,
+    BaseComponent,
+    TransactionComponent
   ],
   imports: [
     CommonModule,

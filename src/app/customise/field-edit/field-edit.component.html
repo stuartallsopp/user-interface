@@ -19,7 +19,7 @@
     </div>
     <div class="field col-12 md:col-2">
         <span class="p-float-label">
-            <p-dropdown inputId="type" appendTo="body" [options]="['tex_entry','aut_entry','tex_disp','num_entry','num_disp','dat_entry','dat_disp','plst_entry','swch_entry','pitem_entry']" [(ngModel)]="field.type"></p-dropdown>
+            <p-dropdown inputId="type" appendTo="body" [options]="['tex_entry','aut_entry','tex_disp','num_entry','num_disp','dat_entry','dat_disp','plst_entry','swch_entry','pitem_entry','perd_entry','mdl_entry']" [(ngModel)]="field.type"></p-dropdown>
             <label for="type">Type</label>
         </span>
     </div>
@@ -109,6 +109,12 @@
                 <span class="p-float-label">
                     <textarea id="aut_config" pInputTextarea pInputTextarea rows="3" [(ngModel)]="field.aut_config"></textarea>
                     <label for="aut_config">Configurations</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-10">
+                <span class="p-float-label">
+                    <input type="text" id="validate_url" pInputText [(ngModel)]="field.validate_url"> 
+                    <label for="validate_url">Validate Url</label>
                 </span>
             </div>
         </div>

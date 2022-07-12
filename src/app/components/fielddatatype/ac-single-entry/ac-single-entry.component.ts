@@ -109,14 +109,14 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
 
   new_record(op:OverlayPanel)
   {
-    var check=this.definition.actions.filter((p: { key: string; })=>p.key=="new_record")[0];
+    var check=this.definition.actions?.filter((p: { key: string; })=>p.key=="new_record")[0];
     this.event.cast('top',{from:this.unique_id,action:'dialog',key:check.dialog_key,id:0,cache:null,row:-1,content:null});
     op.hide();
   }
 
   hasnewbutton():boolean
   {
-    var check=this.definition.actions.filter((p: { key: string; })=>p.key=="new_record")[0];
+    var check=this.definition.actions?.filter((p: { key: string; })=>p.key=="new_record")[0];
     if (check!=null){return true;}
     return false;
   }

@@ -10,6 +10,7 @@ export class FieldpickerComponent implements OnInit {
   @Output() value_changed:EventEmitter<any>=new EventEmitter<any>();
   @Input() data:any=null;
   @Input() field:any=null;
+  @Input() source_type:string='';
   @Input() parentdata:any=null;
 
   constructor() { }

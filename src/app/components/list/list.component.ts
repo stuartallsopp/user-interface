@@ -221,7 +221,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
         this.deleteRecord(action.url,action.confirm_message,id);
         break;
       case 'dialog':
-        this.event.cast('top',{from:this.unique_id,action:'dialog',key:action.dialog_key,id:id,cache:this.cacheid,row:rowIndex,content:data,source_type:this.source_type});
+        this.event.cast('top',{from:this.unique_id,action:'dialog',key:action.dialog_key,id:id,cache:this.cacheid,row:rowIndex,content:data,source_type:this.source_type,parent_id:this.data?.id});
         break;
       case 'goto':
         this.event.cast('top',{from:this.unique_id,action:'goto',key:action.url,id:id,source_type:this.source_type});

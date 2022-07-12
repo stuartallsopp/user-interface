@@ -52,6 +52,7 @@ import { ListfilterComponent } from './listfilter/listfilter.component';
 import { NoteViewerComponent } from './note-viewer/note-viewer.component';
 import { NoteViewerDirDirective } from './note-viewer-dir.directive';
 import { MentionModule } from 'angular-mentions';
+import { PerioddateEntryComponent } from './fielddatatype/perioddate-entry/perioddate-entry.component';
 
 
 
@@ -79,7 +80,8 @@ import { MentionModule } from 'angular-mentions';
     AcSingleSearchComponent,
     ListfilterComponent,
     NoteViewerComponent,
-    NoteViewerDirDirective
+    NoteViewerDirDirective,
+    PerioddateEntryComponent
   ],
   imports: [
     CommonModule,

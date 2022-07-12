@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
+import { Table } from 'primeng/table';
 import { CustomdataService } from '../customdata.service';
 import { LookupOutlineComponent } from '../lookup-outline/lookup-outline.component';
 import { NewobjectpoupComponent } from '../newobjectpoup/newobjectpoup.component';
@@ -43,6 +44,11 @@ export class FormDefinitionComponent implements OnInit {
   {
     this.fullObject=null;
     this.objectType="";
+  }
+
+  applyFilter(table:Table,event:any)
+  {
+    table.filterGlobal((event.target as HTMLInputElement).value, "contains");
   }
 
   tabChanged(event:any)

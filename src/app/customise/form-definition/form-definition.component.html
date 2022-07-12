@@ -8,8 +8,19 @@
              </div>
             <div class="col-12">
                 <p-accordion (onOpen)="tabChanged($event)" (onClose)="closeTab($event)">
-                    <p-accordionTab header="Forms">
-                        <p-table [value]="pages" selectionMode="single" (onRowSelect)="rowSelected('form')" (onRowUnselect)="rowSelected('form')" [(selection)]="selectedObject" dataKey="id">
+                    <p-accordionTab>
+                        <ng-template pTemplate="header">
+                            Forms <p-chip styleClass="ml-2 custom-chip" *ngIf="pages.length>0" [label]="pages.length.toString()"></p-chip>
+                        </ng-template>
+                        <p-table #dt1 [globalFilterFields]="['description']" [value]="pages" selectionMode="single" (onRowSelect)="rowSelected('form')" (onRowUnselect)="rowSelected('form')" [(selection)]="selectedObject" dataKey="id">
+                            <ng-template pTemplate="caption">
+                                <div class="flex">
+                                    <span class="p-input-icon-left ml-auto">
+                                        <i class="pi pi-search"></i>
+                                        <input pInputText type="text" (input)="applyFilter(dt1,$event)" placeholder="Search keyword"/>
+                                    </span>
+                                </div>
+                            </ng-template>
                             <ng-template pTemplate="body" let-page>
                                 <tr [pSelectableRow]="page">
                                     <td>{{page.description}} ({{page.type}}) <p-chip styleClass="ml-2 custom-chip" [label]="page.id"></p-chip></td>
@@ -17,7 +28,10 @@
                             </ng-template>
                         </p-table>
                     </p-accordionTab>
-                    <p-accordionTab header="Column Sets">
+                    <p-accordionTab>
+                        <ng-template pTemplate="header">
+                            Column Sets <p-chip styleClass="ml-2 custom-chip" *ngIf="columns.length>0" [label]="columns.length.toString()"></p-chip>
+                        </ng-template>
                         <p-table [value]="columns" selectionMode="single" (onRowSelect)="rowSelected('column')" (onRowUnselect)="rowSelected('column')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-column>
                                 <tr [pSelectableRow]="column">
@@ -26,7 +40,10 @@
                             </ng-template>
                         </p-table>
                     </p-accordionTab>
-                    <p-accordionTab header="Field Sets">
+                    <p-accordionTab>
+                        <ng-template pTemplate="header">
+                            Fields Sets <p-chip styleClass="ml-2 custom-chip" *ngIf="fields.length>0" [label]="fields.length.toString()"></p-chip>
+                        </ng-template>
                         <p-table [value]="fields" selectionMode="single" (onRowSelect)="rowSelected('field')" (onRowUnselect)="rowSelected('field')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-field>
                                 <tr [pSelectableRow]="field">
@@ -35,7 +52,10 @@
                             </ng-template>
                         </p-table>
                     </p-accordionTab>
-                    <p-accordionTab header="Button Sets">
+                    <p-accordionTab>
+                        <ng-template pTemplate="header">
+                            Button Sets <p-chip styleClass="ml-2 custom-chip" *ngIf="buttons.length>0" [label]="buttons.length.toString()"></p-chip>
+                        </ng-template>
                         <p-table [value]="buttons" selectionMode="single" (onRowSelect)="rowSelected('button')" (onRowUnselect)="rowSelected('button')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-button>
                                 <tr [pSelectableRow]="button">
@@ -44,7 +64,10 @@
                             </ng-template>
                         </p-table>
                     </p-accordionTab>
-                    <p-accordionTab header="Lookups">
+                    <p-accordionTab>
+                        <ng-template pTemplate="header">
+                            Lookups <p-chip styleClass="ml-2 custom-chip" *ngIf="lookups.length>0" [label]="lookups.length.toString()"></p-chip>
+                        </ng-template>
                         <p-table [value]="lookups" selectionMode="single" (onRowSelect)="rowSelected('lookup')" (onRowUnselect)="rowSelected('lookup')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-lookup>
                                 <tr [pSelectableRow]="lookup">
@@ -53,7 +76,10 @@
                             </ng-template>
                         </p-table>
                     </p-accordionTab>
-                    <p-accordionTab header="Actions">
+                    <p-accordionTab>
+                        <ng-template pTemplate="header">
+                            Actions Sets <p-chip styleClass="ml-2 custom-chip" *ngIf="actions.length>0" [label]="actions.length.toString()"></p-chip>
+                        </ng-template>
                         <p-table [value]="actions" selectionMode="single" (onRowSelect)="rowSelected('action')" (onRowUnselect)="rowSelected('action')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-action>
                                 <tr [pSelectableRow]="action">
@@ -62,7 +88,10 @@
                             </ng-template>
                         </p-table>
                     </p-accordionTab>
-                    <p-accordionTab header="Lists">
+                    <p-accordionTab>
+                        <ng-template pTemplate="header">
+                            Lists <p-chip styleClass="ml-2 custom-chip" *ngIf="lists.length>0" [label]="lists.length.toString()"></p-chip>
+                        </ng-template>
                         <p-table [value]="lists" selectionMode="single" (onRowSelect)="rowSelected('list')" (onRowUnselect)="rowSelected('list')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-list>
                                 <tr [pSelectableRow]="list">
@@ -71,7 +100,10 @@
                             </ng-template>
                         </p-table>
                     </p-accordionTab>
-                    <p-accordionTab header="Sundry Fields">
+                    <p-accordionTab>
+                        <ng-template pTemplate="header">
+                            Sundry Fields <p-chip styleClass="ml-2 custom-chip" *ngIf="sundryfields.length>0" [label]="sundryfields.length.toString()"></p-chip>
+                        </ng-template>
                         <p-table [value]="sundryfields" selectionMode="single" (onRowSelect)="rowSelected('sundryfield')" (onRowUnselect)="rowSelected('sundryfield')" [(selection)]="selectedObject" dataKey="id">
                             <ng-template pTemplate="body" let-sundryfield>
                                 <tr [pSelectableRow]="sundryfield">
@@ -80,7 +112,10 @@
                             </ng-template>
                         </p-table>
                     </p-accordionTab>
-                    <p-accordionTab header="Caches">
+                    <p-accordionTab>
+                        <ng-template pTemplate="header">
+                            Caches <p-chip styleClass="ml-2 custom-chip" *ngIf="caches.length>0" [label]="caches.length.toString()"></p-chip>
+                        </ng-template>
                         <p-table [value]="caches">
                             <ng-template pTemplate="body" let-cache>
                                 <tr>

@@ -15,7 +15,7 @@
     <p-overlayPanel #op appendTo="body" [focusOnShow]="true" styleClass="overlay-width">
         <ng-template pTemplate>
             <div style="position:relative">
-                <app-ac-single-search [data]="parentdata" (new_record_selected)="new_record(op)" [hasnew]="hasnewbutton()" (item_selected)="item_selected_on_list($event)" [dialog]="op" [definition]="definition" [configs]="configs"></app-ac-single-search>
+                <app-ac-single-search [source_type]="source_type" [data]="parentdata" (new_record_selected)="new_record(op)" [hasnew]="hasnewbutton()" (item_selected)="item_selected_on_list($event)" [dialog]="op" [definition]="definition" [configs]="configs"></app-ac-single-search>
             </div>
         </ng-template>
     </p-overlayPanel>

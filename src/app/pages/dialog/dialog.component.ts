@@ -25,6 +25,7 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
   public unique_id:string=uuidv4();
   public definition:any;
   public data:any;
+  public source_type:string="";
   private persist:boolean=true;
 
 
@@ -59,6 +60,7 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
     this.loader_key="dialog_"+this.unique_id;
     this.definition=this.config.data.definition;
     this.propertybag=this.config.data.propertybag;
+    this.source_type=this.propertybag.source_type;
     this.initialise(this.propertybag);
     this.event_subscriber();
   }
@@ -85,7 +87,31 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
 
   initialiseFromRow(property_bag:any)
   {
+
       this.data={...property_bag.content};
+      console.log(this.definition,this.data,property_bag);
+      if ((this.data?.id==undefined||this.data?.id==null)&&this.definition.initialise_url!=undefined&&this.definition.initialise_url!=null)
+      {
+        this.initialiseFromURL(property_bag);
+      }
+  }
+
+  initialiseFromURL(property_bag:any)
+  {
+    var url=this.definition.initialise_url;
+    url=url.replace('{source_type}',property_bag.source_type);
+    url=url.replace('{parent}',property_bag.parent_id);
+    this.loader.startLoader(this.loader_key);
+    this.dataService.get(url).subscribe({next:(result)=>{
+      console.log(result);
+      this.data={...result};
+      this.loader.stopLoader(this.loader_key);
+    },
+  error:(error)=>{
+    this.message.add({severity:'error',detail:error.message});
+    this.loader.stopLoader(this.loader_key);
+  }})
+
   }
 
 

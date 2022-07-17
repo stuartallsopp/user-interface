@@ -33,7 +33,6 @@ export class DataService {
       var equals=search.filter((p: { type: string; })=>p.type=="equals");
       if (equals.length>0)
       {
-        console.log('got equals');
         payload.equals=equals;
       }
       var contains=search.filter((p: { type: string; })=>p.type=="contains");

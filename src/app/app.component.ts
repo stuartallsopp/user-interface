@@ -20,6 +20,8 @@ export class AppComponent  {
   title = 'user-interface';
 
   private event_listener:any;
+  public progress_dialog_visible:boolean=false;
+  public progress_message:any=null;
 
   constructor(
     private event:NgEventBus,
@@ -48,11 +50,34 @@ export class AppComponent  {
         case 'note':
           this.openNote(result.data.id,result.data.source_type,result.data);
           break;
+        case 'open_progress':
+          this.openProgress();
+          break;
+        case 'update_progress':
+          this.updateProgress(result.data.message);
+          break;
+        case 'close_progress':
+          this.closeProgress();
       }
       
     })
   }
 
+  openProgress()
+  {
+    this.progress_dialog_visible=true;
+  }
+
+  updateProgress(source:any)
+  {
+      this.progress_message={...source};
+      console.log(source);
+  }
+
+  closeProgress()
+  {
+    this.progress_dialog_visible=false;
+  }
 
   gotoPage(url:string,content:any)
   {

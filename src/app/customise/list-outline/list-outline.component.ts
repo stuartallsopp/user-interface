@@ -36,7 +36,7 @@ export class ListOutlineComponent implements OnInit {
   addFilter()
   {
     this.edited_row=-1;
-    this.edited_filter={id:0,definition_url:'',items:[]}
+    this.edited_filter={id:0,definition_url:'',type:'url',items:[]}
     this.filter_edit_display=true;
   }
 

@@ -12,7 +12,11 @@
         </div>
     </div>
     <div class="col-12 mt-2">
-        <p-listbox [options]="search_results" [(ngModel)]="selected_item" (onClick)="selectFromList($event)" [optionLabel]="configs.label"></p-listbox>
+        <p-listbox [options]="search_results" [(ngModel)]="selected_item" (onClick)="selectFromList($event)">
+            <ng-template let-item pTemplate="item">
+                <span>{{item[configs.label]}}</span><span class="ml-1" *ngIf="item.code!=undefined">({{item.code}})</span>
+            </ng-template>
+        </p-listbox>
     </div>
     <div class="col-12">
         <p>{{total_records}} records(s) found</p>

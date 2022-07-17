@@ -9,7 +9,9 @@ import {ToastModule} from 'node_modules/primeng/toast';
 import {MessagesModule} from 'primeng/messages';
 import {SliderModule} from 'primeng/slider';
 import {MessageModule} from 'primeng/message';
+import {DialogModule} from 'primeng/dialog';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import {ProgressBarModule} from 'primeng/progressbar';
 import {ConfirmDialogModule} from 'node_modules/primeng/confirmdialog';
 import { AuthService } from './services/auth.service';
 import { PermissionsService } from './services/permissions.service';
@@ -39,10 +41,12 @@ import { FormsModule } from '@angular/forms';
     PagesModule,
     MessagesModule,
     MessageModule,
+    ProgressBarModule,
     ToastModule,
     ConfirmDialogModule,
     BrowserAnimationsModule,
     DynamicDialogModule,
+    DialogModule,
     NavigationModule,
     NgxUiLoaderModule,
     CustomiseModule,

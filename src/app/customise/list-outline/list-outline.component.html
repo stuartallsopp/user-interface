@@ -98,13 +98,26 @@
 
 <p-dialog appendTo="body" header="Filter" [modal]="true" [(visible)]="filter_edit_display" *ngIf="edited_filter" [style]="{width: '40vw'}">
     <div class="p-fluid grid mt-2">
-        <div class="field col-12 md:col-12">
+        <div class="field col-12 md:col-2">
+            <span class="p-float-label">
+                <p-dropdown appendTo="body" inputId="type"  [autoDisplayFirst]="false" [options]="['url','hard']" [(ngModel)]="edited_filter.type">
+                </p-dropdown>
+                <label for="type">Type</label>
+            </span>
+        </div>
+        <div class="field col-12 md:col-10" *ngIf="edited_filter.type=='url'">
             <span class="p-float-label">
                 <input type="text" id="label" pInputText [(ngModel)]="edited_filter.definition_url"> 
                 <label for="label">Definition Url</label>
             </span>
         </div>
-        <div class="col-12">
+        <div class="field col-12" *ngIf="edited_filter.type=='hard'">
+            <span class="p-float-label">
+                <textarea pInputTextarea id="hard_coded" pInputTextarea rows="5" [(ngModel)]="edited_filter.hard_coded"></textarea>
+                <label for="hard_coded">Hard coded filter</label>
+            </span>
+        </div>
+        <div class="col-12" *ngIf="edited_filter.type=='url'">
             <p-table [value]="edited_filter.items" sortField="sort_order" dataKey="id">
                 <ng-template pTemplate="header">
                     <th>Item</th>

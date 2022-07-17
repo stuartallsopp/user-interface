@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
+import { NgEventBus } from 'ng-event-bus';
 import { MessageService } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 
@@ -8,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SignalrService implements OnInit {
 
-  constructor(private message: MessageService) { }
+  constructor(private message: MessageService,private event:NgEventBus) { }
 
 
   private connectionId?:any;
@@ -31,12 +32,11 @@ export class SignalrService implements OnInit {
     const connection = new signalR.HubConnectionBuilder()
       .withAutomaticReconnect()
       .configureLogging(signalR.LogLevel.Information)
-      .withUrl(environment.forms_api + 'feedback')
+      .withUrl(environment.data_api + 'feedback')
       .build();
     connection.serverTimeoutInMilliseconds = 360000;
     connection.start().then(function (info) {
       local.connectionId=connection.connectionId;
-      console.log(connection.connectionId);
     }).catch(function (err) {
       return console.error(err.toString());
     });
@@ -50,6 +50,10 @@ export class SignalrService implements OnInit {
         detail:content.message,
         data:content
       });
-    });  
+    });
+    connection.on('progress',(input:any[])=>{
+      console.log(input);
+      this.event.cast('top',{action:'update_progress',message:{message:input[0],index:input[1],max:input[2]}})
+    })  
   }
 }

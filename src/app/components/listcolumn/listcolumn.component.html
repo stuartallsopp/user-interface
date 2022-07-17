@@ -10,4 +10,7 @@
 <ng-container *ngIf="definition.type=='lkp_disp'">
     <app-list-col-lookup [data]="data" [definition]="definition"></app-list-col-lookup>
 </ng-container>
+<ng-container *ngIf="definition.type=='mdl_disp'">
+    <app-list-col-mdl [data]="data" [definition]="definition"></app-list-col-mdl>
+</ng-container>
 

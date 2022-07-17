@@ -19,7 +19,7 @@
     </div>
     <div class="field col-12 md:col-2">
         <span class="p-float-label">
-            <p-dropdown inputId="type" appendTo="body" [options]="['tex_entry','aut_entry','tex_disp','num_entry','num_disp','dat_entry','dat_disp','plst_entry','swch_entry','pitem_entry','perd_entry','mdl_entry']" [(ngModel)]="field.type"></p-dropdown>
+            <p-dropdown inputId="type" appendTo="body" [options]="['tex_entry','aut_entry','tex_disp','num_entry','num_disp','dat_entry','dat_disp','plst_entry','swch_entry','pitem_entry','perd_entry','mdl_entry','cur_entry']" [(ngModel)]="field.type"></p-dropdown>
             <label for="type">Type</label>
         </span>
     </div>
@@ -35,10 +35,22 @@
             <label class="pl-2 pt-2" for="multiple">Compulsory</label>
         </span>
     </div>
-    <div  class="field col-12 md:col-11">
+    <div  class="field col-12 md:col-8">
         <span class="p-float-label">
             <input type="text" id="info_text" pInputText [(ngModel)]="field.info_text"> 
             <label for="info_text">Information Text</label>
+        </span>
+    </div>
+    <div  class="field col-12 md:col-2" *ngIf="field.type.indexOf('disp')<0">
+        <span class="flex">
+            <p-inputSwitch styleClass="mt-1" inputId="uppercase" [(ngModel)]="field.uppercase"></p-inputSwitch>
+            <label class="pl-2 pt-2" for="multiple">Uppercase</label>
+        </span>
+    </div>
+    <div  class="field col-12 md:col-1">
+        <span class="p-float-label">
+            <p-inputNumber [min]="1" [max]="120" inputId="data_length" [(ngModel)]="field.data_length" [showButtons]="true" [maxFractionDigits]="0" mode="decimal"></p-inputNumber>
+            <label for="data_length">Chars</label>
         </span>
     </div>
     <div  class="field col-12 md:col-1">

@@ -21,4 +21,16 @@
 </ng-template>
 </p-toast>
 <p-toast key="standard" styleClass="on_top_of_everything" position="bottom-left"></p-toast>
-<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-confirmDialog rejectButtonStyleClass="p-confirmdialog-rejectbutton p-button-secondary p-button-rounded p-button-outlined" acceptButtonStyleClass="p-confirmdialog-acceptbutton p-button-success p-button-outlined p-button-rounded" #cd header="Confirmation" icon="pi pi-exclamation-triangle">
+
+</p-confirmDialog>
+<p-dialog appendTo="body" [closable]="false" [draggable]="false" [style]="{width: '30vw'}" [modal]="true" header="Progress" [visible]="progress_dialog_visible">
+  <div class="grid">
+    <div class="col-12">
+      {{progress_message?.message}} ({{progress_message?.index}} of {{progress_message?.max}})
+    </div>
+    <div class="col-12" *ngIf="progress_message?.max!=undefined&&progress_message?.max>0">
+        <p-progressBar [showValue]="false" [value]="(progress_message.index/progress_message.max)*100"></p-progressBar>
+    </div>
+  </div>
+</p-dialog>

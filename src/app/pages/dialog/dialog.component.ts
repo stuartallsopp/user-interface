@@ -74,7 +74,8 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
 
   initialise(property_bag:any)
   {
-    if (this.definition.data_url==null)
+    console.log(this.definition.data_url);
+    if (this.definition.data_url==null||this.definition.data_url==undefined)
     {
       this.persist=false;
       this.initialiseFromRow(property_bag);
@@ -88,8 +89,8 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
   initialiseFromRow(property_bag:any)
   {
 
-      this.data={...property_bag.content};
-      console.log(this.definition,this.data,property_bag);
+      this.data=this.tool.deepCopy(property_bag.content);
+      console.log('should be creating a duplicate',this.data,property_bag.content);
       if ((this.data?.id==undefined||this.data?.id==null)&&this.definition.initialise_url!=undefined&&this.definition.initialise_url!=null)
       {
         this.initialiseFromURL(property_bag);

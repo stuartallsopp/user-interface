@@ -1,0 +1,8 @@
+<div class="grid">
+    <div class="col-8">
+        <app-ac-single-entry  (value_changed)="currency_changed($event)" [data]="data" [source_type]="source_type" [definition]="currencydefinition"></app-ac-single-entry>
+    </div>
+    <div class="col-4">
+        <app-number-entry (value_changed)="rate_changed($event)" [data]="data" [definition]="ratedefinition" [source_type]="source_type"></app-number-entry>
+    </div>
+</div>

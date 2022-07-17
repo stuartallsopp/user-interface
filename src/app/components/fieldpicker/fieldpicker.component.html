@@ -7,3 +7,5 @@
 <app-autocomplete-entry [source_type]="source_type" [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='aut_entry'"></app-autocomplete-entry>
 <app-ac-single-entry [source_type]="source_type" [data]="data" [parentdata]="parentdata" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='pitem_entry'"></app-ac-single-entry>
 <app-perioddate-entry [source_type]="source_type" [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='perd_entry'"></app-perioddate-entry>
+<app-mdl-entry [source_type]="source_type" [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='mdl_entry'"></app-mdl-entry>
+<app-currencyexchange-entry [source_type]="source_type" [data]="data" (value_changed)="raise_value_changed($event)" [definition]="field" *ngIf="field.type=='cur_entry'"></app-currencyexchange-entry>

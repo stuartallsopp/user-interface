@@ -3,6 +3,7 @@ import { NgEventBus } from 'ng-event-bus';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DataService } from 'src/app/services/data.service';
+import { ToolService } from 'src/app/services/tool.service';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -28,6 +29,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   public list_totals:any[]=[];
   public record_count:number=0;
   public hasfilters:boolean=false;
+  public hard_coded_filters:any[]=[];
   public filters:any[]=[];
   private current_filters:any=null;
 
@@ -38,7 +40,8 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     private loader:NgxUiLoaderService,
     private event:NgEventBus,
     private mess:MessageService,
-    private comfirm:ConfirmationService
+    private comfirm:ConfirmationService,
+    private tool:ToolService
     ) {
 
    }
@@ -66,27 +69,50 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
 
   filterChanged(filters:any)
   {
-    console.log(filters);
     this.current_filters=filters;
     this.refresh(0);
   }
 
   checkFilters()
   {
-    if (this.definition.filters.length==0){this.refresh();}else{
-      var filter=this.definition.filters[0];
-      this.dataService.post(filter.definition_url,{items:filter.items}).subscribe({
-        next:(result:any)=>{
-          console.log(result);
-          this.hasfilters=true;
-          this.filters=result.items;
-        },
-        error:(error)=>{
-  
-        }
-      })
+    if (this.definition.filters.length==0){
+      this.refresh();
+    }
+    else
+    {
+      var filter=this.definition.filters.filter((p: { type: string; })=>p.type=='url')[0];
+      console.log(filter);
+      if (filter!=null)
+      {
+        this.dataService.post(filter.definition_url,{items:filter.items}).subscribe({
+          next:(result:any)=>{
+            this.hasfilters=true;
+            this.harcoded_filters();
+            this.filters=result.items;
+          },
+          error:(error)=>{
+    
+          }
+        })
+      }else
+      {
+        this.harcoded_filters();
+        this.refresh();
+      }
     }
     
+  }
+
+  harcoded_filters()
+  {
+    console.log(this.definition.filters);
+    var hc=this.definition.filters.filter((p: { type: string; })=>p.type=='hard')[0];
+    if (hc!=null)
+    {
+      console.log(hc);
+      this.hard_coded_filters=JSON.parse(hc.hard_coded);
+      console.log(this.hard_coded_filters);
+    }
   }
 
   publishButtons()
@@ -96,6 +122,21 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       this.event.cast('actionpanel',{from:this.unique_id,buttonset:this.definition.buttonset});
     }
     
+  }
+
+  calculateTotals()
+  {
+    var columns=this.definition.columnset?.list_columns;
+    if (columns)
+    {
+      this.list_totals=[];
+      for(var col of columns.filter((p: { total: boolean; })=>p.total==true))
+      {
+        var sum=this.list_content.reduce((sum,current:any)=>sum+current[col.field],0);
+        var item={key:col.field,value:sum};
+        this.list_totals.push(item);
+      }
+    }
   }
 
 
@@ -180,6 +221,14 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
           this.list_content=[...this.list_content];
           this.data[this.definition.data_field]=this.list_content;
         }
+        else
+        {
+          result.data.data.unique_id=uuidv4();
+          this.list_content.push(result.data.data);
+          this.list_content=[...this.list_content];
+          this.data[this.definition.data_field]=this.list_content;
+        }
+        this.calculateTotals();
       }
     })
   }
@@ -227,10 +276,64 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
         this.event.cast('top',{from:this.unique_id,action:'goto',key:action.url,id:id,source_type:this.source_type});
         break;
       case 'note':
-        console.log(data);
         this.event.cast('top',{from:this.unique_id,action:'note',id:id,source_type:data.action_uri.type,data:data});
         break;
+      case 'post':
+        this.postRecords(action.url,action.confirm_message,rowIndex,data);
+        break;
     }
+  }
+
+  postRecords(url:string,message:string,rowIndex:number,data:any)
+  {
+    if (message==undefined||message==null)
+    {
+      this.postRecordsAction(url,rowIndex,data);
+    }else
+    {
+      this.comfirm.confirm({message:message,accept:()=>{
+        this.postRecordsAction(url,rowIndex,data);
+      }})
+    }
+  }
+
+  postRecordsAction(url:string,rowIndex:number,data:any)
+  {
+    var workinglist:any[]=[];
+    if (rowIndex>=0)
+    {
+      workinglist.push(data);
+    }else
+    {
+      for(var item of this.list_selected)
+      {
+        if (item!=null)
+        {
+          workinglist.push(item);
+        }
+      }
+    }
+      if (workinglist.length==0)
+      {
+        this.mess.add({severity:'error',detail:'Nothing has been selected to post',summary:'Processing Error',key:'standard'});
+        return;
+      }
+      var id_list:number[]=[];
+      for(var item of workinglist)
+      {
+        id_list.push(item.id);
+      }
+      url=url.replace('{source_type}',this.source_type);
+      this.event.cast("top",{action:'open_progress'});
+      this.dataService.post(url,{ids:id_list}).subscribe({next:(result)=>{
+          this.event.cast('top',{action:'close_progress'});
+          this.refresh();
+      },
+      error:(error)=>{
+        this.mess.add({severity:'error',key:'standard',detail:error.message,summary:'Posting Error'});
+        this.event.cast('top',{action:'close_progress'});
+      }});
+    
   }
 
   paginate(event:any)
@@ -272,6 +375,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     {
       this.list_content=this.data[this.definition.data_field];
       this.record_count=this.list_content.length;
+      this.calculateTotals();
     }
     if (this.definition.data_url!=undefined&&this.definition.data_url!=null)
     {
@@ -291,9 +395,17 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     return result;
   }
 
+  resolveHCFilters(filters:any[])
+  {
+      for(var item of this.hard_coded_filters)
+      {
+        filters.push({type:item.type,column:item.fieldname,value:item.value});
+      }
+      return filters;
+  }
+
   refreshFromUrl(pageno:number=1,filters:any=null)
   {
-    console.log(filters);
     if (this.definition.data_url?.length>0)
     {
       var url=this.definition.data_url;
@@ -301,10 +413,16 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       {
         url=url.replace('{source_type}',this.source_type);
       }
+      var local_filters=this.tool.deepCopy(filters);
+      if (this.hard_coded_filters.length>0)
+      {
+         if (local_filters==null){local_filters=[];}
+          local_filters=this.resolveHCFilters(local_filters);
+      }
       this.loader.startLoader(this.loader_key);
       const local=this;
       const dir:string=this.definition.direction==undefined||this.definition.direction==1?"asc":"desc";
-      this.dataService.list(url,this.definition.page_size,pageno,this.definition.sort_key,dir,filters)
+      this.dataService.list(url,this.definition.page_size,pageno,this.definition.sort_key,dir,local_filters)
       .subscribe(
         {
           next:(result:any)=>{

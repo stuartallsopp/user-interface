@@ -1,0 +1,12 @@
+:host {
+    ::ng-deep
+    span.p-autocomplete.p-component
+    {
+        width:100%;
+    }
+}
+label
+{
+    top: -0.75rem;
+    font-size: 12px;
+}

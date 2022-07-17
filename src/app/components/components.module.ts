@@ -53,6 +53,10 @@ import { NoteViewerComponent } from './note-viewer/note-viewer.component';
 import { NoteViewerDirDirective } from './note-viewer-dir.directive';
 import { MentionModule } from 'angular-mentions';
 import { PerioddateEntryComponent } from './fielddatatype/perioddate-entry/perioddate-entry.component';
+import { MdlEntryComponent } from './fielddatatype/mdl-entry/mdl-entry.component';
+import { CurrencyexchangeEntryComponent } from './fielddatatype/currencyexchange-entry/currencyexchange-entry.component';
+import { ListColMdlComponent } from './listdatatype/list-col-mdl/list-col-mdl.component';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -81,7 +85,10 @@ import { PerioddateEntryComponent } from './fielddatatype/perioddate-entry/perio
     ListfilterComponent,
     NoteViewerComponent,
     NoteViewerDirDirective,
-    PerioddateEntryComponent
+    PerioddateEntryComponent,
+    MdlEntryComponent,
+    CurrencyexchangeEntryComponent,
+    ListColMdlComponent
   ],
   imports: [
     CommonModule,
@@ -116,6 +123,7 @@ import { PerioddateEntryComponent } from './fielddatatype/perioddate-entry/perio
   ],
   exports:[
     PanelComponent,ButtongroupComponent,NoteViewerComponent
-  ]
+  ],
+  providers:[MessageService]
 })
 export class ComponentsModule { }

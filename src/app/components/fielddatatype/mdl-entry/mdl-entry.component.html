@@ -1,0 +1,36 @@
+<span class="p-float-label">
+    <span class="p-inputgroup">
+        <ng-container *ngFor="let opt of options">
+            <p-autoComplete 
+            [suggestions]="resultsets[opt.type]" 
+            [(ngModel)]="opt.record" 
+            [placeholder]="opt.compulsory?'*'+opt.title:opt.title" 
+            [inputId]="unique_id"
+            (onSelect)="item_selected(opt)"
+            (onClear)="item_selected(opt)"
+            pFocusTrap [pFocusTrapDisabled]="searching==false"
+            [forceSelection]="true"
+            *ngIf="opt.visible==true"
+             (completeMethod)="searchSegment($event,opt)"
+             [field]="opt.display_fields[0]"
+             >
+             <ng-template let-item pTemplate="item">
+                <span class="mr-1" *ngFor="let df of opt.display_fields">{{item[df]}}</span>
+             </ng-template>
+            </p-autoComplete>
+        </ng-container>
+        <button (click)="op.toggle($event)" pButton icon="fa-solid fa-search"></button>
+    </span>
+    <label [for]="unique_id">
+        <span *ngIf="definition.compulsory" class="mr-1 text-red-800">*</span>
+        <span>{{definition.label}}</span>
+        <span *ngIf="definition.info_text" class="pi pi-info-circle ml-1"></span>
+    </label>
+</span>
+<p-overlayPanel #op appendTo="body">
+    <div class="grid p-fluid mt-4">
+        <div class="col-12 mt-3" *ngFor="let op of options">
+            <app-ac-single-entry (value_changed)="item_selected(op)" [data]="op" [definition]="resolveDefinition(op)"></app-ac-single-entry>
+        </div>
+    </div>
+</p-overlayPanel>

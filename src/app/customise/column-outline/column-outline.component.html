@@ -65,7 +65,7 @@
         </div>
         <div class="field col-12 md:col-2">
             <span class="p-float-label">
-                <p-dropdown appendTo="body" inputId="type" [options]="['tex_disp','num_disp','dat_disp','lkp_disp','mdl_disp']" [(ngModel)]="edited_column.type"></p-dropdown>
+                <p-dropdown appendTo="body" inputId="type" [options]="['tex_disp','num_disp','dat_disp','lkp_disp','mdl_disp','tag_disp']" [(ngModel)]="edited_column.type"></p-dropdown>
                 <label for="type">Type</label>
             </span>
         </div>
@@ -113,6 +113,12 @@
             <span class="flex">
                 <p-inputSwitch styleClass="mt-1" inputId="total" [(ngModel)]="edited_column.total"></p-inputSwitch>
                 <label class="pl-2 pt-2" for="total">Total</label>
+            </span>
+        </div>
+        <div  class="field col-12 md:col-12">
+            <span class="p-float-label">
+                <input type="text" id="context_param" pInputText [(ngModel)]="edited_column.context_param"> 
+                <label for="context_param">Context Params JSON</label>
             </span>
         </div>
         <div class="col-12 text-right"><button (click)="saveColumn()" pButton icon="fa-solid fa-floppy-disk" class="p-button-success p-button-rounded p-button-outlined"></button></div>

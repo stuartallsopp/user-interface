@@ -1,4 +1,4 @@
-<span class="p-float-label" *ngIf="data">
+<span class="p-float-label" *ngIf="data&&isVisible()">
     <p-autoComplete (onSelect)="contentChanged()" [multiple]="true" [dataKey]="configs.label" (onUnselect)="remove($event)" [inputId]="unique_id" [(ngModel)]="working_list" [suggestions]="search_results" (completeMethod)="search($event)">
         <ng-template let-value pTemplate="selectedItem">
             <span style="font-size:18px">{{value[configs.label]}}</span>
@@ -14,7 +14,7 @@
     </p-autoComplete>
     <label [for]="unique_id">
         <span *ngIf="definition.compulsory" class="pi pi-star-fill mr-1 text-red-800"></span>
-        <span>{{definition.label}}</span>
+        <span>{{fieldLabel()}}</span>
         <span *ngIf="definition.info_text" class="pi pi-info-circle ml-1"></span>
     </label>
 </span>

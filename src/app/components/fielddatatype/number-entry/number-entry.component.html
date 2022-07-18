@@ -1,8 +1,8 @@
-<span class="p-float-label" *ngIf="data">
+<span class="p-float-label" *ngIf="data&&isVisible()">
     <p-inputNumber [disabled]="disableOn(definition.disable_on)" [inputId]="unique_id" [(ngModel)]="data[definition.fieldname]" [suffix]="definition.suffix" [minFractionDigits]="resolveMin()" mode="decimal"></p-inputNumber>
     <label [for]="unique_id">
         <span *ngIf="definition.compulsory" class="pi pi-star-fill mr-1 text-red-800"></span>
-        <span>{{definition.label}}</span>
+        <span>{{fieldLabel()}}</span>
         <span *ngIf="definition.info_text" class="pi pi-info-circle ml-1"></span>
     </label>
 </span>

@@ -18,6 +18,7 @@ export class PageService {
    }
 
 
+   private use_local_cache:boolean=false;
   private recent_pages:any[]=[];
 
   checkKey(key1:string,key2:string,key3:string):any
@@ -38,16 +39,40 @@ export class PageService {
     if (check2==null){return null}else{return check2.id;}
   }
 
+  checkType(key1:string,key2:string,key3:string):any
+  {
+    const dir_data:string=localStorage.getItem("page_directory")??"";
+    const directory=JSON.parse(dir_data);
+    const area:any=directory.filter((p: { key: string; })=>p.key==key1)[0];
+    if (area==null){return null;}
+    var check2:any;
+    if (key3=="")
+    {
+        check2=area.pages.filter((p: { key: string; })=>p.key==key2)[0];
+    }else
+    {
+      check2=area.pages.filter((p: { key: string; type: string; })=>p.key==key2&&p.type==key3)[0];
+
+    }
+    if (check2==null){return null}else{return check2.type;}
+  }
+
   getdialog(id:number,source_type:string)
   {
-    if (this.recent_pages.filter(p=>p.key==id.toString()+"_"+source_type)[0]!=null)
+    if (this.use_local_cache==true)
     {
-      return of(this.recent_pages.filter(p=>p.key==id.toString()+"_"+source_type)[0].form);
+      if (this.recent_pages.filter(p=>p.key==id.toString()+"_"+source_type)[0]!=null)
+      {
+        return of(this.recent_pages.filter(p=>p.key==id.toString()+"_"+source_type)[0].form);
+      }
     }
     return this.http.get<any[]>(environment.forms_api+"page/dialog/"+source_type+"/"+id.toString()).pipe(
       take(1),
       map((data) => {
+        if (this.use_local_cache==true)
+        {
           this.appendToCatalog(data,id.toString()+"_"+source_type);
+        }
           return data;
       }
       )
@@ -64,16 +89,22 @@ export class PageService {
     localStorage.setItem("recent_pages",JSON.stringify(this.recent_pages));
   }
 
-  get(unique_key:string):Observable<any>
+  get(source_type:string,unique_key:string):Observable<any>
   {
-    if (this.recent_pages.filter(p=>p.key==unique_key)[0]!=null)
+    if (this.use_local_cache==true)
     {
-      return of(this.recent_pages.filter(p=>p.key==unique_key)[0].form);
+      if (this.recent_pages.filter(p=>p.key==unique_key)[0]!=null)
+      {
+        return of(this.recent_pages.filter(p=>p.key==unique_key)[0].form);
+      }
     }
-    return this.http.get<any[]>(environment.forms_api+"page/"+unique_key).pipe(
+    return this.http.get<any[]>(environment.forms_api+"page/"+source_type+"/"+unique_key).pipe(
       take(1),
       map((data) => {
+        if (this.use_local_cache==true)
+        {
           this.appendToCatalog(data,unique_key);
+        }
           return data;
       }
       )
@@ -82,14 +113,21 @@ export class PageService {
 
   getbykey(unique_key:string):Observable<any>
   {
-    if (this.recent_pages.filter(p=>p.key==unique_key)[0]!=null)
+    if (this.use_local_cache==true)
     {
-      return of(this.recent_pages.filter(p=>p.key==unique_key)[0].form);
+      if (this.recent_pages.filter(p=>p.key==unique_key)[0]!=null)
+      {
+        return of(this.recent_pages.filter(p=>p.key==unique_key)[0].form);
+      }
     }
+
     return this.http.get<any[]>(environment.forms_api+"page/key/"+unique_key).pipe(
       take(1),
       map((data) => {
+        if (this.use_local_cache==true)
+        {
           this.appendToCatalog(data,unique_key);
+        }
           return data;
       }
       )

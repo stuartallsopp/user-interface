@@ -1,9 +1,9 @@
-<span class="p-float-label">
+<span class="p-float-label" *ngIf="isVisible()">
     <input [maxlength]="definition.data_length" [ngClass]="definition.uppercase?'uppercase':''" [disabled]="disableOn(definition.disable_on)" type="text"  [id]="unique_id" pInputText [(ngModel)]="data[definition.fieldname]" *ngIf="definition.key_filter" [pKeyFilter]="checkKeyFilter(definition.key_filter)"> 
     <input [maxlength]="definition.data_length" [ngClass]="definition.uppercase?'uppercase':''" [disabled]="disableOn(definition.disable_on)" type="text"  [id]="unique_id" pInputText [(ngModel)]="data[definition.fieldname]" *ngIf="!definition.key_filter"> 
     <label [for]="unique_id">
         <span *ngIf="definition.compulsory" class="pi pi-star-fill mr-1 text-red-800"></span>
-        <span>{{definition.label}}</span>
+        <span>{{fieldLabel()}}</span>
         <span *ngIf="definition.info_text" class="pi pi-info-circle ml-1"></span>
     </label>
 </span>

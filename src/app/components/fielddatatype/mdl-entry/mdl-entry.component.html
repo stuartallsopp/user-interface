@@ -1,4 +1,4 @@
-<span class="p-float-label">
+<span class="p-float-label" *ngIf="isVisible()">
     <span class="p-inputgroup">
         <ng-container *ngFor="let opt of options">
             <p-autoComplete 
@@ -23,7 +23,7 @@
     </span>
     <label [for]="unique_id">
         <span *ngIf="definition.compulsory" class="mr-1 text-red-800">*</span>
-        <span>{{definition.label}}</span>
+        <span>{{fieldLabel()}}</span>
         <span *ngIf="definition.info_text" class="pi pi-info-circle ml-1"></span>
     </label>
 </span>

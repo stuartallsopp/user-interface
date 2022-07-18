@@ -1,4 +1,4 @@
-<div class="grid">
+<div class="grid" *ngIf="isVisible()">
     <div class="col-8">
         <app-ac-single-entry  (value_changed)="currency_changed($event)" [data]="data" [source_type]="source_type" [definition]="currencydefinition"></app-ac-single-entry>
     </div>

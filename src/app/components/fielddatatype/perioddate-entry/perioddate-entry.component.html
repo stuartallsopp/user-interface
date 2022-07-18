@@ -1,4 +1,4 @@
-<div class="grid">
+<div class="grid" *ngIf="isVisible()">
     <div class="col-6">
         <app-date-entry [data]="data" [definition]="datedefinition" [source_type]="source_type"></app-date-entry>
     </div>

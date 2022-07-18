@@ -19,7 +19,7 @@
     </div>
     <div class="field col-12 md:col-2">
         <span class="p-float-label">
-            <p-dropdown inputId="type" appendTo="body" [options]="['tex_entry','aut_entry','tex_disp','num_entry','num_disp','dat_entry','dat_disp','plst_entry','swch_entry','pitem_entry','perd_entry','mdl_entry','cur_entry']" [(ngModel)]="field.type"></p-dropdown>
+            <p-dropdown inputId="type" appendTo="body" [options]="['tex_entry','aut_entry','tex_disp','num_entry','num_disp','dat_entry','dat_disp','plst_entry','swch_entry','pitem_entry','perd_entry','mdl_entry','cur_entry','drop_entry']" [(ngModel)]="field.type"></p-dropdown>
             <label for="type">Type</label>
         </span>
     </div>
@@ -41,13 +41,19 @@
             <label for="info_text">Information Text</label>
         </span>
     </div>
-    <div  class="field col-12 md:col-2" *ngIf="field.type.indexOf('disp')<0">
+    <div  class="field col-12 md:col-12">
+        <span class="p-float-label">
+            <input type="text" id="context_param" pInputText [(ngModel)]="field.context_param"> 
+            <label for="context_param">Context Params JSON</label>
+        </span>
+    </div>
+    <div  class="field col-12 md:col-2" *ngIf="field.type=='tex_entry'">
         <span class="flex">
             <p-inputSwitch styleClass="mt-1" inputId="uppercase" [(ngModel)]="field.uppercase"></p-inputSwitch>
             <label class="pl-2 pt-2" for="multiple">Uppercase</label>
         </span>
     </div>
-    <div  class="field col-12 md:col-1">
+    <div  class="field col-12 md:col-1" *ngIf="field.type=='tex_entry'">
         <span class="p-float-label">
             <p-inputNumber [min]="1" [max]="120" inputId="data_length" [(ngModel)]="field.data_length" [showButtons]="true" [maxFractionDigits]="0" mode="decimal"></p-inputNumber>
             <label for="data_length">Chars</label>
@@ -97,7 +103,7 @@
             <label for="actionset_id">Actions</label>
         </span>
     </div>
-    <div class="col-12"  *ngIf="field.type=='pitem_entry'||field.type=='plst_entry'||field.type=='aut_entry'">
+    <div class="col-12"  *ngIf="field.type=='pitem_entry'||field.type=='plst_entry'||field.type=='aut_entry'||field.type=='drop_entry'">
         <div class="grid">
             <div class="field col-12 md:col-10">
                 <span class="p-float-label">

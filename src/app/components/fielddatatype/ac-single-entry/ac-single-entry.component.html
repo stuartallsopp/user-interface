@@ -1,9 +1,9 @@
-    <div class="p-inputgroup">
+    <div class="p-inputgroup" *ngIf="isVisible()">
         <span class="p-float-label" *ngIf="definition">
         <input type="text" [id]="unique_id" pInputText [disabled]="true" [value]="resolveDisplay()">    
             <label [for]="unique_id" class="label-overflow">
                 <span *ngIf="definition.compulsory" class="pi pi-star-fill mr-1 text-red-800"></span>
-                <span>{{definition.label}}</span>
+                <span>{{fieldLabel()}}</span>
                 <span *ngIf="definition.info_text" class="pi pi-info-circle ml-1"></span>
             </label>
         </span>
@@ -15,7 +15,7 @@
     <p-overlayPanel #op appendTo="body" [focusOnShow]="true" styleClass="overlay-width">
         <ng-template pTemplate>
             <div style="position:relative">
-                <app-ac-single-search [source_type]="source_type" [data]="parentdata" (new_record_selected)="new_record(op)" [hasnew]="hasnewbutton()" (item_selected)="item_selected_on_list($event)" [dialog]="op" [definition]="definition" [configs]="configs"></app-ac-single-search>
+                <app-ac-single-search [title]="fieldLabel()" [local_source_type]="checkSourceType()" [source_type]="source_type" [data]="parentdata" (new_record_selected)="new_record(op)" [hasnew]="hasnewbutton()" (item_selected)="item_selected_on_list($event)" [dialog]="op" [definition]="definition" [configs]="configs"></app-ac-single-search>
             </div>
         </ng-template>
     </p-overlayPanel>

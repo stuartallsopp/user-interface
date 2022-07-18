@@ -43,10 +43,10 @@ export class PageComponent implements OnInit,OnDestroy {
     if (this.route_subscription!=null){this.route_subscription.unsubscribe();}
   }
 
-  get_page(key:string)
+  get_page(source_type:string,key:string,)
   {
     this.loader.startBackgroundLoader("page");
-    this.page.get(key).subscribe({
+    this.page.get(source_type,key).subscribe({
       next:(result)=>{
           this.page_definition=result;
           this.loader.stopBackgroundLoader("page");
@@ -65,8 +65,9 @@ export class PageComponent implements OnInit,OnDestroy {
       const _section=result.get("section")??"";
       this.current_route=this.router.url;
       const _validate=this.page.checkKey(_module,_area,_section);
+      const _source_type=this.page.checkType(_module,_area,_section);
       this.section=_section;
-      this.get_page(_validate);
+      this.get_page(_source_type,_validate);
     })
   }
 }

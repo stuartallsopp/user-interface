@@ -78,7 +78,7 @@ export class BaseComponent implements OnInit,OnDestroy {
 
   get_specific_page(id:number)
   {
-    this.page.get(id.toString()).subscribe({next:(result)=>{
+    this.page.get(this.source_type,id.toString()).subscribe({next:(result)=>{
       this.page_definition=result;
       if (this.page_definition.data_url!=null)
       {

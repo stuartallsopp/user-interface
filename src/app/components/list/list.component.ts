@@ -284,6 +284,12 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     }
   }
 
+  resolveColumns(cols:any[])
+  {
+    return cols.filter(p=>p.visible==true);
+  }
+
+
   postRecords(url:string,message:string,rowIndex:number,data:any)
   {
     if (message==undefined||message==null)

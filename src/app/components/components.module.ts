@@ -57,6 +57,7 @@ import { MdlEntryComponent } from './fielddatatype/mdl-entry/mdl-entry.component
 import { CurrencyexchangeEntryComponent } from './fielddatatype/currencyexchange-entry/currencyexchange-entry.component';
 import { ListColMdlComponent } from './listdatatype/list-col-mdl/list-col-mdl.component';
 import { MessageService } from 'primeng/api';
+import { DropdownEntryComponent } from './fielddatatype/dropdown-entry/dropdown-entry.component';
 
 
 
@@ -88,7 +89,8 @@ import { MessageService } from 'primeng/api';
     PerioddateEntryComponent,
     MdlEntryComponent,
     CurrencyexchangeEntryComponent,
-    ListColMdlComponent
+    ListColMdlComponent,
+    DropdownEntryComponent
   ],
   imports: [
     CommonModule,

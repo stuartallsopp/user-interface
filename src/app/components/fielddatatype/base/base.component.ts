@@ -15,6 +15,8 @@ export class BaseComponent implements OnInit,OnChanges,OnDestroy {
   @Output() value_changed:EventEmitter<any>=new EventEmitter<any>();
   
 
+  private field_configs:any=null;
+
   public local_data_source:any={value:null,resolved:null}
   public loader_key:string="";
   public unique_id:string=uuidv4();
@@ -30,6 +32,10 @@ export class BaseComponent implements OnInit,OnChanges,OnDestroy {
      if (changes['data'])
      {
 
+     }
+     if (changes['definition'])
+     {
+      this.resolveFieldConfigs();
      }
   }
 
@@ -63,7 +69,38 @@ export class BaseComponent implements OnInit,OnChanges,OnDestroy {
     return false;
   }
 
+  resolveFieldConfigs()
+  {
+    if (this.definition.context_param!=undefined&&this.definition.context_param!=null)
+    {
+      this.field_configs=JSON.parse(this.definition.context_param);
+    }
+  }
+
+  isVisible():boolean
+  {
+    if (this.field_configs==null){return true;}
+    if (this.field_configs.visible==undefined||this.field_configs.visible==null){return true;}
+    if (this.data[this.field_configs.visible]==undefined){return true;}
+    return this.data[this.field_configs.visible];
+  }
+
+  fieldLabel():string
+  {
+    if (this.field_configs==null){return this.definition.label;}
+    if (this.field_configs.label==undefined||this.field_configs.label==null){return this.definition.label;}
+    return this.data[this.field_configs.label];
+  }
+
+  checkSourceType():string
+  {
+    if (this.field_configs==null){return this.source_type}
+    if (this.field_configs.source_type==undefined||this.field_configs.source_type==null){return this.source_type;}
+    return this.data[this.field_configs.source_type];
+  }
+
   ngOnInit(): void {
+    this.loader_key="loader_"+this.unique_id;
     this.local_event_subscription();
   }
 

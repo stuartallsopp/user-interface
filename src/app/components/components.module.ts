@@ -23,6 +23,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TooltipModule } from 'primeng/tooltip';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { KeyFilterModule } from 'primeng/keyfilter';
+import { TagModule } from 'primeng/tag';
 import { ListComponent } from './list/list.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import {ListboxModule} from 'primeng/listbox';
@@ -58,6 +59,7 @@ import { CurrencyexchangeEntryComponent } from './fielddatatype/currencyexchange
 import { ListColMdlComponent } from './listdatatype/list-col-mdl/list-col-mdl.component';
 import { MessageService } from 'primeng/api';
 import { DropdownEntryComponent } from './fielddatatype/dropdown-entry/dropdown-entry.component';
+import { ListColTagComponent } from './listdatatype/list-col-tag/list-col-tag.component';
 
 
 
@@ -90,7 +92,8 @@ import { DropdownEntryComponent } from './fielddatatype/dropdown-entry/dropdown-
     MdlEntryComponent,
     CurrencyexchangeEntryComponent,
     ListColMdlComponent,
-    DropdownEntryComponent
+    DropdownEntryComponent,
+    ListColTagComponent
   ],
   imports: [
     CommonModule,
@@ -100,6 +103,7 @@ import { DropdownEntryComponent } from './fielddatatype/dropdown-entry/dropdown-
     CalendarModule,
     DebounceModule,
     KeyFilterModule,
+    TagModule,
     AvatarModule,
     InputSwitchModule,
     FieldsetModule,

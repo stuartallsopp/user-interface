@@ -13,4 +13,7 @@
 <ng-container *ngIf="definition.type=='mdl_disp'">
     <app-list-col-mdl [data]="data" [definition]="definition"></app-list-col-mdl>
 </ng-container>
+<ng-container *ngIf="definition.type=='tag_disp'">
+    <app-list-col-tag [data]="data" [definition]="definition"></app-list-col-tag>
+</ng-container>
 

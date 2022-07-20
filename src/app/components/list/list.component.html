@@ -21,7 +21,8 @@
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
                 <th [pSortableColumn]="resolveSort(column)" [ngClass]="alignment(column.alignment)" *ngFor="let column of resolveColumns(definition.columnset?.list_columns)">
-                    {{column.label}}
+                    <span *ngIf="column.type!='tag_disp'">{{column.label}}</span>
+                    <span *ngIf="column.type=='tag_disp'"></span>
                     <p-sortIcon *ngIf="column.sortable" [field]="column.field"></p-sortIcon>
                 </th>
                 <th class="sa-list-column text-right" *ngIf="definition?.buttonset">

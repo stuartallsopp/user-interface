@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { SignalrService } from './services/signalr.service';
 import { NoteviewComponent } from './pages/noteview/noteview.component';
 import { DataService } from './services/data.service';
+import { ImportWorkflowComponent } from './import/import-workflow/import-workflow.component';
 
 @Component({
   selector: 'app-root',
@@ -50,6 +51,9 @@ export class AppComponent  {
         case 'note':
           this.openNote(result.data.id,result.data.source_type,result.data);
           break;
+        case 'import':
+          this.openImport(result.data.source_type,result.data);
+          break;
         case 'open_progress':
           this.openProgress();
           break;
@@ -84,6 +88,21 @@ export class AppComponent  {
     var routerLink=url.replace('{id}',content.id);
     routerLink=routerLink.replace('{source_type}',content.source_type);
     this.router.navigate([routerLink]);
+  }
+
+  openImport(source_type:string,content:any)
+  {
+    const ref=this.dialog.open(ImportWorkflowComponent,{
+      data:{
+        propertybag:{type:source_type,content:content}
+      },
+      header: "Import "+ source_type,
+      width: "50%",
+      closable:true,
+      styleClass:'sa-dialog-scroll-fix',
+      modal:true,
+      closeOnEscape : true
+    })
   }
 
   openNote(id:number,type:string,data:any)

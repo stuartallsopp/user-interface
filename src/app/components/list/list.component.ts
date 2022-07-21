@@ -278,6 +278,9 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       case 'note':
         this.event.cast('top',{from:this.unique_id,action:'note',id:id,source_type:data.action_uri.type,data:data});
         break;
+      case 'import':
+        this.event.cast('top',{from:this.unique_id,action:'import',source_type:this.source_type});
+        break;
       case 'post':
         this.postRecords(action.url,action.confirm_message,rowIndex,data);
         break;

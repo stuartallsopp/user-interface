@@ -21,7 +21,8 @@
 <ng-container *ngIf="localbuttons&&localbuttons.length>0&&displayas=='full'">
     <div class="grid">
         <div class="col-12 pb-0 pl-6" *ngFor="let button of localbuttons;let i = index">
-            <button (click)="sendevent(i)"  [label]="button.label" [ngClass]="decor.buttoncolour(button.colour)" pButton class="p-button-text text-left p-0 w-full p-button-lg flex-grow-1" [icon]="button.icon"></button>
+            <p-divider *ngIf="button.action_key=='divider'"></p-divider>
+            <button *ngIf="button.action_key!='divider'" (click)="sendevent(i)"  [label]="button.label" [ngClass]="decor.buttoncolour(button.colour)" pButton class="p-button-text text-left p-0 w-full p-button-lg flex-grow-1" [icon]="button.icon"></button>
         </div>
     </div>
 </ng-container>

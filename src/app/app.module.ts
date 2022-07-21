@@ -27,6 +27,7 @@ import { AngularDateHttpInterceptor } from './tools/dateIntecptor';
 import { CustomiseModule } from './customise/customise.module';
 import { SignalrService } from './services/signalr.service';
 import { FormsModule } from '@angular/forms';
+import { ImportModule } from './import/import.module';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { FormsModule } from '@angular/forms';
     NavigationModule,
     NgxUiLoaderModule,
     CustomiseModule,
-    FormsModule
+    FormsModule,
+    ImportModule
   ],
   providers: [
     {

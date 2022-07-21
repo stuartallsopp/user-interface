@@ -63,10 +63,11 @@ export class BaseComponent implements OnInit,OnDestroy {
   {
     this.route_subscription=this.route.paramMap.subscribe(result=>{
       const _module=result.get("module")??"";
-      const _area=result.get("area")??"";
+      let _area=result.get("area")??"";
       const _section=result.get("section")??"";
       this.record_id=parseInt(result.get("id")??"");
       this.source_type=_section;
+      if (_area==""){_area="records";}
       this.get_page(_module,_area,_section);
     })
   }

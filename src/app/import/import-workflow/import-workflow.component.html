@@ -1,0 +1,27 @@
+<p-steps [model]="workflow" [activeIndex]="currentIndex"></p-steps>
+<div class="grid mt-4">
+    <div class="col-12" *ngIf="currentIndex==0">
+            <p-fileUpload name="file[]" (uploadHandler)="fileUpload($event)" [multiple]="false" [auto]="true" [showUploadButton]="false" [customUpload]="true">
+
+            </p-fileUpload>
+    </div>
+    <div class="col-12" *ngIf="currentIndex==1">
+        <p-panelMenu [model]="items" [style]="{'width':'300px'}"></p-panelMenu>
+    </div>
+    <div class="col-12" *ngIf="currentIndex==2">
+        Process
+    </div>
+    <div class="col-12" *ngIf="currentIndex==3">
+        Complete
+    </div>
+    <div class="col-6 mt-3">
+        <div class="grid grid-nogutter justify-content-end">
+            <p-button [disabled]="currentIndex<1" (onClick)="previousPage()" icon="pi pi-angle-left" styleClass="p-button-lg"></p-button>
+        </div>
+    </div>
+    <div class="col-6 mt-3">
+        <div class="grid grid-nogutter justify-content-start">
+            <p-button [disabled]="!((currentIndex<(workflow.length-1))||ready==true)" styleClass="p-button-lg" [icon]="currentIndex<workflow.length-1?'pi pi-angle-right':'pi pi-check'" (onClick)="nextPage()"></p-button>
+        </div>
+    </div>
+</div>

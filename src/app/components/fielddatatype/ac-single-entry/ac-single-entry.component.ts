@@ -109,8 +109,17 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
 
   new_record(op:OverlayPanel)
   {
+    var source_key="";
+    if (this.field_configs!=undefined)
+    {
+      if (this.field_configs.source_type!=undefined)
+      {
+        source_key=this.data[this.field_configs.source_type];
+      }
+    }
+   // return;
     var check=this.definition.actions?.filter((p: { key: string; })=>p.key=="new_record")[0];
-    this.event.cast('top',{from:this.unique_id,action:'dialog',key:check.dialog_key,id:0,cache:null,row:-1,content:null});
+    this.event.cast('top',{from:this.unique_id,action:'dialog',key:check.dialog_key,id:0,source_type:source_key,cache:null,row:-1,content:null});
     op.hide();
   }
 

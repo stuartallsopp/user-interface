@@ -78,7 +78,7 @@
     </div>
     <div class="col-12" *ngIf="has_field==true">
         <p>Field</p>
-        <app-field-edit [(field)]="panel.field" [lookuplist]="lookuplist"></app-field-edit>
+        <app-field-edit [(field)]="panel.field" [actionlist]="actionlist" [lookuplist]="lookuplist"></app-field-edit>
     </div>
     <div class="col-12 text-right"><button (click)="savePanel.emit(panel)" pButton icon="fa-solid fa-floppy-disk" class="p-button-success p-button-rounded p-button-outlined"></button></div>
 </div>

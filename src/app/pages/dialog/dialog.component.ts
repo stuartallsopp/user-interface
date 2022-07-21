@@ -74,7 +74,6 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
 
   initialise(property_bag:any)
   {
-    console.log(this.definition.data_url);
     if (this.definition.data_url==null||this.definition.data_url==undefined)
     {
       this.persist=false;
@@ -100,6 +99,7 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
   initialiseFromURL(property_bag:any)
   {
     var url=this.definition.initialise_url;
+    console.log(url,property_bag);
     url=url.replace('{source_type}',property_bag.source_type);
     url=url.replace('{parent}',property_bag.parent_id);
     this.loader.startLoader(this.loader_key);

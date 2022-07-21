@@ -57,7 +57,7 @@
 <p-dialog appendTo="body" header="Field" [modal]="true" [(visible)]="field_edit_display" *ngIf="edited_field" [style]="{width: '70vw'}">
     <div class="grid">
         <div class="col-12">
-            <app-field-edit [lookuplist]="lookuplist" [(field)]="edited_field"></app-field-edit>
+            <app-field-edit [lookuplist]="lookuplist" [actionlist]="actionlist" [(field)]="edited_field"></app-field-edit>
         </div>
         <div class="col-12 text-right"><button (click)="saveField()" pButton icon="fa-solid fa-floppy-disk" class="p-button-success p-button-rounded p-button-outlined"></button></div>
     </div>

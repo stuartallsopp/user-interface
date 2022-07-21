@@ -117,6 +117,7 @@ export class AppComponent  {
   openDialog(id:number,content:any)
   {
     this.loading.startBackgroundLoader("application");
+    console.log(content);
     this.page.getdialog(id,content.source_type).subscribe({next:(result:any)=>{
       const ref = this.dialog.open(DialogComponent, {
         data: {

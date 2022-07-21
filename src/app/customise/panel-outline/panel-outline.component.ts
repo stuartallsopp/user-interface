@@ -13,6 +13,7 @@ export class PanelOutlineComponent implements OnInit {
 
   @Input() fieldlist:any[]=[];
   @Input() listlist:any[]=[];
+  @Input() actionlist:any[]=[];
   @Input() lookuplist:any[]=[];
 
   public panel_edit_display:boolean=false;

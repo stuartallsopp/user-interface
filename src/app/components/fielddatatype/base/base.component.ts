@@ -15,7 +15,7 @@ export class BaseComponent implements OnInit,OnChanges,OnDestroy {
   @Output() value_changed:EventEmitter<any>=new EventEmitter<any>();
   
 
-  private field_configs:any=null;
+  public field_configs:any=null;
 
   public local_data_source:any={value:null,resolved:null}
   public loader_key:string="";

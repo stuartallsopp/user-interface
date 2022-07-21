@@ -144,31 +144,31 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   {
     if (!this.definition){return;}
     this.footer_columns=[];
-    var columns=this.definition.columnset?.list_columns;
+    var columns=this.definition.columnset?.list_columns.filter((p: { visible: boolean; })=>p.visible==true);
     if (columns)
     {
       if (columns.filter((p: { total: boolean; })=>p.total==true).length==0)
       {
-        this.footer_columns.push({type:'totalrecords',key:null,colspan:columns.length});
+        this.footer_columns.push({type:'totalrecords',key:null,colspan:columns.length,visible:true});
       }else
       {
-        var first=columns.filter((p: { total: boolean; })=>p.total==true)[0];
+        var first=columns.filter((p: {total: boolean; })=>p.total==true)[0];
         var indxof=columns.indexOf(first);
-        this.footer_columns.push({type:'totalrecords',key:null,colspan:indxof});
+        this.footer_columns.push({type:'totalrecords',key:null,colspan:indxof,visible:true});
         while(indxof<columns.length)
         {
           if (columns[indxof].total==true)
           {
-            this.footer_columns.push({type:'total',key:columns[indxof].field,colspan:1,format:columns[indxof].format});
+            this.footer_columns.push({type:'total',key:columns[indxof].field,colspan:1,format:columns[indxof].format,visible:columns[indxof].visible});
           }else
           {
-            this.footer_columns.push({type:'empty',key:null,colspan:1});
+            this.footer_columns.push({type:'empty',key:null,colspan:1,visible:columns[indxof].visible});
           }
           indxof++;
         }
       }
     }
-
+    console.log(this.footer_columns);
 
   }
 

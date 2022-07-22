@@ -52,5 +52,7 @@
             </tr>
         </ng-template>
     </p-table>
-    <p-paginator *ngIf="definition.page_size!=0" (onPageChange)="paginate($event)" [rows]="definition.page_size" [totalRecords]="record_count"></p-paginator>
+    <div class="text-center mt-2" *ngIf="definition.page_size!=0">
+        <ngb-pagination class="d-flex justify-content-center" [(page)]="current_page" (pageChange)="paginate2($event)" [pageSize]="definition.page_size" [collectionSize]="record_count"></ngb-pagination>
+    </div>
 </div>

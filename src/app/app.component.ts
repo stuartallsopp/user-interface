@@ -97,7 +97,7 @@ export class AppComponent  {
         propertybag:{type:source_type,content:content}
       },
       header: "Import "+ source_type,
-      width: "50%",
+      width: "35%",
       closable:true,
       styleClass:'sa-dialog-scroll-fix',
       modal:true,

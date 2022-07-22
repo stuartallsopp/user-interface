@@ -52,8 +52,10 @@ export class SignalrService implements OnInit {
       });
     });
     connection.on('progress',(input:any[])=>{
-      console.log(input);
       this.event.cast('top',{action:'update_progress',message:{message:input[0],index:input[1],max:input[2]}})
-    })  
+    })
+    connection.on('report_to',(input:any[])=>{
+      this.event.cast(input[0],{action:'update_progress',message:{message:input[1]}});
+    })
   }
 }

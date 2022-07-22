@@ -27,10 +27,12 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   public list_selected:any[]=[];
   public footer_columns:any[]=[];
   public list_totals:any[]=[];
+  public fetching:boolean=false;
   public record_count:number=0;
   public hasfilters:boolean=false;
   public hard_coded_filters:any[]=[];
   public filters:any[]=[];
+  public current_page:number=1;
   private current_filters:any=null;
 
   private event_subscriber:any;
@@ -70,7 +72,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   filterChanged(filters:any)
   {
     this.current_filters=filters;
-    this.refresh(0);
+    this.refresh(1);
   }
 
   checkFilters()
@@ -207,7 +209,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     this.event_subscriber=this.event.on(this.unique_id).subscribe(result=>{
       if (result.data.type=='redraw')
       {
-        this.refresh();
+        this.refresh(this.current_page);
       }
       if (result.data.type=='listbuttonclick')
       {
@@ -347,7 +349,14 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
 
   paginate(event:any)
   {
+    this.current_page=event.page+1;
     this.refresh(event.page+1,this.current_filters);
+  }
+
+  paginate2(event:any)
+  {
+    this.current_page=event;
+    this.refresh(this.current_page,this.current_filters);
   }
 
   deleteRecord(url:string,message:string,id:number)
@@ -415,6 +424,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
 
   refreshFromUrl(pageno:number=1,filters:any=null)
   {
+    this.fetching=true;
     if (this.definition.data_url?.length>0)
     {
       var url=this.definition.data_url;
@@ -438,12 +448,15 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
               this.list_content=result.records;
               this.list_totals=result.totals;
               this.record_count=result.totalrecords;
+              this.current_page=result.page;
           },
           error:(error)=>{
             local.loader.stopLoader(local.loader_key);
+            local.fetching=false;
           },
           complete() {
             local.loader.stopLoader(local.loader_key);
+            local.fetching=false;
           },
         }
       )

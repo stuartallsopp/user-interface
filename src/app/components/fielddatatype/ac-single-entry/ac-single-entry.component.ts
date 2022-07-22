@@ -15,13 +15,15 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
 
   public configs:any=null;
 
+  public options:any[]=[];
+
   @Input() parentdata:any;
 
   constructor(ds:DataService,event:NgEventBus) {
     super(ds,event);
    }
   ngAfterViewInit(): void {
-
+    this.populateOptions();
   }
 
   clearentry()
@@ -48,6 +50,11 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
 
   item_selected_on_list(event:any)
   {
+    var check=this.options.filter(p=>p.id==event.id)[0];
+    if (check==null)
+    {
+      this.options.push(event);
+    }
     this.updatesource(event);
   }
 
@@ -81,6 +88,10 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
       if (this.definition.aut_config)
       {
         this.configs=JSON.parse(this.definition.aut_config);
+      }
+      if (this.data[this.definition.fieldname]!=null)
+      {
+        this.options.push(this.data[this.definition.fieldname]);
       }
       this.checkInitialise();
     }
@@ -130,8 +141,44 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
     return false;
   }
 
+  populateOptions()
+  {
+    var search:any[]=[];
+    var url=this.definition.data_url;
+      if (this.data!=null)
+      {
+        url=url.replace("{id}",this.data.id);
+      }
+      var local_source_type=this.checkSourceType();
+      if (local_source_type!=undefined&&local_source_type!=null&&local_source_type!="")
+      {
+        url=url.replace("{source_type}",local_source_type);  
+      }
+      url=url.replace("{source_type}",this.source_type);
+      if (local_source_type==null){return;}
+      this.dataService.list(url,50,0,"description","asc",search).subscribe(
+        {
+          next:(result:any)=>{
+            var copyvalue=this.data[this.definition.fieldname];
+            this.options=result.records;
+            if (copyvalue!=null)
+            {
+              var check=this.options.filter(p=>p.id==copyvalue.id)[0];
+              setTimeout(()=>{this.updatesource(check)},10);
+            // this.updatesource(check);
+            }
+          }
+        }
+      )
+  }
+
   updatesource(event:any)
   {
+    var check=this.options.filter(p=>p.id==event.id)[0];
+    if (check==null)
+    {
+      this.options.push(event);
+    }
     if (this.definition.fieldname=='.')
     {
       super.raise_value_changed(event);

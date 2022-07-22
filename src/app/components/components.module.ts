@@ -47,6 +47,7 @@ import { AutocompleteEntryComponent } from './fielddatatype/autocomplete-entry/a
 import { AcSingleEntryComponent } from './fielddatatype/ac-single-entry/ac-single-entry.component';
 import { FieldpickerComponent } from './fieldpicker/fieldpicker.component';
 import { DebounceModule } from 'ngx-debounce';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AcSingleSearchComponent } from './fielddatatype/ac-single-search/ac-single-search.component';
 import { DividerModule } from 'primeng/divider';
 import { ListfilterComponent } from './listfilter/listfilter.component';
@@ -113,6 +114,7 @@ import { ListColTagComponent } from './listdatatype/list-col-tag/list-col-tag.co
     ScrollPanelModule,
     DropdownModule,
     PaginatorModule,
+    NgbModule,
     InputTextareaModule,
     TooltipModule,
     MentionModule,

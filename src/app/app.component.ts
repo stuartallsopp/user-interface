@@ -92,17 +92,23 @@ export class AppComponent  {
 
   openImport(source_type:string,content:any)
   {
-    const ref=this.dialog.open(ImportWorkflowComponent,{
-      data:{
-        propertybag:{type:source_type,content:content}
-      },
-      header: "Import "+ source_type,
-      width: "35%",
-      closable:true,
-      styleClass:'sa-dialog-scroll-fix',
-      modal:true,
-      closeOnEscape : true
-    })
+    this.dataService.get("import/checktype/"+source_type).subscribe({next:(result:any)=>{
+      
+      const ref=this.dialog.open(ImportWorkflowComponent,{
+        data:{
+          propertybag:{type:result.type,content:content,title:result.title}
+        },
+        header: "Import "+ result.title,
+        width: "35%",
+        closable:true,
+        styleClass:'sa-dialog-scroll-fix',
+        modal:true,
+        closeOnEscape : true
+      })
+
+    },error:(error)=>{
+      this.message.add({severity:"error",summary:"Import Error",detail:error.message});
+    }})
   }
 
   openNote(id:number,type:string,data:any)

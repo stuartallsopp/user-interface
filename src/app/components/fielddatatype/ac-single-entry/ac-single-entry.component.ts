@@ -156,7 +156,7 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
       }
       url=url.replace("{source_type}",this.source_type);
       if (local_source_type==null){return;}
-      this.dataService.list(url,50,0,"description","asc",search).subscribe(
+      this.dataService.list(url,10,1,"description","asc",search).subscribe(
         {
           next:(result:any)=>{
             var copyvalue=this.data[this.definition.fieldname];

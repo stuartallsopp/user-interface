@@ -27,6 +27,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   public list_selected:any[]=[];
   public footer_columns:any[]=[];
   public list_totals:any[]=[];
+  private list_source_type:string="";
   public fetching:boolean=false;
   public record_count:number=0;
   public hasfilters:boolean=false;
@@ -281,7 +282,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
         this.event.cast('top',{from:this.unique_id,action:'note',id:id,source_type:data.action_uri.type,data:data});
         break;
       case 'import':
-        this.event.cast('top',{from:this.unique_id,action:'import',source_type:this.source_type});
+        this.event.cast('top',{from:this.unique_id,action:'import',source_type:this.list_source_type+(this.source_type.length==0?"":"."+this.source_type)});
         break;
       case 'post':
         this.postRecords(action.url,action.confirm_message,rowIndex,data);
@@ -445,10 +446,12 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       .subscribe(
         {
           next:(result:any)=>{
+              console.log(result);
               this.list_content=result.records;
               this.list_totals=result.totals;
               this.record_count=result.totalrecords;
               this.current_page=result.page;
+              this.list_source_type=result.source_type;
           },
           error:(error)=>{
             local.loader.stopLoader(local.loader_key);

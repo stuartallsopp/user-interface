@@ -81,7 +81,6 @@ export class PagecolumnOutlineComponent implements OnInit {
         item.sort_order=idx;
         idx++;
     }
-    console.log(this.columns);
   }
 
   movedown(row:number,column:any)

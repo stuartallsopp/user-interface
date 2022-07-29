@@ -38,7 +38,6 @@ export class ImportWorkflowComponent implements OnInit,OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.config.data);
     this.propertybag=this.config.data.propertybag;
     this.source_type=this.propertybag.content.source_type;
     this.upload_url=environment.data_api+"import/"+this.source_type;

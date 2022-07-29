@@ -19,7 +19,7 @@
     </div>
     <div class="field col-12 md:col-2">
         <span class="p-float-label">
-            <p-dropdown inputId="type" appendTo="body" [options]="['tex_entry','aut_entry','tex_disp','num_entry','num_disp','dat_entry','dat_disp','plst_entry','swch_entry','pitem_entry','perd_entry','mdl_entry','cur_entry','drop_entry']" [(ngModel)]="field.type"></p-dropdown>
+            <p-dropdown inputId="type" appendTo="body" [options]="['tex_entry','aut_entry','tex_disp','num_entry','num_disp','dat_entry','dat_disp','plst_entry','swch_entry','pitem_entry','perd_entry','mdl_entry','cur_entry','drop_entry','mdl_primary','values_entry','mult_entry']" [(ngModel)]="field.type"></p-dropdown>
             <label for="type">Type</label>
         </span>
     </div>
@@ -41,10 +41,16 @@
             <label for="info_text">Information Text</label>
         </span>
     </div>
-    <div  class="field col-12 md:col-12">
+    <div  class="field col-12 md:col-8">
         <span class="p-float-label">
             <input type="text" id="context_param" pInputText [(ngModel)]="field.context_param"> 
             <label for="context_param">Context Params JSON</label>
+        </span>
+    </div>
+    <div  class="field col-12 md:col-4">
+        <span class="p-float-label">
+            <input type="text" id="subscription" pInputText [(ngModel)]="field.subscription"> 
+            <label for="subscription">Subscription Key</label>
         </span>
     </div>
     <div  class="field col-12 md:col-2" *ngIf="field.type=='tex_entry'">

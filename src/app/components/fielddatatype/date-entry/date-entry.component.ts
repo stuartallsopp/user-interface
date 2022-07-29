@@ -10,6 +10,8 @@ import { BaseComponent } from '../base/base.component';
 })
 export class DateEntryComponent extends BaseComponent implements OnInit {
 
+  public blocked:boolean=false;
+  
   constructor(ds:DataService,event:NgEventBus) {
     super(ds,event);
    }

@@ -8,11 +8,12 @@
             </label>
         </span>
         <span class="p-buttonset">
-        <button type="button" (click)="op.toggle($event)" class="p-button-primary button-subtle button-prounding" icon="fa-solid fa-search" pButton></button>  
-        <button type="button" (click)="clearentry()" class="p-button-danger button-subtle button-rounding" icon="fa-solid fa-eraser" pButton></button>  
+        <button type="button" (click)="op.toggle($event)" class="p-button-primary button-prounding" icon="fa-solid fa-search" pButton></button>  
+        <button type="button" (click)="clearentry()" class="p-button-danger button-rounding" icon="fa-solid fa-eraser" pButton></button>  
     </span>  
     </div>
-    <p-overlayPanel #op appendTo="body" [focusOnShow]="true" styleClass="overlay-width">
+    <p-blockUI [blocked]="blocked" [autoZIndex]="false" [baseZIndex]="1000"></p-blockUI>
+    <p-overlayPanel #op appendTo="body" (onShow)="blocked=true;" (onHide)="blocked=false;" [focusOnShow]="true" styleClass="overlay-width shadow-9 max-h-25rem">
         <ng-template pTemplate>
             <div style="position:relative">
                 <app-ac-single-search [title]="fieldLabel()" [local_source_type]="checkSourceType()" [source_type]="source_type" [data]="parentdata" (new_record_selected)="new_record(op)" [hasnew]="hasnewbutton()" (item_selected)="item_selected_on_list($event)" [dialog]="op" [definition]="definition" [configs]="configs"></app-ac-single-search>

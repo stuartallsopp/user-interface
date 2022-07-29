@@ -46,7 +46,6 @@ export class MenuDefinitionComponent implements OnInit {
     if (this.editedItem.page_id==null){this.editedItem.page_id=0;}
     this.dataService.update({action:'update',data:this.editedItem}).subscribe({next:(result)=>
       {
-        console.log(result);
         this.loadtree();
         this.editedItem=null;
         this.selectedMenu=null;
@@ -86,7 +85,6 @@ export class MenuDefinitionComponent implements OnInit {
     event.dragNode.data.sort_order=event.index;
     this.dataService.update({action:'move',data:event.dragNode.data}).subscribe({next:(result)=>
       {
-        console.log(result);
     }});
   }
 

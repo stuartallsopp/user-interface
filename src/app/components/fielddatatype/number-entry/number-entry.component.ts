@@ -18,6 +18,11 @@ export class NumberEntryComponent extends BaseComponent implements OnInit {
     super.ngOnInit();
   }
 
+  number_updated(event)
+  {
+    this.raise_value_changed(this.data[this.definition.fieldname]);
+  }
+
   resolveMin():number
   {
     if (this.definition.format==null||this.definition.format==""){return 0;}

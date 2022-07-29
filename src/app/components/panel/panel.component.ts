@@ -18,6 +18,8 @@ export class PanelComponent implements OnInit,OnChanges,AfterViewInit {
   @Input() cacheid:string="";
   @Input() source_type:string="";
   @Input() dialog:boolean=false;
+  @Input() panel_index:number;
+  @Input() panel_from:string;
 
   public local_data:any;
   
@@ -41,7 +43,6 @@ export class PanelComponent implements OnInit,OnChanges,AfterViewInit {
       var panel=el.querySelector('.p-panel-content');
       this.renderer.addClass(panel,this.decor.bgcolour(this.definition.colour));
       this.renderer.addClass(panel,this.decor.bgcolouropac10(this.definition.colour));
-      console.log(el);
     }
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -68,7 +69,6 @@ export class PanelComponent implements OnInit,OnChanges,AfterViewInit {
 
   field_changed(event:any)
   {
-    console.log(event);
     if (this.definition.data_field)
     {
       this.data[this.definition.data_field]=event;

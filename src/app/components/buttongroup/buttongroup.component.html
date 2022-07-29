@@ -11,7 +11,7 @@
     <p-menu appendTo="body" #menu [popup]="true" [model]="items"></p-menu> 
 </ng-container>
 <ng-container *ngIf="localbuttons&&localbuttons.length>0&&location=='dialog' && displayas!='full'">
-    <button (click)="sendevent(i)" *ngFor="let button of localbuttons;let i = index" [ngClass]="decor.buttoncolour(button.colour)" pButton class="p-button-rounded p-button-outlined btn-lg p-button-outlined ml-2" [icon]="button.icon"></button>
+    <button (click)="sendevent(i)" *ngFor="let button of localbuttons;let i = index" [ngClass]="decor.buttoncolour(button.colour)" pButton class="p-button-rounded p-button-outlined btn-lg p-button-outlined ml-2 shadow-3" [icon]="button.icon"></button>
 </ng-container>
 <ng-container *ngIf="localbuttons&&localbuttons.length>0&&location=='page'">
     <span class="p-buttonset flex justify-content-center">

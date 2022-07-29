@@ -67,7 +67,6 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
 
   event_subscriber() {
     this.event_listener=this.event.on(this.unique_id).subscribe(result=>{
-        console.log(result);
         this.doAction(result.data.key,result.data.data);
     })
   }
@@ -89,7 +88,6 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
   {
 
       this.data=this.tool.deepCopy(property_bag.content);
-      console.log('should be creating a duplicate',this.data,property_bag.content);
       if ((this.data?.id==undefined||this.data?.id==null)&&this.definition.initialise_url!=undefined&&this.definition.initialise_url!=null)
       {
         this.initialiseFromURL(property_bag);
@@ -99,12 +97,10 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
   initialiseFromURL(property_bag:any)
   {
     var url=this.definition.initialise_url;
-    console.log(url,property_bag);
     url=url.replace('{source_type}',property_bag.source_type);
     url=url.replace('{parent}',property_bag.parent_id);
     this.loader.startLoader(this.loader_key);
     this.dataService.get(url).subscribe({next:(result)=>{
-      console.log(result);
       this.data={...result};
       this.loader.stopLoader(this.loader_key);
     },
@@ -146,7 +142,6 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
   doAction(key:string,data:any)
   {
     var action=this.tool.resolveAction(key,this.definition);
-    console.log(action,key,data,this.data);
     if (action!=null)
     {
       switch(action.type)
@@ -192,7 +187,6 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
           var url=action.url;
           url=url.replace("{source_type}",this.propertybag.source_type);
           url=url.replace("{id}",data.id);
-          console.log(url);
           this.event.cast('top',{action:'goto',key:url,data:data});
           break;
       }

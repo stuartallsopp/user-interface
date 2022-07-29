@@ -1,6 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgEventBus } from 'ng-event-bus';
 import { DataService } from 'src/app/services/data.service';
+import { MdlCommonService } from 'src/app/services/mdl-common.service';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
@@ -14,7 +15,8 @@ export class MdlEntryComponent extends BaseComponent implements OnInit,OnChanges
   public searching:boolean=false;
   public resultsets:any={};
   public displaycount:number;
-  constructor(ds:DataService,event:NgEventBus) {
+  public blocked:boolean=false;
+  constructor(ds:DataService,event:NgEventBus,public common:MdlCommonService) {
     super(ds,event);
    }
 
@@ -69,24 +71,14 @@ export class MdlEntryComponent extends BaseComponent implements OnInit,OnChanges
     return result;
   }
 
-  resolveDefinition(input:any)
-  {
-    var result:any={};
-    result.label=input.title;
-    result.fieldname='record';
-    result.compulsory=input.compulsory;
-    result.data_url=input.url;
-    result.data_url_method='POST';
-    result.data_url_param='{"search":"ddescription","order":"code"}';
-    result.aut_config='{"label":"description","id":"id"}';
-    return result;
+  override setsubscribers(): void {
+    this.common.setSubscribers(this.registered_subscriptions);
   }
 
   buildOptions()
   {
     if (this.local_data_source!=undefined)
     {
-      console.log(this.local_data_source);
       this.displaycount=this.local_data_source.lines.length<3?this.local_data_source.lines.length:3;
       this.options=[];
       for(var x=0;x<this.local_data_source.lines.length;x++)

@@ -1,0 +1,36 @@
+<div class="grid">
+    <div class="col-6">
+        <span class="p-float-label">
+            <span class="p-inputgroup">
+                    <p-autoComplete
+                    inputStyleClass="min-w-full" styleClass="min-w-full"
+                    [suggestions]="resultsets[primary_object.type]" 
+                    [(ngModel)]="primary_object.record" 
+                    [placeholder]="primary_object.compulsory?'*'+primary_object.title:primary_object.title" 
+                    [inputId]="unique_id"
+                    (onSelect)="common.item_selected(primary_object,local_data_source,options)"
+                    (onClear)="common.item_selected(primary_object,local_data_source,options)"
+                    [forceSelection]="true"
+                     (completeMethod)="searchSegment($event,primary_object)"
+                     [field]="primary_object.display_fields[0]"
+                     >
+                     <ng-template let-item pTemplate="item">
+                        {{item[primary_object.display_fields[1]]}}
+                     </ng-template>
+                    </p-autoComplete>
+                <button (click)="op.toggle($event)" class="button-rounding" pButton icon="fa-solid fa-search"></button>
+            </span>
+        </span>
+    </div>
+    <div class="col-6">
+        <app-stnd-display *ngIf="primary_definition" [definition]="primary_definition" [data]="primary_object?.record"></app-stnd-display>
+    </div>
+</div>
+<p-blockUI [blocked]="blocked" [autoZIndex]="false" [baseZIndex]="1000"></p-blockUI>
+<p-overlayPanel #op appendTo="body" (onShow)="blocked=true;" (onHide)="blocked=false;" [focusOnShow]="true" styleClass="max-w-30rem shadow-9">
+    <div class="grid p-fluid mt-4">
+        <div class="col-12 mt-3" *ngFor="let op of options">
+            <app-ac-single-entry (value_changed)="common.item_selected(op,local_data_source,options)" [data]="op" [definition]="common.resolveDefinition(op)"></app-ac-single-entry>
+        </div>
+    </div>
+</p-overlayPanel>

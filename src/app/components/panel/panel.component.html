@@ -14,8 +14,11 @@ expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up"
         <ng-container *ngIf="definition.list&&definition.type=='list'">
             <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-list>
         </ng-container>
+        <ng-container *ngIf="definition.list&&definition.type=='listi'">
+            <app-listi [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-listi>
+        </ng-container>
         <ng-container  *ngIf="definition.fieldset&&definition.type=='field'">
-            <app-fieldset  [source_type]="source_type" [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
+            <app-fieldset [panel_index]="panel_index" [panel_from]="panel_from"  [source_type]="source_type" [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
         </ng-container>
         <ng-container *ngIf="definition.type=='note'">
             <app-note-viewer *ngIf="local_data" [data]="local_data"></app-note-viewer>
@@ -35,8 +38,11 @@ expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up"
         <div class="col-12" [ngClass]="decor.resolveNonePanelBackground(definition.colour)" *ngIf="definition.list&&definition.type=='list'">
             <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-list>
         </div>
+        <div class="col-12" [ngClass]="decor.resolveNonePanelBackground(definition.colour)" *ngIf="definition.list&&definition.type=='listi'">
+            <app-listi [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-listi>
+        </div>
         <div class="col-12" *ngIf="definition.fieldset&&definition.type=='field'">
-            <app-fieldset [source_type]="source_type" [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
+            <app-fieldset [panel_index]="panel_index" [panel_from]="panel_from" [source_type]="source_type" [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
         </div>
         <div class="col-12" *ngIf="definition.type=='note'">
             <app-note-viewer *ngIf="local_data" [data]="local_data"></app-note-viewer>

@@ -1,14 +1,28 @@
 <div style="position:relative" *ngIf="isVisible()">
     <ngx-ui-loader pbColor="#883cae" [fgsSize]="0" fgsColor="#883cae" overlayColor="rgba(180,82,238,0.1)" [loaderId]="loader_key"></ngx-ui-loader>
     <span class="p-float-label" *ngIf="data">
-        <p-dropdown 
+        <p-dropdown *ngIf="configs"
         appendTo="body"
         [inputId]="unique_id" 
         [options]="options" 
         [(ngModel)]="data[definition.fieldname]" 
         [optionValue]="configs.id" 
         [optionLabel]="configs.label"
+        (onChange)="value_selected($event)"
         ></p-dropdown>
+        <p-dropdown *ngIf="!configs"
+        appendTo="body"
+        [inputId]="unique_id" 
+        [options]="options" 
+        [(ngModel)]="data[definition.fieldname]"
+        (onChange)="value_selected($event)"
+        optionLabel="code"
+        >
+        <ng-template let-item pTemplate="item">
+            <span *ngIf="item.id==0">Not Set</span>
+            <span *ngIf="item.id!=0">{{item.code}}</span>
+        </ng-template>
+    </p-dropdown>
         <label [for]="unique_id">
             <span *ngIf="definition.compulsory" class="pi pi-star-fill mr-1 text-red-800"></span>
             <span>{{fieldLabel()}}</span>

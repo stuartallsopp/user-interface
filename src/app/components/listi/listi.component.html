@@ -1,0 +1,25 @@
+<div style="position:relative" class="pt-1 pb-3">
+    <ngx-ui-loader pbColor="#883cae" [fgsSize]="0" fgsColor="#883cae" overlayColor="rgba(180,82,238,0.1)" [loaderId]="loader_key"></ngx-ui-loader>
+    <p-timeline [value]="list_content" align="alternate">
+        <ng-template pTemplate="content" let-item>
+            <ng-container *ngFor="let column of definition.columnset?.list_columns">
+                <span class="sa-link-display" *ngIf="column.type=='link_disp'">
+                    <a class="no-underline text-sm" routerLink=""><i class="fa-solid fa-arrow-right mr-1"></i>{{item[column.field]}}</a>
+                </span>
+                <span class="text-xs font-italic sa-note-display" *ngIf="column.type=='tex_disp'">{{item[column.field]}}</span>
+                <span *ngIf="column.type=='tag_disp'">
+                    <p-tag [value]="item[column.field]" [rounded]="true" styleClass="text-xs sa-tag-slim bg-secondary"></p-tag>
+                </span>
+                <span *ngIf="column.type=='dat_disp'" class="text-xs ml-1">
+                    <i [pTooltip]="item[column.field]" class="fa-solid fa-clock mr-1"></i>{{item[column.field] | amTimeAgo}}
+                </span>
+            </ng-container>
+        </ng-template>
+    </p-timeline>
+    <div class="grid">
+        <div class="col-12 text-center">
+            <button pButton *ngIf="list_content.length<record_count" label="More" (click)="loadMore()" class="p-button-primary p-button-rounded p-button-outlined"></button>
+        </div>
+    </div>
+</div>
+

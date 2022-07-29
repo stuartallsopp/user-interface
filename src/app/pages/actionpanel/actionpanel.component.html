@@ -1,8 +1,8 @@
-<div class="grid">
+<div class="grid" style="position:sticky;top:50px;">
     <div class="hidden sm:hidden md:block md:col-12 lg:block lg:col-12 xl:block xl:col-12" *ngIf="listbuttons.length==0">
         <div class="card bg-light">
             <div class="card-body">
-                <h5 class="card-title">{{definition.description}}</h5>
+                <h4 class="card-title">{{definition.description}}</h4>
                 <p-divider></p-divider>
                 <h6 class="card-subtitle mb-2 text-muted">{{definition.help_text}}</h6>
             </div>
@@ -16,7 +16,7 @@
             <div *ngFor="let list of listbuttons" class="col-12">
                 <div class="card bg-light">
                     <div class="card-body">
-                        <h5 class="card-title">{{definition.description}}</h5>
+                        <h4 class="card-title">{{definition.description}}</h4>
                         <p-divider></p-divider>
                         <app-buttongroup (itemselected)="listbuttonpressed($event)" [buttons]="list.buttonset" displayas="full" location="top" [from]="list.from"></app-buttongroup>
                         <p-divider *ngIf="definition.help_text"></p-divider>

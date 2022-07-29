@@ -8,12 +8,12 @@
         <div class="col-12 sm:col-12 md:col-9 lg:col-9 xl:col-9">
             <div class="grid mt-3" *ngIf="page_definition">
                 <div *ngFor="let col of page_definition.columns" class="pb-0 pt-0" [ngClass]="responsive.get(col.size)">
-                        <ng-container *ngFor="let panel of col.panels">
-                            <app-panel [source_type]="source_type" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                        <ng-container *ngFor="let panel of col.panels;let i=index;">
+                            <app-panel [panel_index]="i" panel_from="page" [source_type]="source_type" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
                         </ng-container>
                 </div>
-                <div *ngFor="let panel of page_definition.panels" class="pb-0 pt-0" [ngClass]="responsive.get(12)">
-                    <app-panel [source_type]="source_type" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                <div *ngFor="let panel of page_definition.panels;let i=index;" class="pb-0 pt-0" [ngClass]="responsive.get(12)">
+                    <app-panel [panel_index]="i"  panel_from="page" [source_type]="source_type" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
                 </div>
             </div>
         </div>

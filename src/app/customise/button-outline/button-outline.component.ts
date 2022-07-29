@@ -82,7 +82,6 @@ export class ButtonOutlineComponent implements OnInit {
         item.sort_order=idx;
         idx++;
     }
-    console.log(this.fullPage.buttons);
   }
 
   movedown(row:number,button:any)

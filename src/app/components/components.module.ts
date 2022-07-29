@@ -6,6 +6,7 @@ import {TableModule} from 'primeng/table';
 import { PanelComponent } from './panel/panel.component';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
+import { BlockUIModule } from 'primeng/blockui';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -18,12 +19,14 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { BadgeModule } from 'primeng/badge';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TooltipModule } from 'primeng/tooltip';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { TagModule } from 'primeng/tag';
+import { TimelineModule } from 'primeng/timeline';
 import { ListComponent } from './list/list.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import {ListboxModule} from 'primeng/listbox';
@@ -61,6 +64,13 @@ import { ListColMdlComponent } from './listdatatype/list-col-mdl/list-col-mdl.co
 import { MessageService } from 'primeng/api';
 import { DropdownEntryComponent } from './fielddatatype/dropdown-entry/dropdown-entry.component';
 import { ListColTagComponent } from './listdatatype/list-col-tag/list-col-tag.component';
+import { ListiComponent } from './listi/listi.component';
+import { ListColLinkComponent } from './listdatatype/list-col-link/list-col-link.component';
+import { NgxVisibilityModule, NgxVisibilityService } from 'ngx-visibility';
+import { MdlPrimaryComponent } from './fielddatatype/mdl-primary/mdl-primary.component';
+import { MultEntryComponent } from './fielddatatype/mult-entry/mult-entry.component';
+import { ValEntryComponent } from './fielddatatype/val-entry/val-entry.component';
+
 
 
 
@@ -94,7 +104,12 @@ import { ListColTagComponent } from './listdatatype/list-col-tag/list-col-tag.co
     CurrencyexchangeEntryComponent,
     ListColMdlComponent,
     DropdownEntryComponent,
-    ListColTagComponent
+    ListColTagComponent,
+    ListiComponent,
+    ListColLinkComponent,
+    MdlPrimaryComponent,
+    MultEntryComponent,
+    ValEntryComponent
   ],
   imports: [
     CommonModule,
@@ -110,12 +125,16 @@ import { ListColTagComponent } from './listdatatype/list-col-tag/list-col-tag.co
     FieldsetModule,
     DividerModule,
     CheckboxModule,
+    BadgeModule,
     MultiSelectModule,
     ScrollPanelModule,
     DropdownModule,
     PaginatorModule,
     NgbModule,
+    BlockUIModule,
     InputTextareaModule,
+    NgxVisibilityModule,
+    TimelineModule,
     TooltipModule,
     MentionModule,
     ListboxModule,
@@ -132,6 +151,6 @@ import { ListColTagComponent } from './listdatatype/list-col-tag/list-col-tag.co
   exports:[
     PanelComponent,ButtongroupComponent,NoteViewerComponent
   ],
-  providers:[MessageService]
+  providers:[MessageService,NgxVisibilityService]
 })
 export class ComponentsModule { }

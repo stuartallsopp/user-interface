@@ -29,6 +29,20 @@ public getOrganisationName():string
   return name;
 }
 
+public getOrganisationId():number
+{
+  var no:number=parseInt(localStorage.getItem("organisation"));
+  if (no==null){return 0;}
+  return no;
+}
+
+public getUserName():string
+{
+  var name=localStorage.getItem("username");
+  if (name==null){return "Unknown";}
+  return name;
+}
+
 private callForm(email:string,password:string)
 {
   return this.http.post<User>(environment.forms_api+'users/authenticate',{email,password});

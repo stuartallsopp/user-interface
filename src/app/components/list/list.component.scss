@@ -5,6 +5,23 @@
         background: inherit;
         color:inherit;
     }
+    ::ng-deep
+    .p-datatable.p-datatable-sm.p-datatable-sam .p-datatable-thead > tr > th
+    {
+        padding:0.25rem;
+    }
+    ::ng-deep
+    .p-datatable.p-datatable-sm.p-datatable-sam .p-datatable-tbody > tr > td
+    {
+        padding:0.25rem;
+    }
+
+    ::ng-deep
+    .p-datatable.p-datatable-sm.p-datatable-sam .p-datatable-tfoot > tr > td
+    {
+        padding:0.25rem;
+    }
+
     th.p-sortable-column
     {
         background: inherit;

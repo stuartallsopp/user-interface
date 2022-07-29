@@ -7,8 +7,9 @@
         </ng-template>
 </p-menubar>
 
-<p-overlayPanel #op>
+<p-overlayPanel #op appendTo="body">
     <ng-template pTemplate>
+        <app-user-control [op]="op"></app-user-control>
     </ng-template>
 </p-overlayPanel>
 

@@ -62,7 +62,7 @@ redraw(force:boolean=false)
     this.checkForFavourites();
     this.refreshPermissions();
   },(err: any)=>{
-   // window.location.reload();
+    this.items=[];
   }); 
 }
 
@@ -128,11 +128,9 @@ unsetcurrentitem(source:Inplace)
 
 customiseFavourites()
 {
-  console.log(this.items);
   this.edit_position=null;
   this.favourite_customise_display=true;
   this.favourite_list=this.getFavourites().items.filter((p: { routerLink: string; })=>p.routerLink!=undefined);
-  console.log(this.favourite_list);
 }
 
   event_subscription()

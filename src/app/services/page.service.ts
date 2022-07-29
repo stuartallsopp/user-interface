@@ -91,7 +91,6 @@ export class PageService {
 
   get(source_type:string,unique_key:string):Observable<any>
   {
-    console.log(source_type);
     if (this.use_local_cache==true)
     {
       if (this.recent_pages.filter(p=>p.key==unique_key)[0]!=null)
@@ -114,7 +113,6 @@ export class PageService {
 
   getbykey(unique_key:string):Observable<any>
   {
-    console.log(unique_key);
     if (this.use_local_cache==true)
     {
       if (this.recent_pages.filter(p=>p.key==unique_key)[0]!=null)

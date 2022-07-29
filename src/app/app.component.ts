@@ -42,7 +42,6 @@ export class AppComponent  {
       switch(result.data.action)
       {
         case 'dialog':
-          console.log(result);
           this.openDialog(parseInt(result.data.key),result.data);
           break;
         case 'goto':
@@ -75,7 +74,6 @@ export class AppComponent  {
   updateProgress(source:any)
   {
       this.progress_message={...source};
-      console.log(source);
   }
 
   closeProgress()
@@ -113,7 +111,6 @@ export class AppComponent  {
 
   openNote(id:number,type:string,data:any)
   {
-    console.log(data);
     this.loading.startBackgroundLoader("application");
     this.dataService.checkNoteType(type).subscribe({next:(result:any)=>{
       const ref=this.dialog.open(NoteviewComponent,
@@ -142,7 +139,6 @@ export class AppComponent  {
   openDialog(id:number,content:any)
   {
     this.loading.startBackgroundLoader("application");
-    console.log(content);
     this.page.getdialog(id,content.source_type).subscribe({next:(result:any)=>{
       const ref = this.dialog.open(DialogComponent, {
         data: {
@@ -153,7 +149,7 @@ export class AppComponent  {
         width: result.dialog_width + '%',
         height:'auto',
         closable : result.closeable,
-        styleClass:'sa-dialog-scroll-fix',
+        styleClass:'sa-dialog-scroll-fix shadow-9',
         modal:true,
         closeOnEscape : result.closeable
     });

@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgEventBus } from 'ng-event-bus';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MessageService } from 'primeng/api';
@@ -38,16 +38,24 @@ export class DropdownEntryComponent extends BaseComponent implements OnInit,OnCh
     super.ngOnInit();
   }
 
+ value_selected(event:any)
+ {
+  this.value_changed.emit(event.value);
+ }
+
   resolveParameters()
   {
-    console.log(this.definition);
-    this.configs=JSON.parse(this.definition.aut_config);
+    if (this.definition.aut_config!=undefined&&this.definition.aut_config!=null)
+    {
+      this.configs=JSON.parse(this.definition.aut_config);
+    }
+    console.log(this.configs,this.definition);
     var url=this.definition.data_url;
     url=url.replace('{source_type}',this.source_type);
     this.loading.startLoader(this.loader_key);
     this.dataService.list(url,0,0,"id","asc").subscribe({next:(result:any)=>{
       this.options=[...result.records];
-      this.options.push({id:0,description:'Not Set'});
+      this.options.push({id:0,description:'Not Set',code:'Not Set'});
       this.loading.stopLoader(this.loader_key);
     },error:(error)=>{
       this.loading.stopLoader(this.loader_key);

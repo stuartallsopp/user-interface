@@ -1,0 +1,18 @@
+<div class="grid max-w-18rem">
+    <div class="col-12">
+        <p-menu [model]="items">
+
+        </p-menu>
+    </div>
+    <div class="col-12">
+        <span class="p-float-label">
+            <p-dropdown styleClass="min-w-full" [options]="org_list" [(ngModel)]="currentorg" optionLabel="organisation_name" inputId="change_organisation"></p-dropdown>
+             <label for="change_organisation">
+                <span>Orgainsation</span>
+            </label>
+        </span>
+    </div>
+    <div class="col-12 text-right">
+        <button pButton (click)="logout()" icon="fa-solid fa-arrow-up-left-from-circle" label="Logout" class="p-button-danger p-button-outlined p-button-rounded p-button-sm"></button>
+    </div>
+</div>

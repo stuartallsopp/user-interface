@@ -12,6 +12,8 @@ export class FieldpickerComponent implements OnInit {
   @Input() field:any=null;
   @Input() source_type:string='';
   @Input() parentdata:any=null;
+  @Output() register:EventEmitter<any>=new EventEmitter<any>();
+  @Output() visibility_check:EventEmitter<any>=new EventEmitter<any>();
 
   constructor() { }
 
@@ -21,6 +23,16 @@ export class FieldpickerComponent implements OnInit {
   raise_value_changed(event:any)
   {
     this.value_changed.emit(event);
+  }
+
+  raise_register(event)
+  {
+    this.register.emit(event);
+  }
+
+  raise_visibility_check(event)
+  {
+    this.visibility_check.emit(event);
   }
 
 }

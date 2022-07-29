@@ -6,17 +6,21 @@ import {InputTextModule} from 'primeng/inputtext';
 import {OrderListModule} from 'primeng/orderlist';
 import {ButtonModule} from 'primeng/button';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {MenuModule} from 'primeng/menu';
 import { MenubarComponent } from './menubar/menubar.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
+import { UserControlComponent } from './user-control/user-control.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
 @NgModule({
   declarations: [
     MenubarComponent,
-    FavouritesComponent
+    FavouritesComponent,
+    UserControlComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +28,8 @@ import { FormsModule } from '@angular/forms';
     ButtonModule,
     OrderListModule,
     FormsModule,
+    MenuModule,
+    DropdownModule,
     InplaceModule,
     InputTextModule,
     DialogModule,

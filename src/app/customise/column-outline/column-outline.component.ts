@@ -82,7 +82,6 @@ export class ColumnOutlineComponent implements OnInit {
         item.sort_order=idx;
         idx++;
     }
-    console.log(this.fullPage.list_columns);
   }
 
   movedown(row:number,column:any)

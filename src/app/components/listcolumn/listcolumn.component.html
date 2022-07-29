@@ -16,4 +16,7 @@
 <ng-container *ngIf="definition.type=='tag_disp'">
     <app-list-col-tag [data]="data" [definition]="definition"></app-list-col-tag>
 </ng-container>
+<ng-container *ngIf="definition.type=='link_disp'">
+    <app-list-col-link [data]="data" [definition]="definition"></app-list-col-link>
+</ng-container>
 

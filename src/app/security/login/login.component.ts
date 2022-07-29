@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
         this.authService.login(val.email, val.password)
             .subscribe(
                 () => {
+                    this.events.cast("menu",{redraw:true});
                     this.events.cast("redraw",{key:"master"})
                     this.router.navigate(['landing']);
                 }

@@ -1,8 +1,9 @@
 <span class="p-float-label" *ngIf="data&&isVisible()">
-    <p-calendar [(ngModel)]="data[definition.fieldname]" [showIcon]="true" [dateFormat]="definition.format"></p-calendar>
+    <p-calendar panelStyleClass="shadow-9" [baseZIndex]="1001" (onShow)="blocked=true" (onClose)="blocked=false" [(ngModel)]="data[definition.fieldname]" [showIcon]="true" [dateFormat]="definition.format"></p-calendar>
     <label [for]="unique_id">
         <span *ngIf="definition.compulsory" class="pi pi-star-fill mr-1 text-red-800"></span>
         <span>{{fieldLabel()}}</span>
         <span *ngIf="definition.info_text" class="pi pi-info-circle ml-1"></span>
     </label>
 </span>
+<p-blockUI [blocked]="blocked" [autoZIndex]="false" [baseZIndex]="1000"></p-blockUI>

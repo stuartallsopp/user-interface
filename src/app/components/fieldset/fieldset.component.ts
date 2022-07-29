@@ -12,7 +12,12 @@ export class FieldsetComponent implements OnInit,OnChanges {
   @Input() data:any;
   @Input() dialog:boolean=false;
   @Input() source_type:string='';
+  @Input() panel_index:number;
+  @Input() panel_from:string;
 
+  private panelFields:any[]=[];
+
+  private lowest_index:number=9999;
   public columns:any[]=[];
 
   constructor(public responsive:ResponsiveService) { }
@@ -24,30 +29,55 @@ export class FieldsetComponent implements OnInit,OnChanges {
     }
   }
 
+  register_field(event)
+  {
+    this.panelFields.push(event);
+  }
+
+  check_visibility(event)
+  {
+    if (this.panel_from=="page" && this.panel_index!=0){return;}
+    var check=this.panelFields.filter(p=>p.id==event.id)[0];
+    if (check!=null)
+    {
+      var idx=this.panelFields.indexOf(check);
+      if (idx<=this.lowest_index)
+      {
+        this.lowest_index=idx;
+        event.elements.first.focus();
+      }
+    }
+  }
+
   ngOnInit(): void {
   }
 
   resolveColumns()
   {
-    console.log(this.definition);
     this.columns=[];
     if (this.definition.fields_resolved!=null&&this.definition.fields_resolved?.length>0)
     {
       this.columns.push({id:1,width:12,fields:this.definition.fields_resolved});
     }else
     {
-      var width=this.resolveColumnWidth();
+      var idx=0;
       for(var col of this.definition.columns)
       {
-        this.columns.push({id:col.column_no,width:width,fields:col.fields});
+        this.columns.push({id:col.column_no,width:this.resolveColumnWidth(idx),fields:col.fields});
+        idx++;
       }
     }
     console.log(this.columns);
   }
 
-  resolveColumnWidth()
+  resolveColumnWidth(idx:number)
   {
     if (this.definition.column_count==undefined||this.definition.column_count==null){return 12;}
+    if (this.definition.first_col!=undefined&&this.definition.first_col!=null&&this.definition.first_col!=0)
+    {
+      console.log(this.definition.first_col);
+      if (idx==0){return this.definition.first_col;}else{return 12-this.definition.first_col;}
+    }
     switch(this.definition.column_count)
     {
       case 1:

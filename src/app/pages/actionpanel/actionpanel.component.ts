@@ -53,7 +53,6 @@ export class ActionpanelComponent implements OnInit,OnChanges,OnDestroy {
       var check=this.listbuttons.filter(p=>p.buttonset.id==result.data.buttonset.id)[0];
       if (check==null)
       {
-        console.log(result.data);
         if (result.data.buttonset.buttons.filter((p: { location: string; })=>p.location=='top'||p.location=='both').length>0)
         {
           this.listbuttons.push(result.data);

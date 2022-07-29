@@ -1,1 +1,1 @@
-<p-tag *ngIf="resolveShow()" [icon]="resolveIcon()" [rounded]="true" [value]="data[definition.field]"></p-tag>
+<i [class]="resolveIcon()" pBadge *ngIf="resolveShow()" severity="danger" [value]="data[definition.field]"></i>

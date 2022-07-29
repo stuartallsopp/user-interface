@@ -4,14 +4,14 @@
         <div class="col-12" *ngIf="definition&&definition.columns?.length>0">
             <div class="grid">
                 <div *ngFor="let col of definition.columns" class="pb-0 pt-0" [ngClass]="responsive.get(col.size)">
-                    <ng-container *ngFor="let panel_outer of col.panels_resolved">
+                    <ng-container *ngFor="let panel_outer of col.panels_resolved;let i=index;">
                         <ng-container *ngIf="panel_outer.key==''">
-                             <app-panel [source_type]="source_type"  *ngFor="let panel of panel_outer.panels" [data]="data" [definition]="panel"></app-panel>
+                             <app-panel [panel_index]="i" [source_type]="source_type"  *ngFor="let panel of panel_outer.panels" [data]="data" [definition]="panel"></app-panel>
                         </ng-container>
                         <ng-container *ngIf="panel_outer.key!=''">
                             <p-tabView styleClass="sa-innertabview">
-                                <p-tabPanel *ngFor="let panel of panel_outer.panels" [header]="panel.description">
-                                    <app-panel [source_type]="source_type" [data]="data" [dialog]="true" [definition]="panel"></app-panel>
+                                <p-tabPanel *ngFor="let panel of panel_outer.panels;let i=index;" [header]="panel.description">
+                                    <app-panel [panel_index]="i" panel_from="tab" [source_type]="source_type" [data]="data" [dialog]="true" [definition]="panel"></app-panel>
                                 </p-tabPanel>
                             </p-tabView>
                         </ng-container>
@@ -23,15 +23,15 @@
             <div class="grid" *ngIf="definition">
                 <ng-container *ngFor="let panel_outer of definition.panels_resolved">
                     <ng-container *ngIf="panel_outer.key==''">
-                        <div *ngFor="let panel of panel_outer.panels" class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
-                            <app-panel [data]="data" [source_type]="source_type" [dialog]="true" [definition]="panel"></app-panel>
+                        <div *ngFor="let panel of panel_outer.panels;let i=index;" class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
+                            <app-panel [panel_index]="i" panel_from="page" [data]="data" [source_type]="source_type" [dialog]="true" [definition]="panel"></app-panel>
                         </div>
                     </ng-container>
                     <ng-container *ngIf="panel_outer.key!=''">
                         <div class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
                             <p-tabView styleClass="sa-innertabview">
-                                <p-tabPanel *ngFor="let panel of panel_outer.panels" [header]="panel.description">
-                                    <app-panel [data]="data" [source_type]="source_type" [dialog]="true" [definition]="panel"></app-panel>
+                                <p-tabPanel *ngFor="let panel of panel_outer.panels;let i=index" [header]="panel.description">
+                                    <app-panel [panel_index]="i" panel_from="tab" [data]="data" [source_type]="source_type" [dialog]="true" [definition]="panel"></app-panel>
                                 </p-tabPanel>
                             </p-tabView>
                         </div>

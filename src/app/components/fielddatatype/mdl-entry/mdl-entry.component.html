@@ -15,11 +15,11 @@
              [field]="opt.display_fields[0]"
              >
              <ng-template let-item pTemplate="item">
-                <span class="mr-1" *ngFor="let df of opt.display_fields">{{item[df]}}</span>
+                {{item[opt.display_fields[1]]}}
              </ng-template>
             </p-autoComplete>
         </ng-container>
-        <button (click)="op.toggle($event)" pButton icon="fa-solid fa-search"></button>
+        <button (click)="op.toggle($event)" class="button-rounding" pButton icon="fa-solid fa-search"></button>
     </span>
     <label [for]="unique_id">
         <span *ngIf="definition.compulsory" class="mr-1 text-red-800">*</span>
@@ -27,10 +27,11 @@
         <span *ngIf="definition.info_text" class="pi pi-info-circle ml-1"></span>
     </label>
 </span>
-<p-overlayPanel #op appendTo="body">
+<p-blockUI [blocked]="blocked" [autoZIndex]="false" [baseZIndex]="1000"></p-blockUI>
+<p-overlayPanel #op appendTo="body" (onShow)="blocked=true;" (onHide)="blocked=false;" [focusOnShow]="true" styleClass="max-w-30rem shadow-9">
     <div class="grid p-fluid mt-4">
         <div class="col-12 mt-3" *ngFor="let op of options">
-            <app-ac-single-entry (value_changed)="item_selected(op)" [data]="op" [definition]="resolveDefinition(op)"></app-ac-single-entry>
+            <app-ac-single-entry (value_changed)="common.item_selected(op,local_data_source,options)" [data]="op" [definition]="common.resolveDefinition(op)"></app-ac-single-entry>
         </div>
     </div>
 </p-overlayPanel>

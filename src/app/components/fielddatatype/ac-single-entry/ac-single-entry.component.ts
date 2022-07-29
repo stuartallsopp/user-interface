@@ -14,15 +14,19 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
 
 
   public configs:any=null;
+  public search_configs:any=null;
+  public blocked:boolean=false;
 
   public options:any[]=[];
 
   @Input() parentdata:any;
+  @Input() noclear:boolean=false;
 
   constructor(ds:DataService,event:NgEventBus) {
     super(ds,event);
    }
-  ngAfterViewInit(): void {
+  override ngAfterViewInit(): void {
+    super.ngAfterViewInit();
     this.populateOptions();
   }
 
@@ -88,10 +92,12 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
       if (this.definition.aut_config)
       {
         this.configs=JSON.parse(this.definition.aut_config);
+        this.search_configs=JSON.parse(this.definition.data_url_param);
       }
-      if (this.data[this.definition.fieldname]!=null)
+      var tmp=this.definition.fieldname=='.'?this.data:this.data[this.definition.fieldname];
+      if (tmp!=null)
       {
-        this.options.push(this.data[this.definition.fieldname]);
+        this.options.push(tmp);
       }
       this.checkInitialise();
     }
@@ -156,10 +162,11 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
       }
       url=url.replace("{source_type}",this.source_type);
       if (local_source_type==null){return;}
-      this.dataService.list(url,10,1,"description","asc",search).subscribe(
+      this.dataService.list(url,10,1,this.search_configs.order,"asc",search).subscribe(
         {
           next:(result:any)=>{
-            var copyvalue=this.data[this.definition.fieldname];
+
+            var copyvalue=this.definition.fieldname=='.'?this.data:this.data[this.definition.fieldname];
             this.options=result.records;
             if (copyvalue!=null)
             {
@@ -174,6 +181,7 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
 
   updatesource(event:any)
   {
+    if (event==undefined){return;}
     var check=this.options.filter(p=>p.id==event.id)[0];
     if (check==null)
     {

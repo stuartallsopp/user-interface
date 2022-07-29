@@ -42,6 +42,12 @@ export class CurrencyexchangeEntryComponent extends BaseComponent implements OnI
     
   }
 
+  override setValue(value: any): void {
+    var fields=this.definition.fieldname.split(',');
+    this.data[fields[0]]=value;
+    this.currency_changed(value);
+  }
+
   resolveDefinition()
   {
    var fields=this.definition.fieldname.split(',');

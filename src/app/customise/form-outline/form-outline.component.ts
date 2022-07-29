@@ -27,7 +27,6 @@ export class FormOutlineComponent implements OnInit {
   updateEdit()
   {
       this.dataService.update_form(this.fullPage).subscribe({next:(result)=>{
-        console.log(result);
       }})
   }
 

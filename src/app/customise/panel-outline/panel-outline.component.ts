@@ -85,7 +85,6 @@ export class PanelOutlineComponent implements OnInit {
         item.sort_order=idx;
         idx++;
     }
-    console.log(this.panels);
   }
 
   movedown(row:number,panel:any)

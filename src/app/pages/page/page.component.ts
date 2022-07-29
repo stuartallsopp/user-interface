@@ -43,7 +43,7 @@ export class PageComponent implements OnInit,OnDestroy {
     if (this.route_subscription!=null){this.route_subscription.unsubscribe();}
   }
 
-  get_page(source_type:string,key:string,)
+  get_page(source_type:string,key:string)
   {
     this.loader.startBackgroundLoader("page");
     this.page.get(source_type,key).subscribe({
@@ -66,7 +66,6 @@ export class PageComponent implements OnInit,OnDestroy {
       this.current_route=this.router.url;
       const _validate=this.page.checkKey(_module,_area,_section);
       const _source_type=this.page.checkType(_module,_area,_section);
-      console.log(_source_type,_section,_validate);
       this.section=_section;
       this.get_page(_source_type,_validate);
     })

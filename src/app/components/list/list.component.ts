@@ -84,7 +84,6 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     else
     {
       var filter=this.definition.filters.filter((p: { type: string; })=>p.type=='url')[0];
-      console.log(filter);
       if (filter!=null)
       {
         this.dataService.post(filter.definition_url,{items:filter.items}).subscribe({
@@ -108,13 +107,10 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
 
   harcoded_filters()
   {
-    console.log(this.definition.filters);
     var hc=this.definition.filters.filter((p: { type: string; })=>p.type=='hard')[0];
     if (hc!=null)
     {
-      console.log(hc);
       this.hard_coded_filters=JSON.parse(hc.hard_coded);
-      console.log(this.hard_coded_filters);
     }
   }
 
@@ -171,8 +167,6 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
         }
       }
     }
-    console.log(this.footer_columns);
-
   }
 
   validateSelection(from:string,event:any=null)
@@ -446,7 +440,6 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       .subscribe(
         {
           next:(result:any)=>{
-              console.log(result);
               this.list_content=result.records;
               this.list_totals=result.totals;
               this.record_count=result.totalrecords;

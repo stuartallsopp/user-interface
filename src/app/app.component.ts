@@ -23,6 +23,8 @@ export class AppComponent  {
   private event_listener:any;
   public progress_dialog_visible:boolean=false;
   public progress_message:any=null;
+  public sidebar_visible:boolean=false;
+  public sidebar_values:any[]=[];
 
   constructor(
     private event:NgEventBus,
@@ -49,6 +51,9 @@ export class AppComponent  {
           break;
         case 'note':
           this.openNote(result.data.id,result.data.source_type,result.data);
+          break;
+        case 'info':
+          this.openInfo(result.data);
           break;
         case 'import':
           this.openImport(result.data.source_type,result.data);
@@ -107,6 +112,32 @@ export class AppComponent  {
     },error:(error)=>{
       this.message.add({severity:"error",summary:"Import Error",detail:error.message});
     }})
+  }
+
+  openInfo(data:any)
+  {
+    this.sidebar_values=Object.entries(data.data);
+    this.sidebar_values=this.sidebar_values.filter(p=>!p[0].endsWith('_id')&&p[0]!='id'&&!p[0].endsWith('_no')&&!p[0].endsWith('_uri')&&p[1]!=null);
+    this.sidebar_visible=true;
+  }
+
+  checkType(value:any)
+  {
+    if (value instanceof Date){return 'date';}
+    return '';
+  }
+
+  titleCase(input:string)
+  {
+    input=this.replaceAll(input,'_',' ');
+    return input;
+  }
+
+   replaceAll(str:string, find:string, replace:string) {
+    return str.toString().replace(new RegExp(this.escapeRegExp(find), 'g'), replace);
+  }
+  escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
   }
 
   openNote(id:number,type:string,data:any)

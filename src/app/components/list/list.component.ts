@@ -275,6 +275,9 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       case 'note':
         this.event.cast('top',{from:this.unique_id,action:'note',id:id,source_type:data.action_uri.type,data:data});
         break;
+      case 'info':
+        this.event.cast('top',{from:this.unique_id,action:'info',data:data});
+        break;
       case 'import':
         this.event.cast('top',{from:this.unique_id,action:'import',source_type:this.list_source_type+(this.source_type.length==0?"":"."+this.source_type)});
         break;

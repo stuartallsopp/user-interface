@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { NgEventBus } from 'ng-event-bus';
 import {ToastModule} from 'node_modules/primeng/toast';
 import {MessagesModule} from 'primeng/messages';
+import {SidebarModule} from 'primeng/sidebar';
 import {SliderModule} from 'primeng/slider';
 import {MessageModule} from 'primeng/message';
 import {DialogModule} from 'primeng/dialog';
@@ -28,6 +29,7 @@ import { CustomiseModule } from './customise/customise.module';
 import { SignalrService } from './services/signalr.service';
 import { FormsModule } from '@angular/forms';
 import { ImportModule } from './import/import.module';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { ImportModule } from './import/import.module';
     PagesModule,
     MessagesModule,
     MessageModule,
+    SidebarModule,
     ProgressBarModule,
+    TableModule,
     ToastModule,
     ConfirmDialogModule,
     BrowserAnimationsModule,

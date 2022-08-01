@@ -34,3 +34,12 @@
     </div>
   </div>
 </p-dialog>
+<p-sidebar styleClass="shadow-9" appendTo="body" [(visible)]="sidebar_visible" position="left">
+  <div class="grid">
+    <div class="col-12 pb-0" *ngFor="let item of sidebar_values">
+      <p class="text-xs text-secondary mb-0 capitalize">{{titleCase(item[0])}}</p>
+      <p *ngIf="checkType(item[1])==''" class="text-primary mb-0">{{item[1]}}</p>
+      <p *ngIf="checkType(item[1])=='date'" class="text-primary mb-0">{{item[1]|date:'dd/MM/yyyy'}}</p>
+    </div>
+  </div>
+</p-sidebar>

@@ -70,6 +70,7 @@ import { NgxVisibilityModule, NgxVisibilityService } from 'ngx-visibility';
 import { MdlPrimaryComponent } from './fielddatatype/mdl-primary/mdl-primary.component';
 import { MultEntryComponent } from './fielddatatype/mult-entry/mult-entry.component';
 import { ValEntryComponent } from './fielddatatype/val-entry/val-entry.component';
+import { PostingDialogComponent } from './posting-dialog/posting-dialog.component';
 
 
 
@@ -109,7 +110,8 @@ import { ValEntryComponent } from './fielddatatype/val-entry/val-entry.component
     ListColLinkComponent,
     MdlPrimaryComponent,
     MultEntryComponent,
-    ValEntryComponent
+    ValEntryComponent,
+    PostingDialogComponent
   ],
   imports: [
     CommonModule,

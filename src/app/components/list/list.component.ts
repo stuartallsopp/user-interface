@@ -3,6 +3,7 @@ import { NgEventBus } from 'ng-event-bus';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DataService } from 'src/app/services/data.service';
+import { PostService } from 'src/app/services/post.service';
 import { ToolService } from 'src/app/services/tool.service';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -35,6 +36,9 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   public filters:any[]=[];
   public current_page:number=1;
   private current_filters:any=null;
+  public posting_list:any[]=[];
+  public posting_active:boolean=false;
+  public posting_action:any=null;
 
   private event_subscriber:any;
 
@@ -44,7 +48,8 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     private event:NgEventBus,
     private mess:MessageService,
     private comfirm:ConfirmationService,
-    private tool:ToolService
+    private tool:ToolService,
+    private post:PostService
     ) {
 
    }
@@ -308,41 +313,27 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
 
   postRecordsAction(url:string,rowIndex:number,data:any)
   {
-    var workinglist:any[]=[];
+    this.posting_list=[];
     if (rowIndex>=0)
     {
-      workinglist.push(data);
+      this.posting_list.push(data);
     }else
     {
       for(var item of this.list_selected)
       {
         if (item!=null)
         {
-          workinglist.push(item);
+          this.posting_list.push(item);
         }
       }
     }
-      if (workinglist.length==0)
-      {
-        this.mess.add({severity:'error',detail:'Nothing has been selected to post',summary:'Processing Error',key:'standard'});
-        return;
-      }
-      var id_list:number[]=[];
-      for(var item of workinglist)
-      {
-        id_list.push(item.id);
-      }
-      url=url.replace('{source_type}',this.source_type);
-      this.event.cast("top",{action:'open_progress'});
-      this.dataService.post(url,{ids:id_list}).subscribe({next:(result)=>{
-          this.event.cast('top',{action:'close_progress'});
-          this.refresh();
-      },
-      error:(error)=>{
-        this.mess.add({severity:'error',key:'standard',detail:error.message,summary:'Posting Error'});
-        this.event.cast('top',{action:'close_progress'});
-      }});
-    
+    this.posting_action={url:url,source_type:this.source_type};
+    this.posting_active=true;
+  }
+
+  returnfrompost()
+  {
+    this.posting_active=false;
   }
 
   paginate(event:any)

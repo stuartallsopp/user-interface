@@ -56,3 +56,4 @@
         <ngb-pagination class="d-flex justify-content-center" [(page)]="current_page" (pageChange)="paginate2($event)" [pageSize]="definition.page_size" [collectionSize]="record_count"></ngb-pagination>
     </div>
 </div>
+<app-posting-dialog [workinglist]="posting_list" (complete)="returnfrompost()" [active]="posting_active" [action]="posting_action"></app-posting-dialog>

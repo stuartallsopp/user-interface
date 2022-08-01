@@ -66,9 +66,18 @@ export class AppComponent  {
           break;
         case 'close_progress':
           this.closeProgress();
+          break;
+        case 'toast':
+          this.raiseError(result.data.data);
+          break;
       }
       
     })
+  }
+
+  raiseError(message:any)
+  {
+    this.message.add({severity:message.severity,summary:message.summary,detail:message.detail});
   }
 
   openProgress()

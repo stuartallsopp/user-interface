@@ -71,6 +71,7 @@ import { MdlPrimaryComponent } from './fielddatatype/mdl-primary/mdl-primary.com
 import { MultEntryComponent } from './fielddatatype/mult-entry/mult-entry.component';
 import { ValEntryComponent } from './fielddatatype/val-entry/val-entry.component';
 import { PostingDialogComponent } from './posting-dialog/posting-dialog.component';
+import { DialogModule } from 'primeng/dialog';
 
 
 
@@ -124,6 +125,7 @@ import { PostingDialogComponent } from './posting-dialog/posting-dialog.componen
     TagModule,
     AvatarModule,
     InputSwitchModule,
+    DialogModule,
     FieldsetModule,
     DividerModule,
     CheckboxModule,

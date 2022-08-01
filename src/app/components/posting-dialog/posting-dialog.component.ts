@@ -16,9 +16,12 @@ export class PostingDialogComponent implements OnInit,OnChanges {
   @Input() active:boolean=false;
   @Input() action:any;
 
+
   @Output() complete:EventEmitter<any>=new EventEmitter<any>();
 
   public show_dialog:boolean=false;
+  public pagebuttons:any[]=[];
+  public screendata:any={period:null,date:null,override:false};
 
   constructor(private dataService:DataService,private mess:MessageService,private event:NgEventBus) { }
   ngOnChanges(changes: SimpleChanges): void {
@@ -30,6 +33,11 @@ export class PostingDialogComponent implements OnInit,OnChanges {
         this.posting();
       }
     }
+  }
+
+  close_window()
+  {
+    this.complete.emit(true);
   }
 
   ngOnInit(): void {
@@ -53,24 +61,18 @@ export class PostingDialogComponent implements OnInit,OnChanges {
       var payload:any={stages: [...new Set(this.workinglist.map(item => item.tran_state))]};
       check_url=check_url.replace('{source_type}',this.action.source_type);
       this.dataService.post(check_url,payload).subscribe({next:(result)=>{
+        this.show_dialog=true;
 
       },error:(error)=>{
         console.log(error);
         this.event.cast("top",{action:'toast',data:{severity:'error',details:error.error,summary:'Posting Error'}});
         this.complete.emit(true);
       }})
-
-    // url=url.replace('{source_type}',this.source_type);
-    // this.event.cast("top",{action:'open_progress'});
-    // this.dataService.post(url,{ids:id_list}).subscribe({next:(result)=>{
-    //     this.event.cast('top',{action:'close_progress'});
-    //     this.refresh();
-    // },
-    // error:(error)=>{
-    //   this.mess.add({severity:'error',key:'standard',detail:error.message,summary:'Posting Error'});
-    //   this.event.cast('top',{action:'close_progress'});
-    // }});
   }
 
+  buttonpressed(event)
+  {
+
+  }
 
 }

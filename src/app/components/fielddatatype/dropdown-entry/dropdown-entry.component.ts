@@ -13,6 +13,7 @@ import { BaseComponent } from '../base/base.component';
 export class DropdownEntryComponent extends BaseComponent implements OnInit,OnChanges {
 
   private copy_of_original_value:any;
+  public code_key:string="code";
   public options:any[]=[];
   public configs:any;
 
@@ -43,13 +44,17 @@ export class DropdownEntryComponent extends BaseComponent implements OnInit,OnCh
   this.value_changed.emit(event.value);
  }
 
+
   resolveParameters()
   {
     if (this.definition.aut_config!=undefined&&this.definition.aut_config!=null)
     {
       this.configs=JSON.parse(this.definition.aut_config);
+      if (this.configs.label!=undefined)
+      {
+        this.code_key=this.configs.label;
+      }
     }
-    console.log(this.configs,this.definition);
     var url=this.definition.data_url;
     url=url.replace('{source_type}',this.source_type);
     this.loading.startLoader(this.loader_key);

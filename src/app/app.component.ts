@@ -77,7 +77,7 @@ export class AppComponent  {
 
   raiseError(message:any)
   {
-    this.message.add({severity:message.severity,summary:message.summary,detail:message.detail});
+    this.message.add({severity:message.severity,summary:message.summary,detail:message.detail,key:'standard'});
   }
 
   openProgress()

@@ -207,6 +207,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   event_subscription()
   {
     this.event_subscriber=this.event.on(this.unique_id).subscribe(result=>{
+      console.log(result);
       if (result.data.type=='redraw')
       {
         this.refresh(this.current_page);

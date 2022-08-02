@@ -8,6 +8,7 @@
         [(ngModel)]="data[definition.fieldname]" 
         [optionValue]="configs.id" 
         [optionLabel]="configs.label"
+        styleClass="min-w-full"
         (onChange)="value_selected($event)"
         ></p-dropdown>
         <p-dropdown *ngIf="!configs"
@@ -16,7 +17,8 @@
         [options]="options" 
         [(ngModel)]="data[definition.fieldname]"
         (onChange)="value_selected($event)"
-        optionLabel="code"
+        styleClass="min-w-full"
+        [optionLabel]="code_key"
         >
         <ng-template let-item pTemplate="item">
             <span *ngIf="item.id==0">Not Set</span>

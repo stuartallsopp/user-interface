@@ -14,6 +14,7 @@ export class BaseComponent implements OnInit,OnChanges,OnDestroy,AfterViewInit {
   @Input() data:any={};
   @Input() definition:any;
   @Input() source_type:string="";
+  @Input() disabled:boolean=false;
   @Output() value_changed:EventEmitter<any>=new EventEmitter<any>();
   @Output() register:EventEmitter<any>=new EventEmitter<any>();
   @Output() visibility_check:EventEmitter<any>=new EventEmitter();

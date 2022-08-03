@@ -6,7 +6,7 @@
         max-width:200px;
     }
     ::ng-deep
-    .p-disabled, .p-component:disabled {
+    input.p-disabled, input.p-component:disabled {
         opacity: 1;
         text-overflow: ellipsis;
         white-space: nowrap;

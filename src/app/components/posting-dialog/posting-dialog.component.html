@@ -1,10 +1,19 @@
-<p-dialog styleClass="shadow-9" (onHide)="close_window()" [modal]="true" header="Posting" [(visible)]="show_dialog" [style]="{width: '30vw'}">
+<p-dialog styleClass="shadow-9" (onHide)="close_window()" [modal]="true" header="Posting" [(visible)]="show_dialog" [style]="{width: '40vw'}">
     <div class="grid mt-3">
         <div class="col-12" *ngFor="let item of screendata">
             <div class="grid">
                 <div class="col-4"><p-checkbox label="Override" [binary]="true" [(ngModel)]="item.override_value"></p-checkbox></div>
                 <div class="col-8">
-                    <app-perioddate-entry [source_type]="source_type" [data]="item" [definition]="period_definition"></app-perioddate-entry>
+                    <app-perioddate-entry [disabled]="!item.override_value" [source_type]="source_type" [data]="item" [definition]="period_definition"></app-perioddate-entry>
+                </div>
+                <div class="col-12 alert-info">
+                    <span><i class="fa-solid fa-info-circle mr-1"></i></span>
+                    <span class="" *ngIf="item.override_value">
+                        The transaction posting date and period will be overridden with these values.
+                    </span>
+                    <span class="" *ngIf="!item.override_value">
+                       The posting date and period of the transaction will be used.
+                    </span>
                 </div>
             </div>
         </div>

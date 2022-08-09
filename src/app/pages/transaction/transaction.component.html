@@ -12,7 +12,7 @@
                             <app-panel [source_type]="source_type" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
                         </ng-container>
                 </div>
-                <div *ngFor="let panel of page_definition.panels" class="pb-0 pt-0" [ngClass]="responsive.get(12)">
+                <div *ngFor="let panel of page_definition.panels" class="pb-0 pt-0" [ngClass]="responsive.get(panel.width)">
                     <app-panel [source_type]="source_type" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
                 </div>
             </div>

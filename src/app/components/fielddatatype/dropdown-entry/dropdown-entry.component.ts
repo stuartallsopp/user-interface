@@ -14,7 +14,7 @@ export class DropdownEntryComponent extends BaseComponent implements OnInit,OnCh
 
   private copy_of_original_value:any;
   public code_key:string="code";
-  public options:any[]=[];
+  public options:any[]=[{id:0,description:'Not Set',code:'Not Set'}];
   public configs:any;
 
   constructor(ds:DataService,event:NgEventBus,private loading:NgxUiLoaderService,private message:MessageService) {

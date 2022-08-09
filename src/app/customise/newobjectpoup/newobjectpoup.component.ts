@@ -20,7 +20,6 @@ public actionlist:any[]=[];
   constructor( public ref: DynamicDialogRef, public config: DynamicDialogConfig) { }
 
   ngOnInit(): void {
-    console.log(this.config);
     this.objectType=this.config.data.type;
     this.fullObject=this.config.data.fullPage;
     this.listlist=this.config.data.lists;

@@ -12,15 +12,15 @@
                     </p-divider>
                     <ng-container *ngFor="let panel_outer of col.panels_resolved">
                         <ng-container *ngIf="panel_outer.key==''">
-                            <div *ngFor="let panel of panel_outer.panels;let i=index;" class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
-                                <app-panel [panel_index]="i"  panel_from="page" [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                            <div *ngFor="let panel of panel_outer.panels;let i=index;" class="pb-0 pt-0 col-12" [ngClass]="responsive.get(panel.width)">
+                                <app-panel (list_selection_changed)="list_changed($event)" [panel_index]="i"  panel_from="page" [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
                             </div>
                         </ng-container>
                         <ng-container *ngIf="panel_outer.key!=''">
                             <div class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
                                 <p-tabView styleClass="sa-innertabview">
                                     <p-tabPanel *ngFor="let panel of panel_outer.panels;let i =index;" [header]="panel.description">
-                                        <app-panel [panel_index]="i"  panel_from="tab" [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                                        <app-panel (list_selection_changed)="list_changed($event)" [panel_index]="i"  panel_from="tab" [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
                                     </p-tabPanel>
                                 </p-tabView>
                             </div>
@@ -34,15 +34,15 @@
                         <div *ngFor="let col of page_definition.columns" class="pb-0 pt-0" [ngClass]="responsive.get(col.size)">
                             <ng-container *ngFor="let panel_outer of col.panels_resolved">
                                 <ng-container *ngIf="panel_outer.key==''">
-                                    <div *ngFor="let panel of panel_outer.panels;let i=index;" class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
-                                        <app-panel [panel_index]="i"  panel_from="page" [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                                    <div *ngFor="let panel of panel_outer.panels;let i=index;" class="pb-0 pt-0 col-12" [ngClass]="responsive.get(panel.width)">
+                                        <app-panel (list_selection_changed)="list_changed($event)" [panel_index]="i"  panel_from="page" [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
                                     </div>
                                 </ng-container>
                                 <ng-container *ngIf="panel_outer.key!=''">
                                     <div class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
                                         <p-tabView styleClass="sa-innertabview">
                                             <p-tabPanel *ngFor="let panel of panel_outer.panels;let i=index" [header]="panel.description">
-                                                <app-panel  panel_from="tab" [panel_index]="i" [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                                                <app-panel (list_selection_changed)="list_changed($event)" panel_from="tab" [panel_index]="i" [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
                                             </p-tabPanel>
                                         </p-tabView>
                                     </div>
@@ -51,15 +51,15 @@
                         </div>
                         <div *ngFor="let panel_outer of page_definition.panels_resolved" class="pb-0 pt-0" [ngClass]="responsive.get(12)">
                             <ng-container *ngIf="panel_outer.key==''">
-                                <div *ngFor="let panel of panel_outer.panels;let i = index;" class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
-                                    <app-panel [panel_index]="i" panel_from="page" [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                                <div *ngFor="let panel of panel_outer.panels;let i = index;" class="pb-0 pt-0 col-12" [ngClass]="responsive.get(panel.width)">
+                                    <app-panel (list_selection_changed)="list_changed($event)" [panel_index]="i" panel_from="page" [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
                                 </div>
                             </ng-container>
                             <ng-container *ngIf="panel_outer.key!=''">
                                 <div class="pb-0 pt-0 col-12" [ngClass]="responsive.get(12)">
                                     <p-tabView styleClass="sa-innertabview">
                                         <p-tabPanel *ngFor="let panel of panel_outer.panels;let i=index;" [header]="panel.description">
-                                            <app-panel [panel_index]="i"  panel_from="tab" [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                                            <app-panel (list_selection_changed)="list_changed($event)" [panel_index]="i"  panel_from="tab" [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
                                         </p-tabPanel>
                                     </p-tabView>
                                 </div>

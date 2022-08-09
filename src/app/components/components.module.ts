@@ -19,6 +19,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CarouselModule } from 'primeng/carousel';
 import { BadgeModule } from 'primeng/badge';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -72,6 +73,8 @@ import { MultEntryComponent } from './fielddatatype/mult-entry/mult-entry.compon
 import { ValEntryComponent } from './fielddatatype/val-entry/val-entry.component';
 import { PostingDialogComponent } from './posting-dialog/posting-dialog.component';
 import { DialogModule } from 'primeng/dialog';
+import { AnalysisPanelComponent } from './analysis-panel/analysis-panel.component';
+import { ListColBooleanComponent } from './listdatatype/list-col-boolean/list-col-boolean.component';
 
 
 
@@ -112,7 +115,9 @@ import { DialogModule } from 'primeng/dialog';
     MdlPrimaryComponent,
     MultEntryComponent,
     ValEntryComponent,
-    PostingDialogComponent
+    PostingDialogComponent,
+    AnalysisPanelComponent,
+    ListColBooleanComponent
   ],
   imports: [
     CommonModule,
@@ -130,6 +135,7 @@ import { DialogModule } from 'primeng/dialog';
     DividerModule,
     CheckboxModule,
     BadgeModule,
+    CarouselModule,
     MultiSelectModule,
     ScrollPanelModule,
     DropdownModule,
@@ -150,10 +156,11 @@ import { DialogModule } from 'primeng/dialog';
     ButtonModule,
     InputTextModule,
     InputNumberModule,
+    
     MenuModule
   ],
   exports:[
-    PanelComponent,ButtongroupComponent,NoteViewerComponent
+    PanelComponent,ButtongroupComponent,NoteViewerComponent,AnalysisPanelComponent
   ],
   providers:[MessageService,NgxVisibilityService]
 })

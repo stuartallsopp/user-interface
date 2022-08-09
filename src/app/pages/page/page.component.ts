@@ -1,10 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgEventBus } from 'ng-event-bus';
 import { PageService } from 'src/app/services/page.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ResponsiveService } from 'src/app/services/responsive.service';
+import { ActionpanelComponent } from '../actionpanel/actionpanel.component';
+import { ToolService } from 'src/app/services/tool.service';
 
 @Component({
   selector: 'app-page',
@@ -24,7 +26,8 @@ export class PageComponent implements OnInit,OnDestroy {
     private page:PageService,
     private event:NgEventBus,
     private loader: NgxUiLoaderService,
-    public responsive: ResponsiveService
+    public responsive: ResponsiveService,
+    public tool: ToolService
   ) { }
 
   public page_definition:any;
@@ -34,6 +37,8 @@ export class PageComponent implements OnInit,OnDestroy {
   public section:string="";
   public current_route:string="";
 
+  @ViewChild(ActionpanelComponent) actionpanel;
+
 
   ngOnInit(): void {
     this.route_subscriber();
@@ -41,6 +46,14 @@ export class PageComponent implements OnInit,OnDestroy {
 
   ngOnDestroy(): void {
     if (this.route_subscription!=null){this.route_subscription.unsubscribe();}
+  }
+
+  list_changed(event)
+  {
+    if (this.actionpanel!=undefined)
+    {
+      this.actionpanel.datachanged(event);
+    }
   }
 
   get_page(source_type:string,key:string)

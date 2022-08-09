@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
 import { Panel } from 'primeng/panel';
 
 import { DataService } from 'src/app/services/data.service';
@@ -13,6 +13,7 @@ import { ResponsiveService } from 'src/app/services/responsive.service';
 export class PanelComponent implements OnInit,OnChanges,AfterViewInit {
 
   @ViewChild(Panel) panelObject?:any;
+  @Output() list_selection_changed:EventEmitter<any>=new EventEmitter<any>();
   @Input() definition:any;
   @Input() data:any;
   @Input() cacheid:string="";
@@ -64,6 +65,11 @@ export class PanelComponent implements OnInit,OnChanges,AfterViewInit {
     {
       this.local_data=this.data;
     }
+  }
+
+  list_changed(event)
+  {
+    this.list_selection_changed.emit(event);
   }
 
 

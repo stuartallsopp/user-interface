@@ -113,7 +113,7 @@ export class AppComponent  {
         header: "Import "+ result.title,
         width: "35%",
         closable:true,
-        styleClass:'sa-dialog-scroll-fix',
+        styleClass:'sa-dialog-scroll-fix shadow-9',
         modal:true,
         closeOnEscape : true
       })
@@ -156,7 +156,7 @@ export class AppComponent  {
       const ref=this.dialog.open(NoteviewComponent,
         {
           data:{
-            propertybag:{id:id,type:result.type,description:data.data[result.record_description],code:data.data[result.record_code]}
+            propertybag:{id:id,type:result.type,from_id:data.from,description:data.data[result.record_description],code:data.data[result.record_code]}
           },
           header: "Notes for " + result.description,
           width : '30%',

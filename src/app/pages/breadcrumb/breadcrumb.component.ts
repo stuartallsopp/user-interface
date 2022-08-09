@@ -27,7 +27,7 @@ export class BreadcrumbComponent implements OnInit,OnChanges {
   constructor(private mess:MessageService,private menu:MenuService,private event:NgEventBus,private auth:AuthService) { }
 
   ngOnInit(): void {
-    this.home={label:' '+this.auth.getOrganisationName(),routerLink:"/home",icon:"fa-solid fa-house"};
+    this.home={label:' '+this.auth.getOrganisationName(),routerLink:"/home",icon:"fa-regular fa-house"};
   }
 
   checkfavevent(op:any,event:any)
@@ -95,24 +95,21 @@ export class BreadcrumbComponent implements OnInit,OnChanges {
       else if (item.indexOf("{")>-1&&this.data!=null)
       {
         this.items.push({label:this.data[item.replace("{","").replace("}","")]})
+      }else if (item.indexOf("[")>-1&&this.data!=null)
+      {
+        this.items.push({label:this.data.meta_data[item.replace("[","").replace("]","")]});
       }
       else
       {
-        var resolve="";
-        if (resolves&&resolves[idx])
-        {
-          resolve=resolves[idx];
-        }
-        if (resolve!=null&&resolve!="")
-        {
-          resolve=resolve.replace("{source_type}",this.source_type);
-          this.items.push({label:item,routerLink:resolve})
-        }else
-        {
-          this.items.push({label:item});
-        }
-
+        this.items.push({label:item});
       }
+      idx++;
+    }
+    idx=0;
+    for(var res of resolves)
+    {
+      res=res.replace("{source_type}",this.source_type);
+      this.items[idx].routerLink=res;
       idx++;
     }
   }

@@ -4,7 +4,7 @@
         <ng-template pTemplate="content" let-item>
             <ng-container *ngFor="let column of definition.columnset?.list_columns">
                 <span class="sa-link-display" *ngIf="column.type=='link_disp'">
-                    <a class="no-underline text-sm" routerLink=""><i class="fa-solid fa-arrow-right mr-1"></i>{{item[column.field]}}</a>
+                    <a class="no-underline text-sm" routerLink=""><i class="fa-regular fa-square-arrow-right mr-1"></i></a>{{item[column.field]}}
                 </span>
                 <span class="text-xs font-italic sa-note-display" *ngIf="column.type=='tex_disp'">{{item[column.field]}}</span>
                 <span *ngIf="column.type=='tag_disp'">

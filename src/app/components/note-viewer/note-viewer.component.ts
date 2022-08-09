@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
 import { timeout } from 'rxjs';
@@ -16,10 +16,12 @@ export class NoteViewerComponent implements OnInit,OnChanges,AfterViewInit,After
   public current_user_id:number=0;
   public current_edit_id:number=0;
 
+
   public notes:any[]=[];
   public users:any[]=[];
 
   @Input() data:any;
+  @Output() notemade:EventEmitter<any>=new EventEmitter<any>();
 
   initialised:boolean=false;
   record_type:string="";
@@ -74,6 +76,7 @@ export class NoteViewerComponent implements OnInit,OnChanges,AfterViewInit,After
       }
       this.current_edit_id=0;
       this.currentcomment="";
+      this.notemade.emit(true);
     }})
   }
 

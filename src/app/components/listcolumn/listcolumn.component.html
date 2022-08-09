@@ -19,4 +19,7 @@
 <ng-container *ngIf="definition.type=='link_disp'">
     <app-list-col-link [data]="data" [definition]="definition"></app-list-col-link>
 </ng-container>
+<ng-container *ngIf="definition.type=='bool_disp'">
+    <app-list-col-boolean [data]="data" [definition]="definition"></app-list-col-boolean>
+</ng-container>
 

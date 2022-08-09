@@ -1,6 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgEventBus } from 'ng-event-bus';
 import { DataService } from 'src/app/services/data.service';
+import { ResponsiveService } from 'src/app/services/responsive.service';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
@@ -13,7 +14,7 @@ export class PerioddateEntryComponent extends BaseComponent implements OnInit,On
 
   public perioddefinition:any;
   public datedefinition:any;
-  constructor(ds:DataService,event:NgEventBus) {
+  constructor(ds:DataService,event:NgEventBus,public responsive:ResponsiveService) {
     super(ds,event);
    }
 

@@ -147,7 +147,6 @@ export class BaseComponent implements OnInit,OnChanges,OnDestroy,AfterViewInit {
     this.local_event_subscriber=this.event.on(this.unique_id).subscribe((result=>{
       if (result.data.action=='value_publish')
       {
-        console.log(result.data);
         this.setValue(result.data.data);
       }else
       {
@@ -170,7 +169,6 @@ export class BaseComponent implements OnInit,OnChanges,OnDestroy,AfterViewInit {
 
   setValue(value:any)
   {
-    console.log(this.local_data_source,this.data);
     if (this.definition.fieldname!='.')
     {
       this.data[this.definition.fieldname]=value;

@@ -2,6 +2,7 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgEventBus } from 'ng-event-bus';
 import { DataService } from 'src/app/services/data.service';
 import { MdlCommonService } from 'src/app/services/mdl-common.service';
+import { ResponsiveService } from 'src/app/services/responsive.service';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
@@ -18,7 +19,7 @@ export class MdlPrimaryComponent extends BaseComponent implements OnInit,OnChang
   public displaycount:number;
   public blocked:boolean=false;
 
-  constructor(ds:DataService,event:NgEventBus,public common:MdlCommonService) {
+  constructor(ds:DataService,event:NgEventBus,public common:MdlCommonService,public responsive:ResponsiveService) {
     super(ds,event);
    }
 

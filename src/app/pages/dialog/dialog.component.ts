@@ -103,6 +103,7 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
     this.dataService.get(url).subscribe({next:(result)=>{
       this.data={...result};
       this.loader.stopLoader(this.loader_key);
+      this.tool.resolveMetaData(this.data,this.definition,this.config);
     },
   error:(error)=>{
     this.message.add({severity:'error',detail:error.message});
@@ -110,6 +111,7 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
   }})
 
   }
+
 
 
   initialiseData(property_bag:any)
@@ -199,6 +201,7 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
       this.dataService.get(url).subscribe({
       next:(result)=>{
           this.data=result;
+          this.tool.resolveMetaData(this.data,this.definition,this.config);
       },
       error:(error)=>{
           this.message.add({key:"standard",severity:'error',detail:error.message});

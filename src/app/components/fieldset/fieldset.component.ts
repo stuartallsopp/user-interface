@@ -67,7 +67,6 @@ export class FieldsetComponent implements OnInit,OnChanges {
         idx++;
       }
     }
-    console.log(this.columns);
   }
 
   resolveColumnWidth(idx:number)
@@ -75,7 +74,6 @@ export class FieldsetComponent implements OnInit,OnChanges {
     if (this.definition.column_count==undefined||this.definition.column_count==null){return 12;}
     if (this.definition.first_col!=undefined&&this.definition.first_col!=null&&this.definition.first_col!=0)
     {
-      console.log(this.definition.first_col);
       if (idx==0){return this.definition.first_col;}else{return 12-this.definition.first_col;}
     }
     switch(this.definition.column_count)

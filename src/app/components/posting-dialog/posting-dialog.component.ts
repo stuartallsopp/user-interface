@@ -39,7 +39,6 @@ export class PostingDialogComponent implements OnInit,OnChanges {
 
   constructor(private dataService:DataService,private mess:MessageService,private event:NgEventBus) { }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     if (changes['active'])
     {
       if (this.active==true)
@@ -77,7 +76,6 @@ export class PostingDialogComponent implements OnInit,OnChanges {
       this.event.cast("top",{action:'open_progress'});
       this.dataService.post(url,{ids:id_list,actions:this.screendata}).subscribe({next:(result)=>{
           this.event.cast('top',{action:'close_progress'});
-          console.log(this.list_id);
           this.event.cast(this.list_id,{type:'redraw'});
           this.close_window();
       },
@@ -110,7 +108,6 @@ export class PostingDialogComponent implements OnInit,OnChanges {
         this.show_dialog=true;
 
       },error:(error)=>{
-        console.log(error);
         this.event.cast("top",{action:'toast',data:{severity:'error',details:error.error,summary:'Posting Error',key:'standard'}});
         this.complete.emit(true);
       }})

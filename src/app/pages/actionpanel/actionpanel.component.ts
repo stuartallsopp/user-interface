@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { NgEventBus } from 'ng-event-bus';
+import { AnalysisPanelComponent } from 'src/app/components/analysis-panel/analysis-panel.component';
 
 
 @Component({
@@ -11,8 +12,10 @@ export class ActionpanelComponent implements OnInit,OnChanges,OnDestroy {
 
 
   private ihavebuttonsreceiver:any;
+  public showanalysis:boolean=false;
   @Input() definition:any;
   @Output() useractioned:EventEmitter<any>=new EventEmitter<any>();
+  @ViewChild(AnalysisPanelComponent) analysispanel;
 
   constructor(private eventb:NgEventBus) { }
   ngOnDestroy(): void {
@@ -47,15 +50,29 @@ export class ActionpanelComponent implements OnInit,OnChanges,OnDestroy {
     this.eventb.cast(event.from,{type:'listbuttonclick',button:event.button});
   }
 
+  datachanged(event)
+  {
+    if (event.value==null){
+      this.showanalysis=false;
+    }else
+    {
+      this.showanalysis=true;
+      this.analysispanel.sourcechanged(event);
+    }
+  }
+
   eventsubscription()
   {
     this.ihavebuttonsreceiver=this.eventb.on('actionpanel').subscribe({next:(result:any)=>{
-      var check=this.listbuttons.filter(p=>p.buttonset.id==result.data.buttonset.id)[0];
-      if (check==null)
+      if (this.listbuttons&&result.data?.buttonset)
       {
-        if (result.data.buttonset.buttons.filter((p: { location: string; })=>p.location=='top'||p.location=='both').length>0)
+        var check=this.listbuttons.filter(p=>p.buttonset.id==result.data.buttonset.id)[0];
+        if (check==null)
         {
-          this.listbuttons.push(result.data);
+          if (result.data.buttonset.buttons.filter((p: { location: string; })=>p.location=='top'||p.location=='both').length>0)
+          {
+            this.listbuttons.push(result.data);
+          }
         }
       }
     }})

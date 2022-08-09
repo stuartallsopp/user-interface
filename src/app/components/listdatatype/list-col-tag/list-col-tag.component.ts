@@ -21,7 +21,7 @@ export class ListColTagComponent implements OnInit {
     {
       return this.definition.context_param;
     }
-    return "fa-solid fa-note";
+    return "fa-regular fa-note";
   }
 
   resolveShow():boolean

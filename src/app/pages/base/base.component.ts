@@ -90,6 +90,7 @@ export class BaseComponent implements OnInit,OnDestroy {
           next:(data_result)=>{
             this.data=data_result;
             this.loader.stopLoader("page");
+            this.tool.resolveMetaData(this.data,this.page_definition);
           },
           error:(error)=>{
             this.router.navigate(['error',404,'page']);
@@ -117,6 +118,7 @@ export class BaseComponent implements OnInit,OnDestroy {
             this.dataService.get(url).subscribe({
               next:(data_result)=>{
                 this.data=data_result;
+                this.tool.resolveMetaData(this.data,this.page_definition);
                 this.loader.stopLoader("page");
               },
               error:(error)=>{

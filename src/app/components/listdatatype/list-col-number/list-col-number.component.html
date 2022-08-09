@@ -1,1 +1,1 @@
-{{data[definition.field]|number:format()}}{{definition.suffix}}
+{{data[definition.field]*(configs?.reverse!=undefined?configs?-1:1:1)|number:format()}}{{definition.suffix}}

@@ -5,6 +5,6 @@
         </div>
     </div>
     <div class="col-12">
-        <app-note-viewer [data]="data"></app-note-viewer>
+        <app-note-viewer (notemade)="setrefresh()" [data]="data"></app-note-viewer>
     </div>
 </div>

@@ -85,6 +85,26 @@ export class ToolService {
     throw new Error("Unable to copy obj! Its type isn't supported.");
 }
 
+resolveMetaData(data:any,definition:any,config:any=null)
+{
+  if (data.meta_data!=undefined&&data.meta_data!=null)
+  {
+    if (definition.help_text==null){definition.help_text='';}
+    if (definition.description==null){definition.description='';}
+    definition.description=definition.description.replace('{description}',data.meta_data.description);
+    definition.description=definition.description.replace('{code}',data.meta_data.code);
+    definition.description=definition.description.replace('{help_text}',data.meta_data.help_text);
+    definition.help_text=definition.help_text.replace('{description}',data.meta_data.description);
+    if (config!=null)
+    {
+      config.header=definition.description;
+    }
+    definition.help_text=definition.help_text.replace('{code}',data.meta_data.code);
+    definition.help_text=definition.help_text.replace('{help_text}',data.meta_data.help_text);
+    definition={...definition};
+  }
+}
+
 
 
   saveRecord(action:any,data:any,loader_key:string,unique_id:string)

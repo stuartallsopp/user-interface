@@ -35,6 +35,10 @@ export class RecordComponent extends BaseComponent implements OnInit,OnDestroy {
    }
 
   
+   list_changed(event)
+   {
+    
+   }
   
 
   override get_page(_module:string,_area:string,_section:string)

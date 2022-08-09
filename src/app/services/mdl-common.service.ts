@@ -33,7 +33,6 @@ export class MdlCommonService {
     var record=item.record;
     var url=item.seek_url;
     var map_to=item.default_to;
-    console.log(record,url,map_to,item);
       url=url.replace("{id}",record.id);
       this.dataService.get(url).subscribe({next:(result)=>{
         var check=local_data_source.lines.filter((p: { type: string; })=>p.type==map_to)[0];
@@ -59,7 +58,6 @@ export class MdlCommonService {
         for(var subscriber of this.subscribers.filter(p=>p.reference==publish_item))
         {
           this.event.cast(subscriber.id,{action:'value_publish',data:record[publish_item]});
-          console.log('publish to',subscriber.id,record[publish_item]);
         }
       }
     }

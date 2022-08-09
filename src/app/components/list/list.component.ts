@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NgEventBus } from 'ng-event-bus';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { throwIfEmpty } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
 import { PostService } from 'src/app/services/post.service';
 import { ToolService } from 'src/app/services/tool.service';
@@ -19,12 +20,14 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   @Input() cacheid:string="";
   @Input() source_type:string="";
 
+  @Output() list_selection_changed:EventEmitter<any>=new EventEmitter<any>();
   public loader_key:string="";
 
   private buttons_published:boolean=false;
+  private data_interchange_subscriber:any;
   public unique_id:string=uuidv4();
   public selectionmode:string="";
-  public list_content:any[]=[];
+  public list_content:any[]=null;
   public list_selected:any[]=[];
   public footer_columns:any[]=[];
   public list_totals:any[]=[];
@@ -39,7 +42,8 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   public posting_list:any[]=[];
   public posting_active:boolean=false;
   public posting_action:any=null;
-
+  private publish_to:any[]=[];
+  public subscribe_from:any[]=[];
   private event_subscriber:any;
 
   constructor(
@@ -59,6 +63,11 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       this.event_subscriber.unsubscribe();
       this.event_subscriber=null;
      }
+     if (this.data_interchange_subscriber!=null)
+     {
+      this.data_interchange_subscriber.unsubscribe();
+      this.data_interchange_subscriber=null;
+     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -68,6 +77,9 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       this.resolveFooterColumns();
       this.resolveselectionMode();
       this.publishButtons();
+      this.resolvepublication();
+      this.event_subscription();
+      this.publish_subscription();
     }
     if (changes['definition']||changes['data'])
     {
@@ -79,6 +91,19 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   {
     this.current_filters=filters;
     this.refresh(1);
+  }
+
+  resolvepublication()
+  {
+    if (this.definition.publish!=undefined&&this.definition.publish!=null)
+    {
+      var targets=this.definition.publish.split(',');
+      this.publish_to=[];
+      for(var target of targets)
+      {
+          this.publish_to.push({'source':target,key:''});
+      }
+    }
   }
 
   checkFilters()
@@ -121,7 +146,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
 
   publishButtons()
   {
-    if (this.buttons_published==false)
+    if (this.buttons_published==false&&(this.definition.subscribe==undefined||this.definition.subscribe==null))
     {
       this.event.cast('actionpanel',{from:this.unique_id,buttonset:this.definition.buttonset});
     }
@@ -163,7 +188,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
         {
           if (columns[indxof].total==true)
           {
-            this.footer_columns.push({type:'total',key:columns[indxof].field,colspan:1,format:columns[indxof].format,visible:columns[indxof].visible});
+            this.footer_columns.push({type:'total',key:columns[indxof].field,colspan:1,format:columns[indxof].format,visible:columns[indxof].visible,context_param:columns[indxof].context_param});
           }else
           {
             this.footer_columns.push({type:'empty',key:null,colspan:1,visible:columns[indxof].visible});
@@ -186,6 +211,29 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       });
       this.list_selected=[...local];
     }
+    if (from=='run')
+    {
+      this.list_selection_changed.emit({type:this.source_type,subtype:this.list_source_type,value:null});
+    }
+    if (from=='rsel')
+    {
+      this.list_selection_changed.emit({type:this.source_type,subtype:this.list_source_type,value:event.data});
+    }
+    this.line_selected()
+  }
+
+  line_selected()
+  {
+    if (this.publish_to.length>0)
+    {
+      for(var item of this.publish_to)
+      {
+        if (item.key!='')
+        {
+            this.event.cast(item.key,{type:'publisher_data_changed',data:this.list_selected});
+        }
+      }
+    }
   }
 
   resolveselectionMode()
@@ -204,10 +252,60 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     }
   }
 
+  update_subscriptions(source:any)
+  {
+    if (source.data==null)
+    {
+      this.list_content=null;
+      this.record_count=0;
+    }else
+    {
+      this.data={...source.data};
+      this.list_content=source.data[this.definition.data_field];
+      this.list_content=[...this.list_content];
+      this.record_count=this.list_content.length;
+    }
+
+    this.calculateTotals();
+  }
+
+  update_publishers(source:any)
+  {
+    var check=this.subscribe_from.filter(p=>p.key==source.property)[0];
+    if (check!=null)
+    {
+      check.target=source.key;
+      check.description=source.description;
+      this.data=null;
+      this.list_content=null;
+    }
+  }
+
+  check_publish_list(source:any)
+  {
+    var check=this.publish_to.filter(p=>p.source==source.property)[0];
+    if (check!=null)
+    {
+      check.key=source.key;
+      this.event.cast(check.key,{type:'subscriber_response',key:this.unique_id,property:check.source,description:this.definition.description});
+    }
+  }
+
+  resolveSubcriptionName()
+  {
+    if (this.subscribe_from==undefined||this.subscribe_from==null||this.subscribe_from.length==0){return null;}
+    return this.subscribe_from[0].description;
+  }
+
   event_subscription()
   {
+    this.data_interchange_subscriber=this.event.on('list_interchange').subscribe(result=>{
+        if (this.publish_to.length>0)
+        {
+          this.check_publish_list(result.data);
+        }
+    })
     this.event_subscriber=this.event.on(this.unique_id).subscribe(result=>{
-      console.log(result);
       if (result.data.type=='redraw')
       {
         this.refresh(this.current_page);
@@ -215,6 +313,14 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       if (result.data.type=='listbuttonclick')
       {
         this.sendEvent(-1,result.data.button.action_key);
+      }
+      if (result.data.type=='publisher_data_changed')
+      {
+        this.update_subscriptions(result.data);
+      }
+      if (result.data.type=='subscriber_response')
+      {
+        this.update_publishers(result.data);
       }
       if (result.data.type=='update_list')
       {
@@ -237,7 +343,18 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   }
 
   ngOnInit(): void {
-    this.event_subscription();
+
+  }
+
+
+  publish_subscription()
+  {
+    if (this.definition.subscribe!=undefined&&this.definition.subscribe!=null)
+    {
+      this.subscribe_from=[];
+      this.subscribe_from.push({key:this.definition.subscribe,target:''});
+      this.event.cast('list_interchange',{key:this.unique_id,property:this.definition.subscribe});
+    }
   }
 
   buttonclick(event:any)
@@ -295,7 +412,14 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
 
   resolveColumns(cols:any[])
   {
-    return cols.filter(p=>p.visible==true);
+    if (cols!=undefined)
+    {
+      return cols.filter(p=>p.visible==true);
+    }else
+    {
+      return [];
+    }
+
   }
 
 
@@ -382,7 +506,10 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     if (this.definition.data_field?.length>0 && this.data!=null&&this.data!=undefined)
     {
       this.list_content=this.data[this.definition.data_field];
-      this.record_count=this.list_content.length;
+      if (this.list_content!=undefined)
+      {
+        this.record_count=this.list_content.length;
+      }
       this.calculateTotals();
     }
     if (this.definition.data_url!=undefined&&this.definition.data_url!=null)
@@ -391,13 +518,18 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     }
   }
 
-  getTotal(key:string):number
+  getTotal(key:string,column:any):number
   {
     var result=0;
+    var configs:any={};
+    if (column.context_param!=undefined&&column.context_param!=null)
+    {
+      configs=JSON.parse(column.context_param);
+    }
     var check=this.list_totals.filter(p=>p.key==key)[0];
     if (check!=null)
     {
-      result=check.value;
+      result=check.value*(configs.reverse!=undefined?configs?-1:1:1);
     }
 
     return result;
@@ -440,6 +572,8 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
               this.record_count=result.totalrecords;
               this.current_page=result.page;
               this.list_source_type=result.source_type;
+              this.list_selected=null;
+              this.list_selection_changed.emit({type:this.source_type,subtype:this.list_source_type,value:null});
           },
           error:(error)=>{
             local.loader.stopLoader(local.loader_key);

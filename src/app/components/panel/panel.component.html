@@ -12,7 +12,7 @@ expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up"
             </div>
         </div>
         <ng-container *ngIf="definition.list&&definition.type=='list'">
-            <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-list>
+            <app-list (list_selection_changed)="list_changed($event)" [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-list>
         </ng-container>
         <ng-container *ngIf="definition.list&&definition.type=='listi'">
             <app-listi [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-listi>
@@ -36,7 +36,7 @@ expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up"
             <p-divider styleClass="mb-0 mt-1">{{definition.description}}</p-divider>
         </div>
         <div class="col-12" [ngClass]="decor.resolveNonePanelBackground(definition.colour)" *ngIf="definition.list&&definition.type=='list'">
-            <app-list [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-list>
+            <app-list (list_selection_changed)="list_changed($event)" [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-list>
         </div>
         <div class="col-12" [ngClass]="decor.resolveNonePanelBackground(definition.colour)" *ngIf="definition.list&&definition.type=='listi'">
             <app-listi [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-listi>

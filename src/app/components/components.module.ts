@@ -75,6 +75,7 @@ import { PostingDialogComponent } from './posting-dialog/posting-dialog.componen
 import { DialogModule } from 'primeng/dialog';
 import { AnalysisPanelComponent } from './analysis-panel/analysis-panel.component';
 import { ListColBooleanComponent } from './listdatatype/list-col-boolean/list-col-boolean.component';
+import { MpickEntryComponent } from './fielddatatype/mpick-entry/mpick-entry.component';
 
 
 
@@ -117,7 +118,8 @@ import { ListColBooleanComponent } from './listdatatype/list-col-boolean/list-co
     ValEntryComponent,
     PostingDialogComponent,
     AnalysisPanelComponent,
-    ListColBooleanComponent
+    ListColBooleanComponent,
+    MpickEntryComponent
   ],
   imports: [
     CommonModule,

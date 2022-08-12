@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable, of, subscribeOn } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,8 +10,30 @@ export class DataService {
 
   constructor(private http:HttpClient) { }
 
+  private cached_lists:any[]=[];
 
-  list(url:string,page_size:number,page:number,order_by:string,dir:string,search:any=null)
+  list(url:string,page_size:number,page:number,order_by:string,dir:string,search:any=null,cache:boolean=false)
+  {
+    if (cache==false)
+    {
+      return this.list_non_cache(url,page_size,page,order_by,dir,search);
+    }else
+    {
+      var check=this.cached_lists.filter(p=>p.url==url)[0];
+      if (check!=null){
+        return of(check.content);
+      }else
+      {
+        return this.list_non_cache(url,page_size,page,order_by,dir,search).pipe(map(result=>{
+          this.cached_lists.push({url:url,content:result});
+          return result;
+        })
+        )
+      }
+    }
+  }
+
+  list_non_cache(url:string,page_size:number,page:number,order_by:string,dir:string,search:any=null)
   {
     var payload={
       page:page,
@@ -69,9 +91,26 @@ export class DataService {
     return this.http.get(environment.data_api+url);
   }
 
-  post(url:string,payload:any)
+  post(url:string,payload:any,cache:boolean=false)
   {
-    return this.http.post(environment.data_api+url,payload);
+    if (cache==false)
+    {
+      return this.http.post(environment.data_api+url,payload);
+    }else
+    {
+      var check=this.cached_lists.filter(p=>p.url==url)[0];
+      if (check!=null)
+      {
+        return of(check.content);
+      }else
+      {
+        return this.http.post(url,payload).pipe(map(result=>{
+          this.cached_lists.push({url:url,content:result});
+          return result;
+        }))
+      }
+    }
+
   }
 
   persist(method:string,url:string,data:any)

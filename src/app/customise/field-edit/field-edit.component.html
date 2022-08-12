@@ -19,7 +19,7 @@
     </div>
     <div class="field col-12 md:col-2">
         <span class="p-float-label">
-            <p-dropdown inputId="type" appendTo="body" [options]="['tex_entry','aut_entry','tex_disp','num_entry','num_disp','dat_entry','dat_disp','plst_entry','swch_entry','pitem_entry','perd_entry','mdl_entry','cur_entry','drop_entry','mdl_primary','values_entry','mult_entry']" [(ngModel)]="field.type"></p-dropdown>
+            <p-dropdown inputId="type" appendTo="body" [options]="['tex_entry','aut_entry','tex_disp','num_entry','num_disp','dat_entry','dat_disp','plst_entry','swch_entry','pitem_entry','perd_entry','mdl_entry','cur_entry','drop_entry','mdl_primary','values_entry','mult_entry','mpick_entry']" [(ngModel)]="field.type"></p-dropdown>
             <label for="type">Type</label>
         </span>
     </div>
@@ -89,7 +89,7 @@
             <label for="suffix">Suffix</label>
         </span>
     </div>
-    <div class="field col-12 md:col-3" *ngIf="field.type=='pitem_entry'||field.type=='plst_entry'">
+    <div class="field col-12 md:col-3" *ngIf="field.type=='pitem_entry'||field.type=='plst_entry'||field.type=='mpick_entry'">
         <span class="p-float-label">
             <p-dropdown appendTo="body" [autoDisplayFirst]="false" [options]="lookuplist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="field.lookup_id" optionLabel="description" optionValue="id">
                 <ng-template let-item pTemplate="item">
@@ -109,7 +109,7 @@
             <label for="actionset_id">Actions</label>
         </span>
     </div>
-    <div class="col-12"  *ngIf="field.type=='pitem_entry'||field.type=='plst_entry'||field.type=='aut_entry'||field.type=='drop_entry'">
+    <div class="col-12"  *ngIf="field.type=='pitem_entry'||field.type=='plst_entry'||field.type=='aut_entry'||field.type=='drop_entry'||field.type=='mpick_entry'">
         <div class="grid">
             <div class="field col-12 md:col-10">
                 <span class="p-float-label">

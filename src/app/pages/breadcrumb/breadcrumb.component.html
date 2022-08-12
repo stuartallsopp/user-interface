@@ -1,9 +1,12 @@
-<div class="grid">
-    <div class="hidden sm:hidden md:block md:col-11 lg:block lg:col-11 xl:block xl:col-11">
-        <p-breadcrumb [model]="items" [home]="home" homeAriaLabel="Go Home"></p-breadcrumb>
+<div class="p-breadcrumb hidden sm:hidden md:flex lg:flex xl:flex flex-nowrap justify-content-between align-content-evenly">
+    <div class="align-self-start pt-1">
+        <p-breadcrumb styleClass="strip_style" [model]="items" [home]="home" homeAriaLabel="Go Home"></p-breadcrumb>
     </div>
-    <div class="hidden sm:hidden md:block md:col-1 lg:block lg:col-1 xl:block xl:col-1">
-        <div class="p-breadcrumb text-center page-info pt-2">
+    <div class="align-self-end" *ngIf="period_selector">
+        kk
+    </div>
+    <div class="align-self-end">
+        <div class="text-center">
             <button (click)="checkfavevent(op,$event)" *ngIf="hasfavourite" pButton class="p-button-warning p-button-rounded p-button-text mr-1" [icon]="isFavourite?'fa-solid fa-star':'fa-regular fa-star'"></button>
             <button *ngIf="definition.help_text" pButton icon="fa-solid fa-info" (click)="toggleinfo()" class="p-button-sm p-button-rounded p-button-text"></button>
         </div>

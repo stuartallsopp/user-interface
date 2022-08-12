@@ -42,7 +42,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
   public posting_list:any[]=[];
   public posting_active:boolean=false;
   public posting_action:any=null;
-  private publish_to:any[]=[];
+  public publish_to:any[]=[];
   public subscribe_from:any[]=[];
   private event_subscriber:any;
 
@@ -101,7 +101,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       this.publish_to=[];
       for(var target of targets)
       {
-          this.publish_to.push({'source':target,key:''});
+          this.publish_to.push({'source':target,key:'',descripton:''});
       }
     }
   }
@@ -258,14 +258,17 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     {
       this.list_content=null;
       this.record_count=0;
+      this.list_selected=null;
+      this.line_selected();
     }else
     {
       this.data={...source.data};
       this.list_content=source.data[this.definition.data_field];
       this.list_content=[...this.list_content];
       this.record_count=this.list_content.length;
+      this.list_selected=null;
+      this.line_selected();
     }
-
     this.calculateTotals();
   }
 
@@ -287,6 +290,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     if (check!=null)
     {
       check.key=source.key;
+      check.description=source.description;
       this.event.cast(check.key,{type:'subscriber_response',key:this.unique_id,property:check.source,description:this.definition.description});
     }
   }
@@ -322,6 +326,14 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       {
         this.update_publishers(result.data);
       }
+      if (result.data.type=='update_from_child')
+      {
+        var idx=this.list_content.indexOf(this.list_selected);
+        this.list_content[idx]=result.data.data;
+        this.list_selected=this.list_content[idx];
+        this.data[this.definition.data_field]=this.list_content;
+        this.push_change_up_chain();
+      }
       if (result.data.type=='update_list')
       {
         if (result.data.row>=0)
@@ -337,9 +349,25 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
           this.list_content=[...this.list_content];
           this.data[this.definition.data_field]=this.list_content;
         }
+        this.push_change_up_chain();
         this.calculateTotals();
       }
     })
+  }
+
+  push_change_up_chain()
+  {
+    if (this.subscribe_from.length>0)
+    {
+      for(var sub of this.subscribe_from)
+      {
+        this.event.cast(sub.target,{type:'update_from_child',property:sub.key,data:this.data});
+       // console.log('sending up chain',sub.target,this.data,sub.key);
+      }
+    }else
+    {
+        console.log(this.data);
+    }
   }
 
   ngOnInit(): void {
@@ -353,7 +381,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     {
       this.subscribe_from=[];
       this.subscribe_from.push({key:this.definition.subscribe,target:''});
-      this.event.cast('list_interchange',{key:this.unique_id,property:this.definition.subscribe});
+      this.event.cast('list_interchange',{key:this.unique_id,property:this.definition.subscribe,description:this.definition.description});
     }
   }
 
@@ -362,6 +390,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
     if (event.rowindex>=0&&this.selectionmode=='single')
     {
       this.list_selected=this.list_content[event.rowindex];
+      this.line_selected();
     }
     this.sendEvent(event.rowindex,event.button.action_key);
   }

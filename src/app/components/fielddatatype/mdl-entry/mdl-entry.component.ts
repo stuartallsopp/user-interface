@@ -38,6 +38,11 @@ export class MdlEntryComponent extends BaseComponent implements OnInit,OnChanges
     this.searching=true;
     search.push({type:"begins","column":segment.search_field,"value":event.query});
   
+    if (segment.type!='nominal')
+    {
+      search.push({type:'isin',column:'type',value:segment.type_resolved.split(',')})
+    }
+    console.log(search);
     this.dataService.list(segment.url,50,0,"id","asc",search).subscribe(
         {next:(result:any)=>{
           this.resultsets[segment.type]=result.records;

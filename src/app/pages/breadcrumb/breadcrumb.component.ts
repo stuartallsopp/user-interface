@@ -19,6 +19,7 @@ export class BreadcrumbComponent implements OnInit,OnChanges {
   @Input() current_route:string="";
   @Input() data:any;
   @Input() source_type:string="";
+  @Input() period_selector:boolean=false;
 
   public home:any;
   public items:MenuItem[]=[];

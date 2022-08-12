@@ -69,6 +69,21 @@ export class FieldsetComponent implements OnInit,OnChanges {
     }
   }
 
+  checkVisible(field:any)
+  {
+    if (this.data==undefined||this.data==null){return true;}
+    if (field.context_param==undefined||field.context_param==null){return true;}
+    var local=JSON.parse(field.context_param);
+    if (local?.visible==undefined||local?.visible==null){return true;}
+    if (this.data[local.visible.field]==undefined){return true;}
+
+    var check=local.visible.options.filter(p=>p.value===this.data[local.visible.field])[0];
+
+    if (check==null){return true;}
+
+    return check.result;
+  }
+
   resolveColumnWidth(idx:number)
   {
     if (this.definition.column_count==undefined||this.definition.column_count==null){return 12;}

@@ -1,20 +1,25 @@
-<div class="grid">
+<div class="grid" *ngIf="data['is_taxable']">
     <div class="col-4">
         <p-checkbox styleClass="mt-2" (onChange)="gross_net_toggle()" labelStyleClass="mt-2" [(ngModel)]="gross_entry" [binary]="true" label="Gross"></p-checkbox>
     </div>
     <div class="col-8">
         <app-number-entry (value_changed)="net_changed($event)" [data]="data" [definition]="gross_entry?gross_definition:net_definition" [source_type]="source_type"></app-number-entry>
     </div>
-    <div class="col-6 mt-2">
+    <div class="col-6 mt-2" *ngIf="data['taxcode']">
         <app-dropdown-entry (value_changed)="rate_changed($event)" [data]="data" [source_type]="source_type" [definition]="tax_code_definition"></app-dropdown-entry>
     </div>
-    <div class="col-6 mt-2">
+    <div class="col-6 mt-2" *ngIf="data['taxcode']!=null">
         <app-number-entry *ngIf="data['taxcode']['id']!=0" [data]="data" [definition]="tax_rate_definition" [source_type]="source_type"></app-number-entry>
     </div>
-    <div class="col-12 mt-2" *ngIf="data['taxcode']['id']!=0">
+    <div class="col-12 mt-2" *ngIf="data['taxcode']!=null&&data['taxcode']['id']!=0">
         <app-number-entry (value_changed)="tax_changed($event)" [data]="data" [definition]="tax_definition" [source_type]="source_type"></app-number-entry>
     </div>
     <div class="col-12 mt-2">
         <app-number-entry [data]="data" [definition]="gross_entry?net_definition:gross_definition" [source_type]="source_type"></app-number-entry>
+    </div>
+</div>
+<div class="grid" *ngIf="!data['is_taxable']">
+    <div class="col-12">
+        <app-number-entry (value_changed)="net_changed($event)" [data]="data" [definition]="gross_entry?gross_definition:net_definition" [source_type]="source_type"></app-number-entry>
     </div>
 </div>

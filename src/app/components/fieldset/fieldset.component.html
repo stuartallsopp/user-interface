@@ -2,7 +2,7 @@
         <div *ngFor="let column of columns;let i=index;" [ngClass]="responsive.get(column.width)">
             <div class="p-fluid grid">
                 <ng-container *ngFor="let field of column.fields">
-                    <div class="mb-2 mt-1" [ngClass]="responsive.get(field.width)">
+                    <div class="mb-2 mt-1 pt-2" *ngIf="checkVisible(field)" [ngClass]="responsive.get(field.width)">
                         <app-fieldpicker (visibility_check)="check_visibility($event)" (register)="register_field($event)" [source_type]="source_type" [field]="field" [data]="data"></app-fieldpicker>
                     </div>
                 </ng-container>

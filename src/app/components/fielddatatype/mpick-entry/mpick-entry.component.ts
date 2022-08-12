@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgEventBus } from 'ng-event-bus';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MessageService } from 'primeng/api';
@@ -6,45 +6,61 @@ import { DataService } from 'src/app/services/data.service';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
-  selector: 'app-dropdown-entry',
-  templateUrl: './dropdown-entry.component.html',
-  styleUrls: ['./dropdown-entry.component.scss']
+  selector: 'app-mpick-entry',
+  templateUrl: './mpick-entry.component.html',
+  styleUrls: ['./mpick-entry.component.scss']
 })
-export class DropdownEntryComponent extends BaseComponent implements OnInit,OnChanges {
-
-  private copy_of_original_value:any;
-  public code_key:string="code";
-  public options:any[]=[{id:0,description:'Not Set',code:''}];
-  public configs:any;
-  public context_param:any;
+export class MpickEntryComponent extends BaseComponent implements OnInit,OnChanges {
 
   constructor(ds:DataService,event:NgEventBus,private loading:NgxUiLoaderService,private message:MessageService) {
     super(ds,event);
    }
 
-   override ngOnChanges(changes: SimpleChanges): void {
-     if (changes['data'])
-     {
-      if (this.data!=null)
-      {
-        this.copy_of_original_value=this.data[this.definition.fieldname];
-      }
-      if (changes['definition'])
-      {
-        this.resolveParameters();
-      }
-     }
-   }
+   private copy_of_original_value:any;
+   public context_param:any;
+   public configs:any;
+   public code_key:string;
+   public local_value:any;
+
+   public options:any[]=[];
 
   override ngOnInit(): void {
     super.ngOnInit();
   }
 
- value_selected(event:any)
- {
-  this.value_changed.emit(event.value);
- }
+  override ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data'])
+    {
+     if (this.data!=null)
+     {
+       this.copy_of_original_value=this.data[this.definition.fieldname];
+     }
+     if (changes['definition'])
+     {
+       this.resolveParameters();
+     }
+    }
+  }
 
+  value_selected(event)
+  {
+    this.resolve_data_out();
+  }
+
+  resolve_data_out()
+  {
+    this.data[this.definition.fieldname]=this.local_value.toString();
+    this.value_changed.emit(this.data[this.definition.fieldname]);
+  }
+
+  resolve_data_in()
+  {
+    var val=this.data[this.definition.fieldname];
+    if (val==undefined||val==null){val='';}
+    if (val==''){this.local_value=null;}else{
+      this.local_value=val.split(",");
+    }
+  }
 
   resolveParameters()
   {
@@ -70,7 +86,8 @@ export class DropdownEntryComponent extends BaseComponent implements OnInit,OnCh
         this.options=this.options.concat(this.context_param.add);
       }
       setTimeout(()=>{
-          this.data[this.definition.fieldname]=this.copy_of_original_value;
+          this.local_value=this.copy_of_original_value;
+          this.resolve_data_in();
       },100);
       this.loading.stopLoader(this.loader_key);
     },error:(error)=>{

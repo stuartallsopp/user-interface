@@ -1,0 +1,13 @@
+:host {
+    ::ng-deep
+    div.strip_style
+        {
+            padding: 0rem;
+        }
+}
+div.add_style
+{
+    background: #efefef;
+    border: 0 none;
+    border-radius: 4px;
+}

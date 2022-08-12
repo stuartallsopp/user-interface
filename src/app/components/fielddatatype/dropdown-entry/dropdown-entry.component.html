@@ -15,6 +15,7 @@
         appendTo="body"
         [inputId]="unique_id" 
         [options]="options" 
+        emptyMessage="Not Set"
         [(ngModel)]="data[definition.fieldname]"
         (onChange)="value_selected($event)"
         styleClass="min-w-full"

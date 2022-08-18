@@ -57,6 +57,10 @@ export class PanelComponent implements OnInit,OnChanges,AfterViewInit {
 
   setData()
   {
+    if (this.definition.source_type!=undefined&&this.definition.source_type!=null)
+    {
+      this.source_type=this.definition.source_type;
+    }
     if (this.data==undefined){return;}
     if (this.definition.data_field)
     {

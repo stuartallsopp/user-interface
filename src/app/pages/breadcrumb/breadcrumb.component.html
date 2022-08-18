@@ -1,9 +1,12 @@
-<div class="p-breadcrumb hidden sm:hidden md:flex lg:flex xl:flex flex-nowrap justify-content-between align-content-evenly">
-    <div class="align-self-start pt-1">
+<div class="p-breadcrumb hidden sm:hidden md:flex lg:flex xl:flex flex-nowrap justify-content-between align-content-evenly mb-2 h-4rem">
+    <div class="align-self-start mt-1">
         <p-breadcrumb styleClass="strip_style" [model]="items" [home]="home" homeAriaLabel="Go Home"></p-breadcrumb>
     </div>
     <div class="align-self-end" *ngIf="period_selector">
-        kk
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">Period</span>
+            <p-dropdown (onChange)="period_changed()" [(ngModel)]="selected_period" optionLabel="description" appendTo="body" type="text" [options]="period_options" styleClass="p-textinput-sm min-w-full"></p-dropdown>
+        </div>
     </div>
     <div class="align-self-end">
         <div class="text-center">

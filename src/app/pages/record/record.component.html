@@ -3,17 +3,17 @@
     <app-breadcrumb [source_type]="record_type" [data]="data" [hasfavourite]="false" *ngIf="page_definition" [definition]="page_definition" [crumbspath]="page_definition.breadcrumb_resolve" [crumbs]="page_definition.breadcrumb"></app-breadcrumb>
     <div class="grid mt-2 ml-0 mr-0" *ngIf="page_definition">
         <div class="col-12 sm:block sm:col-12 md:hidden lg:hidden xl:hidden">
-            <app-actionpanel (useractioned)="buttonpressed($event)" [definition]="page_definition"></app-actionpanel>
+            <app-actionpanel  (useractioned)="buttonpressed($event)" [definition]="page_definition"></app-actionpanel>
         </div>
         <div class="col-12 sm:col-12 md:col-9 lg:col-9 xl:col-9">
             <div class="grid mt-3" *ngIf="page_definition">
                 <div *ngFor="let col of page_definition.columns" class="pb-0 pt-0" [ngClass]="responsive.get(col.size)">
                         <ng-container *ngFor="let panel of col.panels;let i=index;">
-                            <app-panel (list_selection_changed)="list_changed($event)" [panel_index]="i" panel_from="page" [source_type]="source_type" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                            <app-panel *ngIf="resolveVisible(panel)"  (list_selection_changed)="list_changed($event)" [panel_index]="i" panel_from="page" [source_type]="source_type" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
                         </ng-container>
                 </div>
                 <div *ngFor="let panel of page_definition.panels;let i=index;" class="pb-0 pt-0" [ngClass]="responsive.get(panel.width)">
-                    <app-panel (list_selection_changed)="list_changed($event)" [panel_index]="i"  panel_from="page" [source_type]="source_type" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
+                    <app-panel *ngIf="resolveVisible(panel)"  (list_selection_changed)="list_changed($event)" [panel_index]="i"  panel_from="page" [source_type]="source_type" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, ElementRef, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { NgEventBus } from 'ng-event-bus';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss']
 })
-export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
+export class DialogComponent implements OnInit,AfterViewInit,OnDestroy,AfterContentInit {
 
   @HostBinding('tabindex') public tabindex = 0;
   
@@ -42,6 +42,9 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
     private tool: ToolService,
     public decor: DecorationService
     ) { }
+  ngAfterContentInit(): void {
+
+  }
 
 
   ngOnDestroy(): void {
@@ -86,7 +89,6 @@ export class DialogComponent implements OnInit,AfterViewInit,OnDestroy {
 
   initialiseFromRow(property_bag:any)
   {
-
       this.data=this.tool.deepCopy(property_bag.content);
       if ((this.data?.id==undefined||this.data?.id==null)&&this.definition.initialise_url!=undefined&&this.definition.initialise_url!=null)
       {

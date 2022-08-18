@@ -1,6 +1,6 @@
 <span class="p-float-label" *ngIf="isVisible()">
     <span class="p-inputgroup">
-        <ng-container *ngFor="let opt of options">
+        <ng-container *ngFor="let opt of options;let i=index">
             <p-autoComplete 
             [suggestions]="resultsets[opt.type]" 
             [(ngModel)]="opt.record" 
@@ -10,6 +10,7 @@
             (onClear)="item_selected(opt)"
             pFocusTrap [pFocusTrapDisabled]="searching==false"
             [forceSelection]="true"
+            [inputStyleClass]="i==0?'sa-form-first':'sa-form-one'"
             *ngIf="opt.visible==true"
              (completeMethod)="searchSegment($event,opt)"
              [field]="opt.display_fields[0]"

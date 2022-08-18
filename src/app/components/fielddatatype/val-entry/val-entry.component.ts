@@ -88,6 +88,8 @@ export class ValEntryComponent extends BaseComponent implements OnInit,OnChanges
       fieldname:'taxcode',
       data_url:this.definition.data_url,
       data_url_param:'{"search":"code","order":"code"}',
+      aut_config:'{"label":"code","id":null}',
+      context_param:'{"add":[{"id":0,"code":"notset","description":"Not Set"}]}',
       data_url_method:'POST'
     };
   }

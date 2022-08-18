@@ -87,6 +87,7 @@ export class ToolService {
 
 resolveMetaData(data:any,definition:any,config:any=null)
 {
+  console.log("data",data,"definition",definition,"config",config);
   if (data.meta_data!=undefined&&data.meta_data!=null)
   {
     if (definition.help_text==null){definition.help_text='';}

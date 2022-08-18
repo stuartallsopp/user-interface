@@ -38,7 +38,7 @@
                     </td>
                     <td [ngClass]="alignment(column.alignment)"  *ngFor="let column of resolveColumns(definition.columnset?.list_columns)"><app-listcolumn [data]="item" [definition]="column"></app-listcolumn></td>
                     <td class="text-right" *ngIf="definition?.buttonset">
-                        <app-buttongroup [rowIndex]="rowIndex" (itemselected)="buttonclick($event)" [buttons]="definition.buttonset" location="row"></app-buttongroup>
+                        <app-buttongroup [data]="item" [rowIndex]="rowIndex" (itemselected)="buttonclick($event)" [buttons]="definition.buttonset" location="row"></app-buttongroup>
                     </td>
                 </tr>
             </ng-template>

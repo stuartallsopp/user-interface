@@ -10,6 +10,7 @@ import { SignalrService } from './services/signalr.service';
 import { NoteviewComponent } from './pages/noteview/noteview.component';
 import { DataService } from './services/data.service';
 import { ImportWorkflowComponent } from './import/import-workflow/import-workflow.component';
+import { ToolService } from './services/tool.service';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +35,8 @@ export class AppComponent  {
     private message: MessageService,
     private loading: NgxUiLoaderService,
     private router:Router,
-    private signalr: SignalrService
+    private signalr: SignalrService,
+    private tool: ToolService
   ) { 
     this.event_subscriber();
     this.signalr.connect();
@@ -178,9 +180,10 @@ export class AppComponent  {
 
   openDialog(id:number,content:any)
   {
+    console.log(content);
     this.loading.startBackgroundLoader("application");
     this.page.getdialog(id,content.source_type).subscribe({next:(result:any)=>{
-      const ref = this.dialog.open(DialogComponent, {
+      var configs={
         data: {
             propertybag:content,
             definition: result
@@ -192,7 +195,13 @@ export class AppComponent  {
         styleClass:'sa-dialog-scroll-fix shadow-9',
         modal:true,
         closeOnEscape : result.closeable
-    });
+    };
+     // console.log("def",result,"config",configs,"data",content.content);
+      if (content.content!=undefined)
+      {
+        this.tool.resolveMetaData(content.content,result,configs);
+      }
+      const ref = this.dialog.open(DialogComponent,configs );
     },
     error:(error)=>{
         this.message.add({key:"standard",severity:"error",detail:error.message});

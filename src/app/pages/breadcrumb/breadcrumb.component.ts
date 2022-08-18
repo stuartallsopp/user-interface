@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgEventBus } from 'ng-event-bus';
 import { MenuItem, MessageService,Message } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth.service';
+import { DataService } from 'src/app/services/data.service';
 import { MenuService } from 'src/app/services/menu.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { MenuService } from 'src/app/services/menu.service';
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss']
 })
-export class BreadcrumbComponent implements OnInit,OnChanges {
+export class BreadcrumbComponent implements OnInit,OnChanges,OnDestroy {
 
   @Input() crumbs:string="";
   @Input() crumbspath:string="";
@@ -21,14 +22,26 @@ export class BreadcrumbComponent implements OnInit,OnChanges {
   @Input() source_type:string="";
   @Input() period_selector:boolean=false;
 
+  public period_options:any[]=[];
+  private period_subscription:any;
+  private period_subscriber_list:any[]=[];
+  public selected_period:any;
   public home:any;
   public items:MenuItem[]=[];
   public isFavourite:boolean=false;
   public favupdate:any={url:null,name:null};
-  constructor(private mess:MessageService,private menu:MenuService,private event:NgEventBus,private auth:AuthService) { }
+  constructor(private mess:MessageService,private menu:MenuService,private event:NgEventBus,private auth:AuthService,private dataService:DataService) { }
+  ngOnDestroy(): void {
+    if (this.period_subscription!=null)
+    {
+      this.period_subscription.unsubscribe();
+      this.period_subscription=null;
+    }
+  }
 
   ngOnInit(): void {
     this.home={label:' '+this.auth.getOrganisationName(),routerLink:"/home",icon:"fa-regular fa-house"};
+    this.period_subscriber();
   }
 
   checkfavevent(op:any,event:any)
@@ -67,6 +80,10 @@ export class BreadcrumbComponent implements OnInit,OnChanges {
     if (changes['crumbs']!=null||changes['data']!=null||changes['source_type']!=null)
     {
         this.resolveBreadcrumb();
+        if (this.period_selector==true)
+        {
+          this.resolvePeriods();
+        }
     }
     if (changes['current_route']||changes['definition'])
     {
@@ -74,6 +91,30 @@ export class BreadcrumbComponent implements OnInit,OnChanges {
       this.favupdate.url=this.current_route;
       this.favupdate.name=this.definition.description;
     }
+  }
+
+  period_subscriber()
+  {
+    this.period_subscriber_list=[];
+    this.period_subscription=this.event.on('list_interchange').subscribe(result=>{
+        this.period_subscriber_list.push({id:result.data.key,property:result.data.property});
+    });
+  }
+
+  period_changed()
+  {
+    for(var sub of this.period_subscriber_list)
+    {
+        this.event.cast(sub.id,{type:'global_period_changed',period:this.selected_period});
+    }
+  }
+
+  resolvePeriods()
+  {
+    this.dataService.get('list/system/moduleperiods/'+this.source_type).subscribe({next:(result)=>{
+        this.period_options=result['periods'];
+        this.selected_period=result['current_period'];
+    }})
   }
 
   resolveBreadcrumb()

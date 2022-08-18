@@ -59,6 +59,20 @@ export class BaseComponent implements OnInit,OnDestroy {
     })
   }
 
+  resolveVisible(source:any):boolean
+  {
+    if (this.data==undefined||this.data==null){return true;}
+    if (source.aut_config==undefined||source.aut_config==null){return true;}
+    var configs=JSON.parse(source.aut_config);
+    if (configs.visible==undefined||configs.visible==null){return true;}
+    var check=configs.visible.options.filter(p=>p.value==this.data[configs.visible.field])[0];
+    if (check!=null)
+    {
+      return check.value;
+    }
+    return true;
+  }
+
   route_subscriber()
   {
     this.route_subscription=this.route.paramMap.subscribe(result=>{

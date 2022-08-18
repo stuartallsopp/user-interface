@@ -14,7 +14,7 @@ export class DropdownEntryComponent extends BaseComponent implements OnInit,OnCh
 
   private copy_of_original_value:any;
   public code_key:string="code";
-  public options:any[]=[{id:0,description:'Not Set',code:''}];
+  public options:any[]=[{id:0,description:'Not Set',code:'notset'}];
   public configs:any;
   public context_param:any;
 
@@ -70,7 +70,18 @@ export class DropdownEntryComponent extends BaseComponent implements OnInit,OnCh
         this.options=this.options.concat(this.context_param.add);
       }
       setTimeout(()=>{
-          this.data[this.definition.fieldname]=this.copy_of_original_value;
+          if (this.configs.id!=null)
+          {
+            this.data[this.definition.fieldname]=this.copy_of_original_value;
+          }else
+          {
+            var check=this.options.filter(p=>p.id==this.copy_of_original_value.id)[0];
+            if (check!=null)
+            {
+              this.data[this.definition.fieldname]=check;
+            }
+          }
+
       },100);
       this.loading.stopLoader(this.loader_key);
     },error:(error)=>{

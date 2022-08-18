@@ -7,6 +7,7 @@ import { ErrorComponent } from './error/error.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import{BreadcrumbModule} from 'primeng/breadcrumb';
 import{ButtonModule} from 'primeng/button';
+import{DropdownModule} from 'primeng/dropdown';
 import{OverlayPanelModule} from 'primeng/overlaypanel';
 import{InputTextModule} from 'primeng/inputtext';
 import{DividerModule} from 'primeng/divider';
@@ -44,6 +45,7 @@ import { TransactionComponent } from './transaction/transaction.component';
     OverlayPanelModule,
     InputTextModule,
     TabViewModule,
+    DropdownModule,
     ButtonModule,
     ComponentsModule,
     FormsModule,

@@ -1,4 +1,4 @@
-<span class="p-float-label" *ngIf="isVisible()">
+<span class="p-float-label" *ngIf="isVisible()&&definition.type=='tex_entry'">
     <input (ngxVisibility)="is_Visible($event)"  [maxlength]="definition.data_length" [ngClass]="definition.uppercase?'uppercase':''" [disabled]="disableOn(definition.disable_on)" type="text"  [id]="unique_id" pInputText [(ngModel)]="data[definition.fieldname]" *ngIf="definition.key_filter" [pKeyFilter]="checkKeyFilter(definition.key_filter)"> 
     <input (ngxVisibility)="is_Visible($event)" [maxlength]="definition.data_length" [ngClass]="definition.uppercase?'uppercase':''" [disabled]="disableOn(definition.disable_on)" type="text"  [id]="unique_id" pInputText [(ngModel)]="data[definition.fieldname]" *ngIf="!definition.key_filter"> 
     <label [for]="unique_id">
@@ -7,3 +7,18 @@
         <span *ngIf="definition.info_text" class="pi pi-info-circle ml-1"></span>
     </label>
 </span>
+
+    <div class="p-inputgroup" *ngIf="isVisible()&&definition.type=='icon_entry'">
+        <span class="p-inputgroup-addon"><i [class]="data[definition.fieldname]"></i></span>
+        <span class="p-float-label">
+        <input (ngxVisibility)="is_Visible($event)"  [maxlength]="definition.data_length" [ngClass]="definition.uppercase?'uppercase':''" [disabled]="disableOn(definition.disable_on)" type="text"  [id]="unique_id" pInputText [(ngModel)]="data[definition.fieldname]" *ngIf="definition.key_filter" [pKeyFilter]="checkKeyFilter(definition.key_filter)"> 
+        <input (ngxVisibility)="is_Visible($event)" [maxlength]="definition.data_length" [ngClass]="definition.uppercase?'uppercase':''" [disabled]="disableOn(definition.disable_on)" type="text"  [id]="unique_id" pInputText [(ngModel)]="data[definition.fieldname]" *ngIf="!definition.key_filter">         
+        <label [for]="unique_id">
+            <span *ngIf="definition.compulsory" class="pi pi-star-fill mr-1 text-red-800"></span>
+            <span>{{fieldLabel()}}</span>
+            <span *ngIf="definition.info_text" class="pi pi-info-circle ml-1"></span>
+        </label>    
+    </span>
+    </div>
+
+

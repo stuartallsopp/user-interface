@@ -308,7 +308,7 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
         {
           this.check_publish_list(result.data);
         }
-    })
+    });
     this.event_subscriber=this.event.on(this.unique_id).subscribe(result=>{
       if (result.data.type=='redraw')
       {
@@ -321,6 +321,10 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
       if (result.data.type=='publisher_data_changed')
       {
         this.update_subscriptions(result.data);
+      }
+      if (result.data.type=='global_period_changed')
+      {
+        this.update_period_search(result.data);
       }
       if (result.data.type=='subscriber_response')
       {
@@ -353,6 +357,21 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
         this.calculateTotals();
       }
     })
+  }
+
+  update_period_search(data:any)
+  {
+    if (this.filters==null){this.filters=[];}
+    var check=this.filters.filter(p=>p.column=='period_id')[0];
+    if (check==null)
+    {
+      check={column:'period_id',type:'equals',value:data.period.id};
+      this.filters.push(check);
+    }else
+    {
+      check.value=data.period.id;
+    }
+    this.refreshFromUrl(0,this.filters);
   }
 
   push_change_up_chain()
@@ -413,6 +432,8 @@ export class ListComponent implements OnInit,OnChanges,OnDestroy {
 
   processEvent(id:number,action:any,rowIndex:number,data:any)
   {
+    var source_type=this.source_type;
+    console.log(source_type,this.list_source_type);
     switch (action.type)
     {
       case 'delete':

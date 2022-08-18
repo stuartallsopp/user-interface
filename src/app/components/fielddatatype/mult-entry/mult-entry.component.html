@@ -1,5 +1,5 @@
 <span class="p-float-label" *ngIf="isVisible()">
-    <textarea class="min-w-full" pInputTextarea [autoResize]="true" [rows]="definition.format" (ngxVisibility)="is_Visible($event)" [maxlength]="definition.data_length" [ngClass]="definition.uppercase?'uppercase':''" [disabled]="disableOn(definition.disable_on)"  [id]="unique_id" [(ngModel)]="data[definition.fieldname]"></textarea>
+    <textarea class="min-w-full" pInputTextarea [autoResize]="true" [rows]="definition.format" (ngxVisibility)="is_Visible($event)" [maxlength]="definition.data_length!=0?definition.data_length:null" [ngClass]="definition.uppercase?'uppercase':''" [disabled]="disableOn(definition.disable_on)"  [id]="unique_id" [(ngModel)]="data[definition.fieldname]"></textarea>
     <label [for]="unique_id">
         <span *ngIf="definition.compulsory" class="pi pi-star-fill mr-1 text-red-800"></span>
         <span>{{fieldLabel()}}</span>

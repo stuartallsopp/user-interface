@@ -1,7 +1,7 @@
 <div class="mt-2" style="position: relative;height:100%">
     <ngx-ui-loader bgsPosition="center-center" pbColor="#883cae" [fgsSize]="0" fgsColor="#883cae" overlayColor="rgba(180,82,238,0.1)" loaderId="page">     
     </ngx-ui-loader>
-    <app-breadcrumb [period_selector]="true" [current_route]="current_route" [hasfavourite]="true" *ngIf="page_definition" [definition]="page_definition" [crumbs]="page_definition.breadcrumb" [crumbspath]="page_definition.breadcrumb_resolve"></app-breadcrumb>
+    <app-breadcrumb [period_selector]="true" [current_route]="current_route" [source_type]="module" [hasfavourite]="true" *ngIf="page_definition" [definition]="page_definition" [crumbs]="page_definition.breadcrumb" [crumbspath]="page_definition.breadcrumb_resolve"></app-breadcrumb>
     <div class="grid pt-0">
         <div class="col-12 mt-2">
             <div class="grid" *ngIf="page_definition&&page_definition.type=='display'">

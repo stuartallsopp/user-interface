@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit,OnDestroy {
   public page_definition:any=null;
   public current_route:string="";
   private currentpage:any;
+  public module:string;
   private event_listener:any;
   public cache_id:string="";
   public data:any={};
@@ -58,6 +59,7 @@ export class HomeComponent implements OnInit,OnDestroy {
   {
     this.route_subscription=this.route.paramMap.subscribe(result=>{
       const _module=result.get("module")??"";
+      this.module=_module;
       this.current_route=this.router.url;
       var _validate=this.page.checkKey(_module,"home","");
       if (_validate==null&&_module=="")

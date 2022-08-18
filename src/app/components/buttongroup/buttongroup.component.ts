@@ -15,6 +15,7 @@ export class ButtongroupComponent implements OnInit,OnChanges {
 
   @Output() itemselected:EventEmitter<any>=new EventEmitter<any>();
   @Input() buttons:any;
+  @Input() data:any;
   @Input() rowIndex:number=-1;
   @Input() location:string="";
   @Input() from:string="";
@@ -22,7 +23,7 @@ export class ButtongroupComponent implements OnInit,OnChanges {
 
   constructor(public decor:DecorationService) { }
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['buttons'])
+    if (changes['buttons']||changes['data'])
     {
       this.initialiseButtons();
     }
@@ -62,18 +63,35 @@ export class ButtongroupComponent implements OnInit,OnChanges {
       {
         for(const button of this.localbuttons)
         {
-          if (button.action_key=='divider')
+          var configs:any;
+          if (button.aut_config!=undefined&&button.aut_config!=null)
           {
-            this.items.push({separator:true});
-          }else
+            configs=JSON.parse(button.aut_config);
+          }
+          if (this.checkVisible(configs)==true)
           {
-            this.items.push({label:button.label,id:idx.toString(),icon:button.icon,command:(event)=>{
-              this.resolvemenuclick(event);
-            }});
+            if (button.action_key=='divider')
+            {
+              this.items.push({separator:true});
+            }else
+            {
+              this.items.push({label:button.label,id:idx.toString(),icon:button.icon,command:(event)=>{
+                this.resolvemenuclick(event);
+              }});
+            }
           }
             idx++;
         }
       }
     }
+  }
+  checkVisible(configs):boolean
+  {
+    if (configs==undefined){return true;}
+    if (configs.visible==undefined||configs.visible==null){return true;}
+    if (configs.visible.options==undefined){return true;}
+    var check=configs.visible.options.filter(p=>p.value==this.data[configs.visible.field])[0];
+    if (check){return check.result;}
+    return true;
   }
 }

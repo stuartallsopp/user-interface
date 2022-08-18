@@ -5,7 +5,7 @@
     <app-breadcrumb [current_route]="current_route" [hasfavourite]="true" *ngIf="page_definition" [definition]="page_definition" [crumbs]="page_definition.breadcrumb" [crumbspath]="page_definition.breadcrumb_resolve"></app-breadcrumb>
     <div class="grid pt-0">
         <div class="col-12">
-            <div class="grid" *ngIf="page_definition&&page_definition.type=='display'">
+            <div class="grid" *ngIf="page_definition&&(page_definition.type=='display'||page_definition.type=='class')">
                 <div *ngFor="let col of page_definition.columns" class="pb-0 pt-0" [ngClass]="responsive.get(col.size)">
                     <p-divider *ngIf="col.show_description" align="left" type="dashed">
                         <h5><i *ngIf="col.icon" [ngClass]="col.icon" class="mr-1"></i>{{col.description}}</h5>
@@ -26,6 +26,9 @@
                             </div>
                         </ng-container>
                     </ng-container>
+                </div>
+                <div *ngFor="let panel of page_definition.panels;let i = index" [ngClass]="responsive.get(panel.width)">
+                    <app-panel (list_selection_changed)="list_changed($event)" [panel_index]="i"  panel_from="page" [source_type]="section" [cacheid]="cache_id" [data]="data" [definition]="panel"></app-panel>
                 </div>
             </div>
             <div class="grid" *ngIf="page_definition&&page_definition.type=='list'">

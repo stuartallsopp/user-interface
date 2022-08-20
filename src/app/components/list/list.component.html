@@ -21,7 +21,7 @@
                     <th style="width: 3rem" *ngIf="selectionmode=='multiple'">
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
-                    <th [pSortableColumn]="resolveSort(column)" [ngClass]="alignment(column.alignment)" *ngFor="let column of resolveColumns(definition.columnset?.list_columns)">
+                    <th [pSortableColumn]="tool.resolveSort(column)" [ngClass]="tool.alignment(column.alignment)" *ngFor="let column of tool.resolveColumns(definition.columnset?.list_columns)">
                         <span *ngIf="column.type!='tag_disp'">{{column.label}}</span>
                         <span *ngIf="column.type=='tag_disp'"></span>
                         <p-sortIcon *ngIf="column.sortable" [field]="column.field"></p-sortIcon>
@@ -36,7 +36,7 @@
                     <td *ngIf="selectionmode=='multiple'">
                         <p-tableCheckbox [value]="item"></p-tableCheckbox>
                     </td>
-                    <td [ngClass]="alignment(column.alignment)"  *ngFor="let column of resolveColumns(definition.columnset?.list_columns)"><app-listcolumn [data]="item" [definition]="column"></app-listcolumn></td>
+                    <td [ngClass]="tool.alignment(column.alignment)"  *ngFor="let column of tool.resolveColumns(definition.columnset?.list_columns)"><app-listcolumn [data]="item" [definition]="column"></app-listcolumn></td>
                     <td class="text-right" *ngIf="definition?.buttonset">
                         <app-buttongroup [data]="item" [rowIndex]="rowIndex" (itemselected)="buttonclick($event)" [buttons]="definition.buttonset" location="row"></app-buttongroup>
                     </td>

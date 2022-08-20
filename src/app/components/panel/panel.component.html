@@ -17,6 +17,9 @@ expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up"
         <ng-container *ngIf="definition.list&&definition.type=='listi'">
             <app-listi [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-listi>
         </ng-container>
+        <ng-container *ngIf="definition.list&&definition.type=='reportl'">
+            <app-report-list [source_type]="source_type" [data]="local_data" [definition]="definition.list"></app-report-list>
+        </ng-container>
         <ng-container  *ngIf="definition.fieldset&&definition.type=='field'">
             <div class="pt-4 pl-2 pr-2">
                 <app-fieldset [panel_index]="panel_index" [panel_from]="panel_from"  [source_type]="source_type" [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
@@ -42,6 +45,9 @@ expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up"
         </div>
         <div class="col-12" [ngClass]="decor.resolveNonePanelBackground(definition.colour)" *ngIf="definition.list&&definition.type=='listi'">
             <app-listi [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-listi>
+        </div>
+        <div class="col-12" [ngClass]="decor.resolveNonePanelBackground(definition.colour)" *ngIf="definition.list&&definition.type=='reportl'">
+            <app-report-list [source_type]="source_type" [data]="local_data" [definition]="definition.list"></app-report-list>
         </div>
         <div class="col-12" *ngIf="definition.fieldset&&definition.type=='field'">
             <app-fieldset [panel_index]="panel_index" [panel_from]="panel_from" [source_type]="source_type" [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>

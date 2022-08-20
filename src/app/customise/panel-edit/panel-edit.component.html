@@ -13,7 +13,7 @@
     </div>
     <div class="field col-12 md:col-2">
         <span class="p-float-label">
-            <p-dropdown inputId="type" appendTo="body" [options]="['field','list','comment','note','listi']" [(ngModel)]="panel.type"></p-dropdown>
+            <p-dropdown inputId="type" appendTo="body" [options]="['field','list','comment','note','listi','reportl']" [(ngModel)]="panel.type"></p-dropdown>
             <label for="type">Type</label>
         </span>
     </div>
@@ -29,7 +29,7 @@
             <label for="tab_group">Tab Group</label>
         </span>
     </div>
-    <div class="field col-12 md:col-3" *ngIf="panel.type=='list'||panel.type=='listi'">
+    <div class="field col-12 md:col-3" *ngIf="panel.type=='list'||panel.type=='listi'||panel.type=='reportl'">
         <span class="p-float-label">
             <p-dropdown appendTo="body" inputId="list_id" [autoDisplayFirst]="false" [options]="listlist" [showClear]="true" [filter]="true" [filterBy]="'description'" [(ngModel)]="panel.list_id" optionLabel="description" optionValue="id">
                 <ng-template let-item pTemplate="item">

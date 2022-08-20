@@ -18,6 +18,37 @@ export class ToolService {
   ) { }
 
 
+  resolveColumns(cols:any[])
+  {
+    if (cols!=undefined)
+    {
+      return cols.filter(p=>p.visible==true);
+    }else
+    {
+      return [];
+    }
+  }
+
+  resolveSort(column:any):any
+  {
+    if (column.sortable!=true){return null;}
+    return column.field;
+  }
+
+  alignment(align:string)
+  {
+    switch(align)
+    {
+      case 'L':
+        return 'text-left';
+        case 'R':
+          return 'text-right';
+        case 'C':
+          return 'text-center';
+        default:
+          return 'text-left';
+    }
+  }
 
   resolveAction(key:string,definition:any):any
   {

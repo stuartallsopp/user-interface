@@ -14,6 +14,7 @@ export class DataService {
 
   list(url:string,page_size:number,page:number,order_by:string,dir:string,search:any=null,cache:boolean=false)
   {
+    console.log(cache);
     if (cache==false)
     {
       return this.list_non_cache(url,page_size,page,order_by,dir,search);
@@ -62,8 +63,8 @@ export class DataService {
       {
         payload.contains=contains;
       }
-      var isin=search.filter((p: { type: string; })=>p.type=="isin");
-      if (isin.length>0&&isin[0].value!=null)
+      var isin=search.filter((p: { type: string;value:any })=>p.type=="isin" && p.value!=null);
+      if (isin.length>0)
       {
         payload.isin=isin;
       }

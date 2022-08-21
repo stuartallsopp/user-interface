@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ListfilterComponent implements OnInit {
 
+  @Input() source_type:string='';
   @Input() filters:any[]=[];
   @Output() filter_changed:EventEmitter<any[]>=new EventEmitter<any[]>();
   constructor() { }

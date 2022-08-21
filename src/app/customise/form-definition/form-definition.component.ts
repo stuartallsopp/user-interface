@@ -18,6 +18,7 @@ export class FormDefinitionComponent implements OnInit {
   ngOnInit(): void {
     this.getPages();
     this.getButtons();
+    this.getCharts();
     this.getColumns();
     this.getFields();
     this.getLookups();
@@ -35,6 +36,7 @@ export class FormDefinitionComponent implements OnInit {
   public buttons:any[]=[];
   public lookups:any[]=[];
   public actions:any[]=[];
+  public charts:any[]=[];
   public lists:any[]=[];
   public caches:string[]=[];
   public sundryfields:any[]=[];
@@ -83,11 +85,15 @@ export class FormDefinitionComponent implements OnInit {
       this.objectType="list";
       this.getLists();
       break;
-    case 7:
+      case 7:
+        this.objectType="chart";
+        this.getCharts();
+        break;
+    case 8:
       this.objectType="sundryfield";
       this.getSundryFields();
       break;
-    case 8:
+    case 9:
       this.objectType="cache";
       this.getCaches();
       break;
@@ -150,6 +156,13 @@ export class FormDefinitionComponent implements OnInit {
             }})
           }
           break; 
+      case 'chart':
+            if (this.selectedObject==null){this.fullObject=null;}else{
+              this.dataService.get_chart_by_id(this.selectedObject.id).subscribe({next:(result)=>{
+                this.fullObject=result;
+              }})
+            }
+            break; 
       case 'sundryfield':
         if (this.selectedObject==null){this.fullObject=null;}else{
           this.dataService.get_sundryfield_by_id(this.selectedObject.id).subscribe({next:(result)=>{
@@ -226,6 +239,13 @@ export class FormDefinitionComponent implements OnInit {
       payload.type='list';
       size:'90%'
     }
+    if (this.objectType=="chart")
+    {
+      title="Chart";
+      payload.fullPage={id:0,description:'',type:'pie'};
+      payload.type='chart';
+      size:'70%'
+    }
     if (this.objectType=="sundryfield")
     {
       title="Sundry Field";
@@ -277,13 +297,17 @@ export class FormDefinitionComponent implements OnInit {
       {
         this.tabChanged({index:6});
       }
-      if (this.objectType=="sundryfield")
+      if (this.objectType=="chart")
       {
         this.tabChanged({index:7});
       }
-      if (this.objectType=="cache")
+      if (this.objectType=="sundryfield")
       {
         this.tabChanged({index:8});
+      }
+      if (this.objectType=="cache")
+      {
+        this.tabChanged({index:9});
       }
   }
 
@@ -360,6 +384,13 @@ export class FormDefinitionComponent implements OnInit {
   {
     this.dataService.get_list().subscribe({next:(result:any)=>{
       this.lists=[...result];
+    }})
+  }
+
+  getCharts()
+  {
+    this.dataService.get_chart().subscribe({next:(result:any)=>{
+      this.charts=[...result];
     }})
   }
 }

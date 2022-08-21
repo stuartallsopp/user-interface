@@ -33,6 +33,7 @@ import { FieldEditComponent } from './field-edit/field-edit.component';
 import { NewobjectpoupComponent } from './newobjectpoup/newobjectpoup.component';
 import { SundryfieldOutlineComponent } from './sundryfield-outline/sundryfield-outline.component';
 import { FilterService } from 'primeng/api';
+import { ChartOutlineComponent } from './chart-outline/chart-outline.component';
 
 
 
@@ -53,7 +54,8 @@ import { FilterService } from 'primeng/api';
     PanelEditComponent,
     FieldEditComponent,
     NewobjectpoupComponent,
-    SundryfieldOutlineComponent
+    SundryfieldOutlineComponent,
+    ChartOutlineComponent
   ],
   imports: [
     CommonModule,

@@ -4,5 +4,6 @@
 <app-button-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='button'" [fullPage]="fullObject"></app-button-outline>
 <app-lookup-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='lookup'" [fullPage]="fullObject"></app-lookup-outline>
 <app-action-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='action'" [fullPage]="fullObject"></app-action-outline>
+<app-chart-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='chart'" [fullPage]="fullObject"></app-chart-outline>
 <app-list-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='list'" [actionlist]="actionlist" [buttonlist]="buttonlist" [columnlist]="columnlist" [fullPage]="fullObject"></app-list-outline>
 

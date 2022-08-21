@@ -28,6 +28,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { TagModule } from 'primeng/tag';
 import { TimelineModule } from 'primeng/timeline';
+import { ChartModule } from 'primeng/chart';
 import { ListComponent } from './list/list.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import {ListboxModule} from 'primeng/listbox';
@@ -78,6 +79,7 @@ import { ListColBooleanComponent } from './listdatatype/list-col-boolean/list-co
 import { MpickEntryComponent } from './fielddatatype/mpick-entry/mpick-entry.component';
 import { ReportListComponent } from './report-list/report-list.component';
 import { ListbaseComponent } from './listbase/listbase.component';
+import { ChartComponent } from './chart/chart.component';
 
 
 
@@ -123,7 +125,8 @@ import { ListbaseComponent } from './listbase/listbase.component';
     ListColBooleanComponent,
     MpickEntryComponent,
     ReportListComponent,
-    ListbaseComponent
+    ListbaseComponent,
+    ChartComponent
   ],
   imports: [
     CommonModule,
@@ -148,6 +151,7 @@ import { ListbaseComponent } from './listbase/listbase.component';
     PaginatorModule,
     NgbModule,
     BlockUIModule,
+    ChartModule,
     InputTextareaModule,
     NgxVisibilityModule,
     TimelineModule,

@@ -1,7 +1,7 @@
 <div style="position: relative">
     <ngx-ui-loader pbColor="#883cae" [fgsSize]="0" fgsColor="#883cae" overlayColor="rgba(180,82,238,0.1)" [loaderId]="loader_key"></ngx-ui-loader>
     <div *ngIf="hasfilters" class="surface-overlay p-1">
-        <app-listfilter [filters]="filters" (filter_changed)="filterChanged($event)"></app-listfilter>
+        <app-listfilter [source_type]="source_type" [filters]="filters" (filter_changed)="filterChanged($event)"></app-listfilter>
     </div>
     <div *ngIf="subscribe_from==undefined||subscribe_from==null||subscribe_from.length==0||(subscribe_from.length>0&&list_content!=null)">
         <p-table

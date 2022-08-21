@@ -102,6 +102,18 @@
                     </p-accordionTab>
                     <p-accordionTab>
                         <ng-template pTemplate="header">
+                            Charts <p-chip styleClass="ml-2 custom-chip" *ngIf="charts.length>0" [label]="charts.length.toString()"></p-chip>
+                        </ng-template>
+                        <p-table [value]="charts" selectionMode="single" (onRowSelect)="rowSelected('chart')" (onRowUnselect)="rowSelected('chart')" [(selection)]="selectedObject" dataKey="id">
+                            <ng-template pTemplate="body" let-chart>
+                                <tr [pSelectableRow]="chart">
+                                    <td>{{chart.description}}<p-chip styleClass="ml-2 custom-chip" [label]="chart.id"></p-chip></td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </p-accordionTab>
+                    <p-accordionTab>
+                        <ng-template pTemplate="header">
                             Sundry Fields <p-chip styleClass="ml-2 custom-chip" *ngIf="sundryfields.length>0" [label]="sundryfields.length.toString()"></p-chip>
                         </ng-template>
                         <p-table [value]="sundryfields" selectionMode="single" (onRowSelect)="rowSelected('sundryfield')" (onRowUnselect)="rowSelected('sundryfield')" [(selection)]="selectedObject" dataKey="id">
@@ -129,7 +141,7 @@
         </div>
     </div>
     <div class="col-8">
-        <app-form-outline *ngIf="fullObject&&objectType=='form'" [lookuplist]="lookups" [listlist]="lists" [fieldlist]="fields" [actionlist]="actions" [buttonlist]="buttons" [fullPage]="fullObject"></app-form-outline>
+        <app-form-outline *ngIf="fullObject&&objectType=='form'" [chartlist]="charts" [lookuplist]="lookups" [listlist]="lists" [fieldlist]="fields" [actionlist]="actions" [buttonlist]="buttons" [fullPage]="fullObject"></app-form-outline>
         <app-column-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='column'" [lookuplist]="lookups" [fullPage]="fullObject"></app-column-outline>
         <app-field-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='field'" [actionlist]="actions" [lookuplist]="lookups" [fullPage]="fullObject"></app-field-outline>
         <app-button-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='button'" [fullPage]="fullObject"></app-button-outline>
@@ -137,5 +149,6 @@
         <app-action-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='action'" [fullPage]="fullObject"></app-action-outline>
         <app-sundryfield-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='sundryfield'" [actionlist]="actions" [lookuplist]="lookups" [fullPage]="fullObject"></app-sundryfield-outline>
         <app-list-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='list'" [actionlist]="actions" [buttonlist]="buttons" [columnlist]="columns" [fullPage]="fullObject"></app-list-outline>
+        <app-chart-outline (done)="refresh($event)" *ngIf="fullObject&&objectType=='chart'" [fullPage]="fullObject"></app-chart-outline>
     </div>
 </div>

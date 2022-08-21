@@ -14,6 +14,9 @@ expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up"
         <ng-container *ngIf="definition.list&&definition.type=='list'">
             <app-list (list_selection_changed)="list_changed($event)" [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-list>
         </ng-container>
+        <ng-container *ngIf="definition.chart&&definition.type=='chart'">
+            <app-chart  [source_type]="source_type"  [data]="local_data" [definition]="definition.chart"></app-chart>
+        </ng-container>
         <ng-container *ngIf="definition.list&&definition.type=='listi'">
             <app-listi [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-listi>
         </ng-container>
@@ -45,6 +48,9 @@ expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up"
         </div>
         <div class="col-12" [ngClass]="decor.resolveNonePanelBackground(definition.colour)" *ngIf="definition.list&&definition.type=='listi'">
             <app-listi [source_type]="source_type" [cacheid]="cacheid" [data]="local_data" [definition]="definition.list"></app-listi>
+        </div>
+        <div class="col-12" [ngClass]="decor.resolveNonePanelBackground(definition.colour)" *ngIf="definition.chart&&definition.type=='chart'">
+            <app-chart [source_type]="source_type" [data]="local_data" [definition]="definition.chart"></app-chart>
         </div>
         <div class="col-12" [ngClass]="decor.resolveNonePanelBackground(definition.colour)" *ngIf="definition.list&&definition.type=='reportl'">
             <app-report-list [source_type]="source_type" [data]="local_data" [definition]="definition.list"></app-report-list>

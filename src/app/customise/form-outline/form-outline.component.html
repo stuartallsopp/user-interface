@@ -111,10 +111,10 @@
         </div>
     </div>
     <div class="col-6" *ngIf="fullPage.format_type=='panels'">
-        <app-panel-outline [lookuplist]="lookuplist" [actionlist]="actionlist" [fieldlist]="fieldlist" [listlist]="listlist" [(panels)]="fullPage.panels"></app-panel-outline>
+        <app-panel-outline [chartlist]="chartlist" [lookuplist]="lookuplist" [actionlist]="actionlist" [fieldlist]="fieldlist" [listlist]="listlist" [(panels)]="fullPage.panels"></app-panel-outline>
     </div>
     <div class="col-6" *ngIf="fullPage.format_type=='columns'">
-        <app-pagecolumn-outline [(columns)]="fullPage.columns" [lookuplist]="lookuplist" [fieldlist]="fieldlist" [listlist]="listlist"></app-pagecolumn-outline>
+        <app-pagecolumn-outline [chartlist]="chartlist" [(columns)]="fullPage.columns" [lookuplist]="lookuplist" [fieldlist]="fieldlist" [listlist]="listlist"></app-pagecolumn-outline>
     </div>
     <div class="col-6" *ngIf="fullPage.actionset_id!=undefined&&fullPage.actionset_id!=null&&fullPage.actionset_id!=0">
         <app-actioncustom-outline [(items)]="fullPage.action_customisations"></app-actioncustom-outline>

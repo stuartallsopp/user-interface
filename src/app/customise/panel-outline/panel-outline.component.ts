@@ -15,6 +15,7 @@ export class PanelOutlineComponent implements OnInit {
   @Input() listlist:any[]=[];
   @Input() actionlist:any[]=[];
   @Input() lookuplist:any[]=[];
+  @Input() chartlist:any[]=[];
 
   public panel_edit_display:boolean=false;
   public edited_panel:any=null;

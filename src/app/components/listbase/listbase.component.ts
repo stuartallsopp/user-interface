@@ -91,7 +91,9 @@ export class ListbaseComponent implements OnInit,OnDestroy,OnChanges {
       var filter=this.definition.filters.filter((p: { type: string; })=>p.type=='url')[0];
       if (filter!=null)
       {
-        this.dataService.post(filter.definition_url,{items:filter.items}).subscribe({
+        var url=filter.definition_url;
+        url=url.replace("{source_type}",this.source_type);
+        this.dataService.post(url,{items:filter.items}).subscribe({
           next:(result:any)=>{
             this.hasfilters=true;
             this.harcoded_filters();
@@ -381,6 +383,9 @@ export class ListbaseComponent implements OnInit,OnDestroy,OnChanges {
         url=url.replace('{source_type}',this.source_type);
       }
       var local_filters=this.tool.deepCopy(filters);
+
+      console.log(local_filters);
+
       if (this.hard_coded_filters.length>0)
       {
          if (local_filters==null){local_filters=[];}

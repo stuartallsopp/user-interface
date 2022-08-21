@@ -55,7 +55,7 @@
             </div>
     </div>
         <div class="col-12">
-            <app-panel-outline [(panels)]="edited_column.panels" [fieldlist]="fieldlist" [listlist]="listlist" [lookuplist]="lookuplist"></app-panel-outline>
+            <app-panel-outline [chartlist]="chartlist" [(panels)]="edited_column.panels" [fieldlist]="fieldlist" [listlist]="listlist" [lookuplist]="lookuplist"></app-panel-outline>
         </div>
         <div class="col-12 text-right"><button (click)="saveColumn()" pButton icon="fa-solid fa-floppy-disk" class="p-button-success p-button-rounded p-button-outlined"></button></div>
     </div>

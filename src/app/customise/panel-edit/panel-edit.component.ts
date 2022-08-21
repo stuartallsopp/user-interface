@@ -15,6 +15,7 @@ export class PanelEditComponent implements OnInit,OnChanges {
   @Input() fieldlist:any[]=[];
   @Input() lookuplist:any[]=[];
   @Input() listlist:any[]=[];
+  @Input() chartlist:any[]=[];
   @Input() actionlist:any[]=[];
   
   public has_field:boolean=false;

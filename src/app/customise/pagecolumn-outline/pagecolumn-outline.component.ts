@@ -11,6 +11,7 @@ export class PagecolumnOutlineComponent implements OnInit {
   @Output() columnsChange=new EventEmitter<any>();
   @Input() fieldlist:any[]=[];
   @Input() lookuplist:any[]=[];
+  @Input() chartlist:any[]=[];
   @Input() listlist:any[]=[];
 
   public column_edit_display:boolean=false;

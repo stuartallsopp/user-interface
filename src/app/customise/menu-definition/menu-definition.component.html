@@ -45,6 +45,12 @@
                             <label for="unique_key">Route</label>
                         </span>
                     </div>
+                    <div *ngIf="editedItem.type=='page'" class="field col-12">
+                        <span class="p-float-label">
+                            <input type="text" id="query_param" pInputText [(ngModel)]="editedItem.query_param"> 
+                            <label for="query_param">Query Param</label>
+                        </span>
+                    </div>
                     <div class="field col-12 md:col-4">
                         <span class="p-float-label">
                             <p-dropdown inputId="list_type" [options]="['','recs','cls','trans','cus']" [(ngModel)]="editedItem.list_type"></p-dropdown>

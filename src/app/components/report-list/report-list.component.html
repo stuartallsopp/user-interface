@@ -19,7 +19,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
         <tr [ngClass]="item.calc==true?'report_calc_row':''">
-            <td [ngClass]="tool.alignment(column.alignment)"  *ngFor="let column of tool.resolveColumns(definition.columnset?.list_columns)"><app-listcolumn [data]="item" [definition]="column"></app-listcolumn></td>
+            <td [ngClass]="tool.alignment(column.alignment)"  *ngFor="let column of tool.resolveColumns(definition.columnset?.list_columns)">
+                <app-listcolumn (buttonclick)="onCellButtonClick($event)" [data]="item" [definition]="column"></app-listcolumn>
+            </td>
             <td class="text-right" *ngIf="definition?.buttonset">
                 <app-buttongroup [data]="item" [rowIndex]="rowIndex" (itemselected)="buttonclick($event)" [buttons]="definition.buttonset" location="row"></app-buttongroup>
             </td>

@@ -103,9 +103,14 @@ export class BreadcrumbComponent implements OnInit,OnChanges,OnDestroy {
 
   period_changed()
   {
+    this.transmit_period_change('global_period_changed');
+  }
+
+  transmit_period_change(type:string)
+  {
     for(var sub of this.period_subscriber_list)
     {
-        this.event.cast(sub.id,{type:'global_period_changed',period:this.selected_period});
+        this.event.cast(sub.id,{type:type,period:this.selected_period});
     }
   }
 
@@ -114,6 +119,7 @@ export class BreadcrumbComponent implements OnInit,OnChanges,OnDestroy {
     this.dataService.get('list/system/moduleperiods/'+this.source_type).subscribe({next:(result)=>{
         this.period_options=result['periods'];
         this.selected_period=result['current_period'];
+        this.transmit_period_change('global_period_initialise');
     }})
   }
 

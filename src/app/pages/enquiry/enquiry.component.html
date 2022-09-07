@@ -1,0 +1,67 @@
+<div class="mt-2" style="position: relative;height:100%">
+    <ngx-ui-loader bgsPosition="center-center" pbColor="#883cae" [fgsSize]="0" fgsColor="#883cae" overlayColor="rgba(180,82,238,0.1)" loaderId="page">     
+    </ngx-ui-loader>
+    <app-breadcrumb [period_selector]="false" [current_route]="current_route" [source_type]="module" [hasfavourite]="false" *ngIf="search_model" [definition]="page_definition" [crumbs]="search_model.breadcrumb" [crumbspath]="search_model.breadcrumb_path"></app-breadcrumb>
+    <div class="grid pt-0">
+        <div class="col-12 flex" *ngIf="search_model">
+            <span>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Ledger</span>
+                    <p-dropdown (onChange)="ledger_changed()" styleClass="w-auto" [options]="search_model.ledgers" optionLabel="description" optionValue="code" [(ngModel)]="search_model.ledger"></p-dropdown>
+                </div>
+            </span>
+            <span class="flex-grow-0">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Period</span>
+                    <app-enquiry-periodselector (period_changed)="period_changed()" [search_model]="search_model"></app-enquiry-periodselector>
+                </div>
+            </span>
+            <span class="flex-grow-1">
+                <div class="p-inputgroup min-w-full">
+                    <span class="p-inputgroup-addon min-w-max">Search</span>
+                    <app-enquiry-filter (search_changed)="search_changed($event)" [search_model]="search_model" class="flex-grow-1"></app-enquiry-filter>
+                </div>
+            </span>
+        </div>
+        <div class="col-12" *ngFor="let panel of page_definition?.panels">
+            <p-table
+        selectionMode="single"
+        (onSort)="sortlist($event)"
+        [lazy]="true"
+        dataKey="id" 
+        [value]="list_data" 
+        styleClass="p-datatable-sm p-datatable-sam p-datatable-striped" 
+        [sortField]="panel.list.sort_key">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th [pSortableColumn]="tool.resolveSort(column)" [ngClass]="tool.alignment(column.alignment)" *ngFor="let column of tool.resolveColumns(panel.list.columnset?.list_columns)">
+                        <span *ngIf="column.type!='tag_disp'">{{column.label}}</span>
+                        <span *ngIf="column.type=='tag_disp'"></span>
+                        <p-sortIcon *ngIf="column.sortable" [field]="column.field"></p-sortIcon>
+                    </th>
+                    <th class="sa-list-column text-right" *ngIf="panel.list?.buttonset">
+                        <app-buttongroup (itemselected)="buttonclick($event)" [buttons]="panel.list.buttonset" location="top"></app-buttongroup>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr [pSelectableRow]="item" [pSelectableRowIndex]="rowIndex">
+                    <td [ngClass]="tool.alignment(column.alignment)"  *ngFor="let column of tool.resolveColumns(panel.list.columnset?.list_columns)"><app-listcolumn [data]="item" [definition]="column"></app-listcolumn></td>
+                    <td class="text-right" *ngIf="panel.list?.buttonset">
+                        <app-buttongroup [data]="item" [rowIndex]="rowIndex" (itemselected)="buttonclick($event)" [buttons]="panel.list.buttonset" location="row"></app-buttongroup>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td [attr.colspan]="col.colspan" [ngClass]="col.type=='total'?'text-right':'text-left'" *ngFor="let col of footer_columns">
+                        <span *ngIf="col.type=='totalrecords'">{{record_count}} record(s)</span>
+                        <span *ngIf="col.type=='total'">{{getTotal(col.key,col)|number:col.format}}</span>
+                    </td>
+                    <td *ngIf="panel.list?.buttonset"></td>
+                </tr>
+            </ng-template>
+        </p-table>
+        </div>
+    </div>
+</div>

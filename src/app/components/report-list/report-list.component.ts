@@ -51,6 +51,8 @@ export class ReportListComponent extends ListbaseComponent implements OnInit,OnC
     super.ngOnInit();
   }
 
+
+
   override refresh(pageno:number=1,filters:any=null)
   {
     if (this.definition.data_url!=undefined&&this.definition.data_url!=null)

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-listcolumn',
@@ -9,9 +9,15 @@ export class ListcolumnComponent implements OnInit {
 
   @Input() data:any;
   @Input() definition:any;
+  @Output() buttonclick:EventEmitter<any>=new EventEmitter<any>();
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onClick($event)
+  {
+    this.buttonclick.emit($event);
   }
 
 }

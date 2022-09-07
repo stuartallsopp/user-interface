@@ -95,6 +95,10 @@ export class MenuService {
       result.routerLink="pages/"+source.path_key;
       directory=this.addToDirectory(source.path_key,directory,source.id);
     }
+    if (source.queryParams!=null)
+    {
+      result.queryParams=JSON.parse(source.queryParams);
+    }
     if (source.children.length>0)
     {
       var list:MenuItem[]=[];

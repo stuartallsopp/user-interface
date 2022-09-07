@@ -1,0 +1,17 @@
+
+<span class="mr-1" *ngIf="config?.reverse==undefined||config?.reverse==false">{{data[definition.field]}}</span>
+<span class="mr-1" *ngIf="config?.reverse!=undefined&&config?.reverse==true">{{data[config.field]}}</span>
+<span *ngIf="config!=undefined&&config.type=='bracket'">
+    ({{data[config.field]}})
+</span>
+<span *ngIf="config!=undefined&&config.type=='slash'">
+    / {{data[config.field]}}
+</span>
+<span *ngIf="config!=undefined&&config.type=='tag'">
+    <ng-container *ngIf="config?.reverse==undefined||config?.reverse==false">
+        <p-tag *ngIf="data[config.field]!=undefined&&data[config.field]!=null" [rounded]="true" [icon]="resolveIcon()" [severity]="resolveColour()" [value]="data[config.field]"></p-tag>
+    </ng-container>
+    <ng-container *ngIf="config?.reverse!=undefined&&config?.reverse==true">
+        <p-tag [severity]="resolveColour()" [icon]="resolveIcon()" [rounded]="true" [value]="data[definition.field]"></p-tag>
+    </ng-container>
+</span>

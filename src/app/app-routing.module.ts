@@ -10,6 +10,7 @@ import { RecordComponent } from './pages/record/record.component';
 import { MenuDefinitionComponent } from './customise/menu-definition/menu-definition.component';
 import { FormDefinitionComponent } from './customise/form-definition/form-definition.component';
 import { TransactionComponent } from './pages/transaction/transaction.component';
+import { EnquiryComponent } from './pages/enquiry/enquiry.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -17,9 +18,11 @@ const routes: Routes = [
   {path:'home',component:HomeComponent,canActivate:[AuthGuard]},
   {path:'pages/customise/menus',component:MenuDefinitionComponent,canActivate:[AuthGuard]},
   {path:'pages/customise/forms',component:FormDefinitionComponent,canActivate:[AuthGuard]},
+  {path:'pages/enquiry',component:EnquiryComponent,canActivate:[AuthGuard]},
   {path:'pages/:module/home',component:HomeComponent,canActivate:[AuthGuard]},
   {path:'pages/:module/:area',component:PageComponent,canActivate:[AuthGuard]},
   {path:'pages/:module/:area/:section',component:PageComponent,canActivate:[AuthGuard]},
+  {path:'pages/:module/records/:section/:id',component:RecordComponent,canActivate:[AuthGuard]},
   {path:'pages/:module/records/:section/:id',component:RecordComponent,canActivate:[AuthGuard]},
   {path:'pages/:module/transactions/:section/:id',component:TransactionComponent,canActivate:[AuthGuard]},
   {path:'error/:errono/:area',component:ErrorComponent},

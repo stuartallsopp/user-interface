@@ -19,6 +19,8 @@ export class SignalrService implements OnInit {
 
   }
 
+
+
   getConnectionId()
   {
     return this.connectionId;

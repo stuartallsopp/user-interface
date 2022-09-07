@@ -1,4 +1,8 @@
 <div style="position:relative">
     <ngx-ui-loader pbColor="#883cae" [fgsSize]="0" fgsColor="#883cae" overlayColor="rgba(180,82,238,0.1)" [loaderId]="loader_key"></ngx-ui-loader>
-    <h1>{{definition.type}}</h1>
+    <p-carousel [value]="chart_set.charts" [showNavigators]="false"[numVisible]="1" [numScroll]="1" *ngIf="chart_set?.charts.length>0" (onPage)="display_chart($event)">
+        <ng-template let-data pTemplate="item">
+            <app-chartitem [data_set]="data"></app-chartitem>
+        </ng-template>
+    </p-carousel>
 </div>

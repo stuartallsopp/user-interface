@@ -29,6 +29,36 @@ export class ToolService {
     }
   }
 
+  stringReplace(target:string,dataobjects:any[]):string
+  {
+    for(var dobj of dataobjects)
+    {
+      for(var param in dobj)
+      {
+        while(target.indexOf("{"+param+"}")>=0)
+        {
+          target=target.replace("{"+param+"}",dobj[param]);
+        }
+      }
+    }
+    return target;
+  }
+
+  resolveUrl(url,source_type,list_source_type,id)
+  {
+
+    var local_sorce_type=(source_type==null||source_type==undefined||source_type=='')?'nominal':source_type;
+    if (url.indexOf('{source_type}')>=0)
+    {
+      url=url.replace('{source_type}',local_sorce_type);
+    }
+    if (url.indexOf('{id}')>=0)
+    {
+      url=url.replace('{id}',id);
+    }
+    return url;
+  }
+
   resolveSort(column:any):any
   {
     if (column.sortable!=true){return null;}

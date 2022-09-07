@@ -1,0 +1,17 @@
+
+:host {
+    ::ng-deep
+    .p-button-icon
+    {
+       color: white;
+    }
+    ::ng-deep
+    {
+        .p-button-text
+        {
+            font-size: smaller;
+            padding: 0;
+            width:inherit;
+        }
+    }
+}

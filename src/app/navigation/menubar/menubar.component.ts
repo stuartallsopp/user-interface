@@ -56,14 +56,14 @@ saveSettings()
 
 redraw(force:boolean=false)
 {
-  this.menu.get("user",force).subscribe((result: any[])=>{
+  this.menu.get("user",force).subscribe({next:(result:any[])=>{
     this.items=[{label:"Home",routerLink:"home",icon:"fa-regular fa-house"}];
     this.items=[...this.items,...result];
     this.checkForFavourites();
     this.refreshPermissions();
-  },(err: any)=>{
+  },error:(error)=>{
     this.items=[];
-  }); 
+  }})
 }
 
 checkForFavourites()

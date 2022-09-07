@@ -21,6 +21,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { NoteviewComponent } from './noteview/noteview.component';
 import { BaseComponent } from './base/base.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { EnquiryComponent } from './enquiry/enquiry.component';
+import { TableModule } from 'primeng/table';
 
 
 
@@ -36,13 +38,15 @@ import { TransactionComponent } from './transaction/transaction.component';
     ActionpanelComponent,
     NoteviewComponent,
     BaseComponent,
-    TransactionComponent
+    TransactionComponent,
+    EnquiryComponent
   ],
   imports: [
     CommonModule,
     NgxUiLoaderModule,
     BreadcrumbModule,
     OverlayPanelModule,
+    TableModule,
     InputTextModule,
     TabViewModule,
     DropdownModule,

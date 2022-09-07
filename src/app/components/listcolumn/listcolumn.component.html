@@ -1,8 +1,8 @@
 <ng-container *ngIf="definition.type=='tex_disp'">
     <app-list-col-text [data]="data" [definition]="definition"></app-list-col-text>
 </ng-container>
-<ng-container *ngIf="definition.type=='num_disp'">
-    <app-list-col-number [data]="data" [definition]="definition"></app-list-col-number>
+<ng-container *ngIf="definition.type=='num_disp'||definition.type=='num_link'">
+    <app-list-col-number (buttonclicked)="onClick($event)" [data]="data" [definition]="definition"></app-list-col-number>
 </ng-container>
 <ng-container *ngIf="definition.type=='dat_disp'">
     <app-list-col-date [data]="data" [definition]="definition"></app-list-col-date>
@@ -21,5 +21,8 @@
 </ng-container>
 <ng-container *ngIf="definition.type=='bool_disp'">
     <app-list-col-boolean [data]="data" [definition]="definition"></app-list-col-boolean>
+</ng-container>
+<ng-container *ngIf="definition.type=='combo_disp'">
+    <app-list-col-combo [data]="data" [definition]="definition"></app-list-col-combo>
 </ng-container>
 

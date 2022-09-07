@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-list-col-number',
@@ -9,6 +9,7 @@ export class ListColNumberComponent implements OnInit,OnChanges {
 
   @Input() data:any;
   @Input() definition:any;
+  @Output() buttonclicked:EventEmitter<any>=new EventEmitter<any>();
   public configs:any;
   constructor() { }
   ngOnChanges(changes: SimpleChanges): void {
@@ -22,6 +23,11 @@ export class ListColNumberComponent implements OnInit,OnChanges {
   }
 
   ngOnInit(): void {
+  }
+
+  onClick()
+  {
+    this.buttonclicked.emit({field:this.definition.field,data:this.data,config:this.configs?.button});
   }
 
   public format():string

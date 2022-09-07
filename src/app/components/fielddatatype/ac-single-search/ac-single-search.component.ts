@@ -84,7 +84,7 @@ export class AcSingleSearchComponent implements OnInit,AfterViewInit {
       {
         search.push({type:"contains","column":search_param.search,"value":query});
       }
-
+      search.push({type:"equals","column":'active',"value":true});
       var url=this.definition.data_url;
       if (this.data!=null)
       {

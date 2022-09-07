@@ -41,6 +41,7 @@ export class ListbaseComponent implements OnInit,OnDestroy,OnChanges {
   public filters:any[]=[];
   public current_page:number=1;
   public current_filters:any=null;
+  public selected_period_object:any={period_id:'current'};
   
   constructor(
     public dataService:DataService,
@@ -162,6 +163,10 @@ export class ListbaseComponent implements OnInit,OnDestroy,OnChanges {
     this.refresh(1);
   }
 
+  update_period_object(data:any)
+  {
+    this.selected_period_object.period_id=data.period.id;
+  }
 
   update_period_search(data:any)
   {
@@ -175,6 +180,7 @@ export class ListbaseComponent implements OnInit,OnDestroy,OnChanges {
     {
       check.value=data.period.id;
     }
+    this.selected_period_object.period_id=data.period.id;
     var check=this.filters.filter(p=>p.column=='year_id')[0];
     if (check==null)
     {
@@ -211,6 +217,10 @@ export class ListbaseComponent implements OnInit,OnDestroy,OnChanges {
       if (result.data.type=='global_period_changed')
       {
         this.update_period_search(result.data);
+      }
+      if (result.data.type=='global_period_initialise')
+      {
+        this.update_period_object(result.data);
       }
       if (result.data.type=='subscriber_response')
       {
@@ -329,6 +339,19 @@ export class ListbaseComponent implements OnInit,OnDestroy,OnChanges {
     this.calculateTotals();
   }
 
+  onCellButtonClick(event:any)
+  {
+    console.log(event);
+    var configs=event.config;
+    switch(configs.action)
+    {
+      case 'redirect':
+        var url=this.tool.stringReplace(configs.url,[event.data,this.selected_period_object]);
+        this.event.cast("top",{action:'redirect',url:url});
+        break;
+    }
+  }
+
   check_publish_list(source:any)
   {
     var check=this.publish_to.filter(p=>p.source==source.property)[0];
@@ -377,14 +400,9 @@ export class ListbaseComponent implements OnInit,OnDestroy,OnChanges {
     this.fetching=true;
     if (this.definition.data_url?.length>0)
     {
-      var url=this.definition.data_url;
-      if (url.indexOf('{source_type}')>=0)
-      {
-        url=url.replace('{source_type}',this.source_type);
-      }
-      var local_filters=this.tool.deepCopy(filters);
+      var url=this.tool.resolveUrl(this.definition.data_url,this.source_type,this.list_source_type,0);
 
-      console.log(local_filters);
+      var local_filters=this.tool.deepCopy(filters);
 
       if (this.hard_coded_filters.length>0)
       {

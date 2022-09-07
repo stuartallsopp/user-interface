@@ -1,0 +1,33 @@
+<p-autoComplete 
+[suggestions]="available" 
+[multiple]="true" 
+(onUnselect)="removeitem($event)" 
+(onSelect)="additem($event)"
+(completeMethod)="search($event)" 
+styleClass="min-w-full" 
+[(ngModel)]="selected_items"
+placeholder="Select a record type to search on..." 
+inputStyleClass="min-w-full">
+    <ng-template let-value pTemplate="selectedItem">
+        <span>{{value.code}}:{{value.value!=undefined&&value.value!=null?value.value.description:''}} <button (click)="setCurrent(value);op.toggle($event);" pButton class="p-button-text" icon="fa-regular fa-search"></button></span>
+    </ng-template>
+    <ng-template let-value pTemplate="item">
+        <div>{{value.description}} ({{value.code}})</div>
+</ng-template>
+</p-autoComplete>
+<p-overlayPanel (onHide)="raise_change_event()" (onShow)="initialise_change_event()" #op appendTo="body" (onShow)="blocked=true;" (onHide)="blocked=false;" [focusOnShow]="true" styleClass="overlay-width shadow-9 max-h-25rem">
+    <ng-template pTemplate>
+        <div>
+            <app-ac-single-search 
+            [title]="current_item.description" 
+            [local_source_type]="checkSourceType()" 
+            [source_type]="current_item.code" 
+            [hasnew]="false" 
+            (item_selected)="item_selected_on_list($event)" 
+            [dialog]="op" 
+            [definition]="definition" 
+            [configs]="configs">
+        </app-ac-single-search>
+        </div>
+    </ng-template>
+</p-overlayPanel>

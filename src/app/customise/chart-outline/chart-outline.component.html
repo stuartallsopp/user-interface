@@ -6,14 +6,26 @@
         <div class="p-fluid grid mt-2">
             <div class="field col-12 md:col-10">
                 <span class="p-float-label">
-                    <input type="text" id="label" pInputText [(ngModel)]="fullPage.description"> 
-                    <label for="label">Description</label>
+                    <input type="text" id="description" pInputText [(ngModel)]="fullPage.description"> 
+                    <label for="description">Description</label>
                 </span>
             </div>
             <div class="field col-12 md:col-2">
                 <span class="p-float-label">
                     <p-dropdown inputId="type" appendTo="body" [options]="['pie','bridge']" [(ngModel)]="fullPage.type"></p-dropdown>
                     <label for="type">Type</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-8">
+                <span class="p-float-label">
+                    <input type="text" id="data_url" pInputText [(ngModel)]="fullPage.data_url"> 
+                    <label for="data_url">Data Url</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-4">
+                <span class="p-float-label">
+                    <input type="text" id="subscribe" pInputText [(ngModel)]="fullPage.subscribe"> 
+                    <label for="subscribe">Subscribe</label>
                 </span>
             </div>
         </div>

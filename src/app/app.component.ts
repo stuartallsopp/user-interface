@@ -72,9 +72,17 @@ export class AppComponent  {
         case 'toast':
           this.raiseError(result.data.data);
           break;
+        case 'redirect':
+          this.redirectUrl(result.data.url);
+          break;
       }
       
     })
+  }
+
+  redirectUrl(url:string)
+  {
+    this.router.navigateByUrl(url);
   }
 
   raiseError(message:any)

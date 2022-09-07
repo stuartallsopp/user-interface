@@ -14,7 +14,6 @@ export class DataService {
 
   list(url:string,page_size:number,page:number,order_by:string,dir:string,search:any=null,cache:boolean=false)
   {
-    console.log(cache);
     if (cache==false)
     {
       return this.list_non_cache(url,page_size,page,order_by,dir,search);
@@ -34,7 +33,7 @@ export class DataService {
     }
   }
 
-  list_non_cache(url:string,page_size:number,page:number,order_by:string,dir:string,search:any=null)
+  list_non_cache(url:string,page_size:number,page:number,order_by:string,dir:string,search:any[]=null)
   {
     var payload={
       page:page,
@@ -44,7 +43,8 @@ export class DataService {
       begins:null,
       contains:null,
       equals:null,
-      isin:null
+      isin:null,
+      resolve:null
     }
     if (search!=null)
     {
@@ -67,6 +67,11 @@ export class DataService {
       if (isin.length>0)
       {
         payload.isin=isin;
+      }
+      var ign=search.filter((p: { type: string;value:any })=>p.type=="resolve" && p.value!=null);
+      if (ign.length>0)
+      {
+        payload.resolve=ign;
       }
     }
     return this.http.post(environment.data_api+url,payload);

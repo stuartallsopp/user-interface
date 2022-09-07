@@ -1,0 +1,22 @@
+<span class="inline-flex min-w-full">
+    <input class="" pInputText [disabled]="true" [(ngModel)]="period_text"/>
+    <button pButton (click)="op.toggle($event)" icon="fa-regular fa-calendar" class="p-btn-primary p-button-sm"></button>
+</span>
+<p-overlayPanel (onHide)="raise_change_event()" (onShow)="initialise_change_event()" #op appendTo="body" (onShow)="blocked=true;" (onHide)="blocked=false;" [focusOnShow]="true" styleClass="overlay-width shadow-9 max-h-25rem">
+    <ng-template pTemplate>
+        <div class="grid">
+            <div class="col-12 mt-3">
+                <span class="p-float-label">
+                    <p-dropdown (onChange)="resolvePeriodText();values_change=true;" styleClass="min-w-full" inputId="from" [autoDisplayFirst]="false" [options]="search_model.period_list" optionValue="id" [(ngModel)]="search_model.period_from" optionLabel="description"></p-dropdown>
+                    <label for="from">From</label>
+                </span>
+            </div>
+            <div class="col-12 mt-3">
+                <span class="p-float-label">
+                    <p-dropdown (onChange)="resolvePeriodText();values_change=true;" styleClass="min-w-full" inputId="to" [autoDisplayFirst]="false" [options]="search_model.period_list" optionValue="id" [(ngModel)]="search_model.period_to" optionLabel="description"></p-dropdown>
+                    <label for="to">To</label>
+                </span>
+            </div>
+        </div>
+    </ng-template>
+</p-overlayPanel>

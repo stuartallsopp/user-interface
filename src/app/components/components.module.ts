@@ -80,6 +80,10 @@ import { MpickEntryComponent } from './fielddatatype/mpick-entry/mpick-entry.com
 import { ReportListComponent } from './report-list/report-list.component';
 import { ListbaseComponent } from './listbase/listbase.component';
 import { ChartComponent } from './chart/chart.component';
+import { ChartitemComponent } from './chartitem/chartitem.component';
+import { EnquiryPeriodselectorComponent } from './enquiry-periodselector/enquiry-periodselector.component';
+import { EnquiryFilterComponent } from './enquiry-filter/enquiry-filter.component';
+import { ListColComboComponent } from './listdatatype/list-col-combo/list-col-combo.component';
 
 
 
@@ -126,7 +130,11 @@ import { ChartComponent } from './chart/chart.component';
     MpickEntryComponent,
     ReportListComponent,
     ListbaseComponent,
-    ChartComponent
+    ChartComponent,
+    ChartitemComponent,
+    EnquiryPeriodselectorComponent,
+    EnquiryFilterComponent,
+    ListColComboComponent
   ],
   imports: [
     CommonModule,
@@ -170,7 +178,7 @@ import { ChartComponent } from './chart/chart.component';
     MenuModule
   ],
   exports:[
-    PanelComponent,ButtongroupComponent,NoteViewerComponent,AnalysisPanelComponent
+    PanelComponent,ButtongroupComponent,NoteViewerComponent,AnalysisPanelComponent,EnquiryPeriodselectorComponent,EnquiryFilterComponent,ListcolumnComponent
   ],
   providers:[MessageService,NgxVisibilityService]
 })

@@ -61,13 +61,11 @@ export class EnquiryComponent implements OnInit,OnDestroy {
 
   period_changed()
   {
-    console.log('period_changed');
     this.runsearch();
   }
 
   search_changed(source)
   {
-    console.log('search changed',source);
     this.search_model.selected=source;
     this.runsearch();
   }
@@ -187,9 +185,15 @@ export class EnquiryComponent implements OnInit,OnDestroy {
     if (params?.period_from!=undefined&&params?.period_from!=null){payload.period_from=params.period_from;}
     if (params?.period_to!=undefined&&params?.period_to!=null){payload.period_to=params.period_to;}
     if (params?.year_to!=undefined&&params?.year_to!=null){payload.year_to=params.year_to;}
+    var period_from=0;
+    var period_to=0;
+    if (this.search_model?.period_from!=undefined){period_from=this.search_model.period_from;}
+    if (this.search_model?.period_to!=undefined){period_to=this.search_model.period_to;}
     this.dataService.post("enquiry/initialise",payload).subscribe({next:(result)=>{
         this.search_model=result;
         this.search_model={...this.search_model};
+        if (period_from!=0){this.search_model.period_from=period_from;}
+        if (period_to!=0){this.search_model.period_to=period_to;}
     }});
   }
 }

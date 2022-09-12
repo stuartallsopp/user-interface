@@ -23,6 +23,7 @@ inputStyleClass="min-w-full">
             [local_source_type]="checkSourceType()" 
             [source_type]="current_item.code" 
             [hasnew]="false" 
+            [lock_active_only]="false"
             (item_selected)="item_selected_on_list($event)" 
             [dialog]="op" 
             [definition]="definition" 

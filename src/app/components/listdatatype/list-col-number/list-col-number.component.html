@@ -1,7 +1,9 @@
-<div style="position:relative">
-    <span>{{data[definition.field]*(configs?.reverse!=undefined?configs?-1:1:1)|number:format()}}{{definition.suffix}}</span>
-<span *ngIf="definition.type=='num_link'&&(data.calc==undefined||data.calc==false)" style="position:fixed;right:-5;">
-    <button (click)="onClick()" class="ml-1 p-button-rounded p-button-hint" pButton icon="fa-regular fa-arrow-right"></button>
+<span *ngIf="isLink()==true">
+    <a class="text-primary no-underline cursor-pointer" (click)="onClick()">{{data[definition.field]*(configs?.reverse!=undefined?configs?-1:1:1)|number:format()}}{{definition.suffix}}</a>
 </span>
-</div>
+<span *ngIf="isLink()==false">
+    {{data[definition.field]*(configs?.reverse!=undefined?configs?-1:1:1)|number:format()}}{{definition.suffix}}
+</span>
+
+
 

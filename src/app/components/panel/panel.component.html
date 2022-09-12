@@ -28,6 +28,9 @@ expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up"
                 <app-fieldset [panel_index]="panel_index" [panel_from]="panel_from"  [source_type]="source_type" [dialog]="dialog" [data]="local_data" [definition]="definition.fieldset"></app-fieldset>
             </div>
         </ng-container>
+        <ng-container  *ngIf="definition.aut_config&&definition.type=='links'">
+            <app-linklist [definition]="definition" [data]="local_data"></app-linklist>
+        </ng-container>
         <ng-container *ngIf="definition.type=='note'">
             <app-note-viewer *ngIf="local_data" [data]="local_data"></app-note-viewer>
         </ng-container>
@@ -61,6 +64,9 @@ expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up"
         <div class="col-12" *ngIf="definition.type=='note'">
             <app-note-viewer *ngIf="local_data" [data]="local_data"></app-note-viewer>
         </div>
+        <ng-container  *ngIf="definition.aut_config&&definition.type=='links'">
+            <app-linklist [definition]="definition" [data]="local_data"></app-linklist>
+        </ng-container>
     </div>
 </ng-container>
 

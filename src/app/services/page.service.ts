@@ -57,7 +57,7 @@ export class PageService {
     if (check2==null){return null}else{return check2.type;}
   }
 
-  getdialog(id:number,source_type:string)
+  getdialog(id:number,source_type:string,ignore_type:string)
   {
     if (this.use_local_cache==true)
     {
@@ -66,7 +66,15 @@ export class PageService {
         return of(this.recent_pages.filter(p=>p.key==id.toString()+"_"+source_type)[0].form);
       }
     }
-    return this.http.get<any[]>(environment.forms_api+"page/dialog/"+source_type+"/"+id.toString()).pipe(
+    var url='';
+    if (ignore_type==undefined||ignore_type!='true')
+    {
+      url=environment.forms_api+"page/dialog/"+source_type+"/"+id.toString();
+    }else
+    {
+      url=environment.forms_api+"page/dialog/"+id.toString();
+    }
+    return this.http.get<any[]>(url).pipe(
       take(1),
       map((data) => {
         if (this.use_local_cache==true)

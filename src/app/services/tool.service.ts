@@ -105,7 +105,8 @@ export class ToolService {
 
   updateList(action:any,data:any,propertybag:any,unique_id:string)
   {
-    this.event.cast(propertybag.from,{type:'update_list',row:propertybag.row,data:data});
+    var key=propertybag.from;
+    this.event.cast(key,{type:'update_list',row:propertybag.row,data:data});
     if (action.valid_key)
     {
       this.event.cast(unique_id,{type:'event',key:action.valid_key});
@@ -148,7 +149,6 @@ export class ToolService {
 
 resolveMetaData(data:any,definition:any,config:any=null)
 {
-  console.log("data",data,"definition",definition,"config",config);
   if (data.meta_data!=undefined&&data.meta_data!=null)
   {
     if (definition.help_text==null){definition.help_text='';}

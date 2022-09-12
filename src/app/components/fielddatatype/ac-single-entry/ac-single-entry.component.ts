@@ -3,6 +3,7 @@ import { NgEventBus } from 'ng-event-bus';
 import { InputText } from 'primeng/inputtext';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { DataService } from 'src/app/services/data.service';
+import { ToolService } from 'src/app/services/tool.service';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
@@ -22,7 +23,7 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
   @Input() parentdata:any;
   @Input() noclear:boolean=false;
 
-  constructor(ds:DataService,event:NgEventBus) {
+  constructor(ds:DataService,event:NgEventBus,private tool:ToolService) {
     super(ds,event);
    }
   override ngAfterViewInit(): void {
@@ -160,7 +161,9 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
       {
         url=url.replace("{source_type}",local_source_type);  
       }
+      if (this.source_type=='notset'||local_source_type=='notset'||this.data?.record_type=='notset'){return;}
       url=url.replace("{source_type}",this.source_type);
+      url=this.tool.stringReplace(url,[this.data]);
       if (local_source_type==null){return;}
       this.dataService.list(url,10,1,this.search_configs.order,"asc",search).subscribe(
         {
@@ -179,8 +182,28 @@ export class AcSingleEntryComponent extends BaseComponent implements OnInit,OnCh
       )
   }
 
+
+  copyValues(source:any,configs:any)
+  {
+    if (source==undefined||source==null){return;}
+    for(var config_item of configs)
+    {
+      this.data[config_item.to]=source[config_item.from];
+      console.log(this.data,source,config_item);
+    }
+  }
+
+
   updatesource(event:any)
   {
+    if(this.definition?.context_param!=undefined&&this.definition.context_param!=null)
+    {
+      var configs=JSON.parse(this.definition.context_param);
+      if (configs.copy!=undefined)
+      {
+        this.copyValues(event,configs.copy);
+      }
+    }
     if (event==undefined){return;}
     var check=this.options.filter(p=>p.id==event.id)[0];
     if (check==null)

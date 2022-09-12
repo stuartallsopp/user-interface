@@ -63,7 +63,7 @@ export class ChartComponent implements OnInit,OnChanges,OnDestroy {
 
   display_chart(event)
   {
-    console.log(event);
+
   }
 
   publish_subscription()

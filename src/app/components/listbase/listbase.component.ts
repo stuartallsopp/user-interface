@@ -286,7 +286,10 @@ export class ListbaseComponent implements OnInit,OnDestroy,OnChanges {
     {
       for(var sub of this.subscribe_from)
       {
-        this.event.cast(sub.target,{type:'update_from_child',property:sub.key,data:this.data});
+        if (sub.target!='')
+        {
+          this.event.cast(sub.target,{type:'update_from_child',property:sub.key,data:this.data});
+        }
       }
     }else
     {
@@ -341,7 +344,6 @@ export class ListbaseComponent implements OnInit,OnDestroy,OnChanges {
 
   onCellButtonClick(event:any)
   {
-    console.log(event);
     var configs=event.config;
     switch(configs.action)
     {
@@ -369,7 +371,7 @@ export class ListbaseComponent implements OnInit,OnDestroy,OnChanges {
     switch (action.type)
     {
       case 'dialog':
-        this.event.cast('top',{from:this.unique_id,action:'dialog',key:action.dialog_key,id:id,cache:this.cacheid,row:rowIndex,content:data,source_type:this.source_type,parent_id:this.data?.id});
+        this.event.cast('top',{from:this.unique_id,action:'dialog',key:action.dialog_key,id:id,cache:this.cacheid,ignore_type:action.ignore_type,row:rowIndex,content:data,source_type:this.source_type,parent_id:this.data?.id});
         break;
       case 'goto':
         this.event.cast('top',{from:this.unique_id,action:'goto',key:action.url,id:id,source_type:this.source_type});

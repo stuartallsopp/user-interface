@@ -1,0 +1,1 @@
+{"visible":{"field":"record_type","default":false,"options":[{"value":"nominal","result":true}]},"copy":[{"from":"pretty_description","to":"pretty_description"}]}

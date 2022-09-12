@@ -22,7 +22,7 @@ const routes: Routes = [
   {path:'pages/:module/home',component:HomeComponent,canActivate:[AuthGuard]},
   {path:'pages/:module/:area',component:PageComponent,canActivate:[AuthGuard]},
   {path:'pages/:module/:area/:section',component:PageComponent,canActivate:[AuthGuard]},
-  {path:'pages/:module/records/:section/:id',component:RecordComponent,canActivate:[AuthGuard]},
+  {path:'pages/:module/records/:section/settings',component:RecordComponent,canActivate:[AuthGuard]},
   {path:'pages/:module/records/:section/:id',component:RecordComponent,canActivate:[AuthGuard]},
   {path:'pages/:module/transactions/:section/:id',component:TransactionComponent,canActivate:[AuthGuard]},
   {path:'error/:errono/:area',component:ErrorComponent},

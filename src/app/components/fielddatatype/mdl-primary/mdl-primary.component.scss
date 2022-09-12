@@ -1,0 +1,21 @@
+.p-float-label-static
+{
+    display: block;
+    position: relative;
+}
+.p-float-label-static label {
+    top: -0.75rem;
+    font-size: 12px;
+    position: absolute;
+    pointer-events: none;
+    margin-top: -0.5rem;
+    line-height: 1;
+    left: 0.75rem;
+    color: #6c757d;
+}
+.mdl-label
+{
+    padding-top: 0;
+    padding-bottom: 0;
+    color: #6c757d;
+}

@@ -7,6 +7,14 @@ export class ResponsiveService {
 
   constructor() { }
 
+  resolveIconColour(item:any):string
+  {
+    var result="";
+    if (item.icon){result=result+item.icon+" ";}
+    if (item.colour){result=result+"text-" + item.colour;}
+    return result;
+  }
+
   get(size:number)
   {
     switch(size)

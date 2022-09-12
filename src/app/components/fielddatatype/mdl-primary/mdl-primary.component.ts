@@ -40,12 +40,30 @@ export class MdlPrimaryComponent extends BaseComponent implements OnInit,OnChang
     }
   }
 
+
+  resolveAdditionalDescriptions():any[]
+  {
+      var result=[];
+      for(var x=1;x<this.local_data_source.lines.length;x++)
+      {
+        if (this.local_data_source.lines[x].record!=null)
+        {
+          result.push({
+            description:this.local_data_source.lines[x].record.description,
+            icon:this.local_data_source.lines[x].record.icon,
+            colour:this.local_data_source.lines[x].record.colour
+          })
+        }
+      }
+      return result;
+  }
+
   defineSettings()
   {
     if (this.definition&&this.data)
     {
       this.primary_object=this.data[this.definition.fieldname]['lines'][0];
-      this.primary_definition={label:this.primary_object.title,fieldname:'description',context_param:null,type:'tex_disp'};
+      this.primary_definition={label:'',fieldname:'description',context_param:null,type:'tex_disp'};
     }
   }
 

@@ -3,6 +3,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { InputText } from 'primeng/inputtext';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { DataService } from 'src/app/services/data.service';
+import { ToolService } from 'src/app/services/tool.service';
 
 @Component({
   selector: 'app-ac-single-search',
@@ -11,7 +12,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class AcSingleSearchComponent implements OnInit,AfterViewInit {
 
-  constructor(private dataService:DataService,private element:ElementRef,private loading:NgxUiLoaderService) { }
+  constructor(private dataService:DataService,private element:ElementRef,private loading:NgxUiLoaderService,private tool:ToolService) { }
   ngAfterViewInit(): void {
     this.element.nativeElement.focus();
     this.reset_search();
@@ -21,8 +22,10 @@ export class AcSingleSearchComponent implements OnInit,AfterViewInit {
   @ViewChild(InputText) search_box:any;
   @Input() configs:any;
   @Input() definition:any;
+  @Input() lock_active_only:boolean=true;
   @Input() hasnew:boolean=false;
   @Input() data:any;
+  @Input() parentdata:any;
   @Input() source_type:string="";
   @Input() local_source_type:string="";
   @Input() dialog?:OverlayPanel;
@@ -35,6 +38,7 @@ export class AcSingleSearchComponent implements OnInit,AfterViewInit {
 
   public search_text:string="";
   public selected_item:any=null;
+  public active_only:boolean=true;
   public loader_key:string="list_search";
 
   ngOnInit(): void {
@@ -84,17 +88,18 @@ export class AcSingleSearchComponent implements OnInit,AfterViewInit {
       {
         search.push({type:"contains","column":search_param.search,"value":query});
       }
-      search.push({type:"equals","column":'active',"value":true});
       var url=this.definition.data_url;
-      if (this.data!=null)
+      if (this.parentdata!=null)
       {
-        url=url.replace("{id}",this.data.id);
+        url=url.replace("{id}",this.parentdata.id);
       }
       if (this.local_source_type!=undefined&&this.local_source_type!=null&&this.local_source_type!="")
       {
         url=url.replace("{source_type}",this.local_source_type);  
       }
       url=url.replace("{source_type}",this.source_type);
+      url=url.replace("{active_only}",this.active_only?"true":"false");
+      url=this.tool.stringReplace(url,[this.data,this.parentdata]);
       this.dataService.list(url,50,0,search_param.order,"asc",search).subscribe(
         {
           next:(result:any)=>{

@@ -1,0 +1,18 @@
+<div style="position: relative">
+<p-table
+[value]="list_data"
+styleClass="p-datatable-sm p-datatable-sam p-datatable-striped" 
+>
+    <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+        <tr>
+            <td>
+                <a class="cursor-pointer no-underline text-color-secondary" (click)="actionItem(item)">
+                    <span class="mr-1"><i [class]="responsive.resolveIconColour(item)"></i></span>
+                    <span>{{item.description}}</span>
+                </a>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>
+

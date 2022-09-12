@@ -74,12 +74,14 @@ export class FieldsetComponent implements OnInit,OnChanges {
     if (this.data==undefined||this.data==null){return true;}
     if (field.context_param==undefined||field.context_param==null){return true;}
     var local=JSON.parse(field.context_param);
+
     if (local?.visible==undefined||local?.visible==null){return true;}
     if (this.data[local.visible.field]==undefined){return true;}
-
+    var default_value=local.visible.default;
+    if (default_value==undefined){default_value=true;}
     var check=local.visible.options.filter(p=>p.value===this.data[local.visible.field])[0];
 
-    if (check==null){return true;}
+    if (check==null){return default_value;}
 
     return check.result;
   }

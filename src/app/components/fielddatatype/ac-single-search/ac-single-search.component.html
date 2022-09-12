@@ -8,6 +8,7 @@
                 <i class="pi pi-search"></i>
                 <input type="text" tabindex="1" autofocus class="search_input_box" debounce [delay]="700" (func)="resolveSearch()" class="min-w-full" pInputText [(ngModel)]="search_text" placeholder="Search">         
             </span>
+            <p-toggleButton *ngIf="lock_active_only==false" (onChange)="resolveSearch()" styleClass="min-h-full" onIcon="fa-regular fa-check" offIcon="fa-regular fa-times" [(ngModel)]="active_only"></p-toggleButton>
             <button *ngIf="hasnew" (click)="newRecord()" type="button" pButton icon="fa-solid fa-plus" class="p-button-success button-rounding"></button>      
         </div>
     </div>

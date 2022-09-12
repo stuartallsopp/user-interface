@@ -188,9 +188,8 @@ export class AppComponent  {
 
   openDialog(id:number,content:any)
   {
-    console.log(content);
     this.loading.startBackgroundLoader("application");
-    this.page.getdialog(id,content.source_type).subscribe({next:(result:any)=>{
+    this.page.getdialog(id,content.source_type,content.ignore_type).subscribe({next:(result:any)=>{
       var configs={
         data: {
             propertybag:content,
@@ -204,7 +203,6 @@ export class AppComponent  {
         modal:true,
         closeOnEscape : result.closeable
     };
-     // console.log("def",result,"config",configs,"data",content.content);
       if (content.content!=undefined)
       {
         this.tool.resolveMetaData(content.content,result,configs);

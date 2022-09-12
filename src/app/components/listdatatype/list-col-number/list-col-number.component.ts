@@ -22,6 +22,15 @@ export class ListColNumberComponent implements OnInit,OnChanges {
     }
   }
 
+  isLink():boolean
+  {
+    if (this.definition.type=='num_link'){
+      if (this.data?.calc==undefined||this.data?.calc==false){return true;}
+      return false;
+    }
+    return false;
+  }
+
   ngOnInit(): void {
   }
 

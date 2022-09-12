@@ -37,7 +37,6 @@ export class ReportListComponent extends ListbaseComponent implements OnInit,OnC
     }
     if (changes['definition']||changes['data'])
     {
-      console.log('ff');
       this.checkFilters();
     }
   }

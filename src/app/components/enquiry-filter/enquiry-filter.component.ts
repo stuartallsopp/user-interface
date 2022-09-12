@@ -43,7 +43,6 @@ export class EnquiryFilterComponent implements OnInit,OnChanges {
 
   search(search:any)
   {
-    console.log(this.search_model);
     this.available=this.search_model.search_options.filter(p=>p.code.includes(search.query)||p.description.includes(search.query));
   }
 
@@ -68,7 +67,6 @@ export class EnquiryFilterComponent implements OnInit,OnChanges {
   setCurrent(lookup:any)
   {
     this.current_item=lookup;
-    console.log(this.current_item);
     this.definition={data_url_method:this.current_item.method,data_url:this.current_item.url,data_url_param:this.current_item.url_params};
     this.configs={label:'description',id:'id'};
   }

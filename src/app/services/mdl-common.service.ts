@@ -28,8 +28,9 @@ export class MdlCommonService {
     this.subscribers=subscriptions;
   }
 
-  getFullRecord(item:any,local_data_source:any,options:any)
+  getFullRecord(master:string,item:any,local_data_source:any,options:any)
   {
+    console.log(item);
     var record=item.record;
     var url=item.seek_url;
     var map_to=item.default_to;
@@ -44,8 +45,24 @@ export class MdlCommonService {
           {
             this.publish(item.publish,result);
           }
+          this.check_other_settings(master,result,options,local_data_source);
         }
       }})
+  }
+
+  check_other_settings(master:string,record:any,options:any,local_data_source:any)
+  {
+      var working_list=record.defaults_settings.filter(p=>p.type==master);
+      for(var check_item of working_list)
+      {
+          var check_option=options.filter(p=>p.type==check_item.record_type)[0];
+          if (check_option!=null&&check_option.record==null)
+          {
+            check_option.record=check_item.record_type=='nominal'?check_item.gen_record:check_item.dat_record;
+            this.updateDisplayCode(local_data_source,options);
+            this.getFullRecord(master,check_option,local_data_source,options);
+          }
+      }
   }
 
   publish(publish_to:string,record:any)
@@ -89,7 +106,7 @@ export class MdlCommonService {
     {
       if (item.default_to!=undefined&&item.default_to!=null)
       {
-        this.getFullRecord(item,local_data_source,options)
+        this.getFullRecord(local_data_source.type,item,local_data_source,options)
       }else
       {
         this.updateDisplayCode(local_data_source,options);

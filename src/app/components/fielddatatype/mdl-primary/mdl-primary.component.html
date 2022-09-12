@@ -1,6 +1,6 @@
 <div class="grid">
     <div [class]="responsive.get(6)">
-        <span class="p-float-label">
+        <span class="p-float-label-static">
             <span class="p-inputgroup">
                     <p-autoComplete
                     inputStyleClass="min-w-full" styleClass="min-w-full"
@@ -20,10 +20,16 @@
                     </p-autoComplete>
                 <button (click)="op.toggle($event)" class="button-rounding" pButton icon="fa-solid fa-search"></button>
             </span>
+            <label [for]="unique_id">{{primary_object.title}}</label>
         </span>
     </div>
     <div [class]="responsive.get(6)">
         <app-stnd-display *ngIf="primary_definition" [definition]="primary_definition" [data]="primary_object?.record"></app-stnd-display>
+    </div>
+    <div class="mdl-label" [ngClass]="responsive.get(12)">
+       <span *ngFor="let desc of resolveAdditionalDescriptions();let i=index">
+        <i class="mr-1" [ngClass]="responsive.resolveIconColour(desc)"></i>{{desc.description}}<i *ngIf="i<resolveAdditionalDescriptions().length-1" class="fa-regular fa-comma ml-1 mr-1"></i>
+       </span>
     </div>
 </div>
 <p-blockUI [blocked]="blocked" [autoZIndex]="false" [baseZIndex]="1000"></p-blockUI>

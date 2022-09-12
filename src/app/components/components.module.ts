@@ -74,6 +74,7 @@ import { MultEntryComponent } from './fielddatatype/mult-entry/mult-entry.compon
 import { ValEntryComponent } from './fielddatatype/val-entry/val-entry.component';
 import { PostingDialogComponent } from './posting-dialog/posting-dialog.component';
 import { DialogModule } from 'primeng/dialog';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 import { AnalysisPanelComponent } from './analysis-panel/analysis-panel.component';
 import { ListColBooleanComponent } from './listdatatype/list-col-boolean/list-col-boolean.component';
 import { MpickEntryComponent } from './fielddatatype/mpick-entry/mpick-entry.component';
@@ -84,6 +85,7 @@ import { ChartitemComponent } from './chartitem/chartitem.component';
 import { EnquiryPeriodselectorComponent } from './enquiry-periodselector/enquiry-periodselector.component';
 import { EnquiryFilterComponent } from './enquiry-filter/enquiry-filter.component';
 import { ListColComboComponent } from './listdatatype/list-col-combo/list-col-combo.component';
+import { LinklistComponent } from './linklist/linklist.component';
 
 
 
@@ -134,7 +136,8 @@ import { ListColComboComponent } from './listdatatype/list-col-combo/list-col-co
     ChartitemComponent,
     EnquiryPeriodselectorComponent,
     EnquiryFilterComponent,
-    ListColComboComponent
+    ListColComboComponent,
+    LinklistComponent
   ],
   imports: [
     CommonModule,
@@ -165,6 +168,7 @@ import { ListColComboComponent } from './listdatatype/list-col-combo/list-col-co
     TimelineModule,
     TooltipModule,
     MentionModule,
+    ToggleButtonModule,
     ListboxModule,
     MomentModule,
     AutoCompleteModule,

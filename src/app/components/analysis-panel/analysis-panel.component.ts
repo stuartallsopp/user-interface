@@ -27,7 +27,6 @@ export class AnalysisPanelComponent implements OnInit,OnChanges,AfterViewInit {
   sourcechanged(event)
   {
     var source_type="";
-    console.log(event);
     if (event.subtype!='gen_record'&&event.subtype!='dat_record'){
       this.data=null;
       this.visible=false;
